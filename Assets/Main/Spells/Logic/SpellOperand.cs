@@ -1,0 +1,4 @@
+﻿public class SpellOperand : ISpellOperand
+{
+
+}
