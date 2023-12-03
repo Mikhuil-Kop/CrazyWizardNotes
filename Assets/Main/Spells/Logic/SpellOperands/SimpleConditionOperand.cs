@@ -1,6 +1,6 @@
 ﻿namespace CrazyWizardNotes.Spells.Logic.SpellOperands
 {
-    public class SimpleConditionOperand
+    public class SimpleConditionOperand : IConditionOperand
     {
         public bool Value { get; set; }
 

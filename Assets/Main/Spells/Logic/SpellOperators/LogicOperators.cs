@@ -1,28 +1,48 @@
-﻿using CrazyWizardNotes.Spells.Logic.SpellOperands;
+﻿using CrazyWizardNotes.Spells.Logic.Exceptions;
+using CrazyWizardNotes.Spells.Logic.SpellOperands;
 
 namespace CrazyWizardNotes.Spells.Logic.SpellOperators
 {
     public class AndOperator : ISpellOperator
     {
-        public ISpellOperand Execute(ISpellOperator operator1, ISpellOperator operator2, SpellContext context)
+        public SpellOperatorDelegate Execute(SpellOperatorDelegate operator1, SpellOperatorDelegate operator2, SpellContext context)
         {
-            return new SimpleConditionOperand(operator1.);
+            return () =>
+            {
+                var val1 = operator1?.Invoke().ConditionValue() ?? throw new WrondSpellSyntaxException();
+                var val2 = operator2?.Invoke().ConditionValue() ?? throw new WrondSpellSyntaxException();
+
+                return new SimpleConditionOperand(val1 & val2);
+            };
         }
     }
 
     public class OrOperator : ISpellOperator
     {
-        public ISpellOperand Execute(ISpellOperator operator1, ISpellOperator operator2, SpellContext context)
+        public SpellOperatorDelegate Execute(SpellOperatorDelegate operator1, SpellOperatorDelegate operator2, SpellContext context)
         {
-            var value1 = operator1.Execute().ConditionValue();
+            return () =>
+            {
+                var val1 = operator1?.Invoke().ConditionValue() ?? throw new WrondSpellSyntaxException();
+                var val2 = operator2?.Invoke().ConditionValue() ?? throw new WrondSpellSyntaxException();
+
+                return new SimpleConditionOperand(val1 | val2);
+            };
         }
     }
 
     public class NotOperator : ISpellOperator
     {
-        public ISpellOperand Execute(ISpellOperator operator1, ISpellOperator operator2, SpellContext context)
+        public SpellOperatorDelegate Execute(SpellOperatorDelegate operator1, SpellOperatorDelegate operator2, SpellContext context)
         {
+            return () =>
+            {
+                operator1.MustBeNull();
 
+                var val2 = operator2?.Invoke().ConditionValue() ?? throw new WrondSpellSyntaxException();
+
+                return new SimpleConditionOperand(!val2);
+            };
         }
     }
 }

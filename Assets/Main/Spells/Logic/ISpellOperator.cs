@@ -8,6 +8,8 @@
         /// <summary>
         /// Эффект заклинания. Обычно вызывается каждый тик применения заклинания.
         /// </summary>
-        ISpellOperand Execute(ISpellOperator operator1, ISpellOperator operator2, SpellContext context);
+        SpellOperatorDelegate Execute(SpellOperatorDelegate operator1, SpellOperatorDelegate operator2, SpellContext context);
     }
+
+    public delegate ISpellOperand SpellOperatorDelegate();
 }

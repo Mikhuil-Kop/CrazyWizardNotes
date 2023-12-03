@@ -56,5 +56,13 @@ namespace CrazyWizardNotes.Spells.Logic
         {
             return (operand as IConditionOperand)?.Value ?? valueIfNull;
         }
+
+        public static void MustBeNull(this object obj)
+        {
+            if (obj != null)
+            {
+                throw new Exceptions.WrondSpellSyntaxException();
+            }
+        }
     }
 }
