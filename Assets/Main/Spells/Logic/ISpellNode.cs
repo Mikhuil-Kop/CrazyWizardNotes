@@ -1,11 +1,13 @@
-﻿
-/// <summary>
-/// Часть заклинания. Отвечает за иерархию частей в заклинании. Сущестует все, пока заклинание собрано.
-/// </summary>
-public interface ISpellNode
+﻿namespace CrazyWizardNotes.Spells.Logic
 {
     /// <summary>
-    /// Создать оператор заклинания.
+    /// Часть заклинания. Отвечает за иерархию частей в заклинании. Сущестует все, пока заклинание собрано.
     /// </summary>
-    ISpellOperator CreateSpellOperator();
+    public interface ISpellNode
+    {
+        /// <summary>
+        /// Создать оператор заклинания.
+        /// </summary>
+        ISpellOperator CreateSpellOperator();
+    }
 }

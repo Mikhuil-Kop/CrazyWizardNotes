@@ -1,9 +1,12 @@
 ﻿using System;
 
-public class SpellNode : ISpellNode
+namespace CrazyWizardNotes.Spells.Logic
 {
-    public ISpellOperator CreateSpellOperator()
+    public class SpellNode : ISpellNode
     {
-        throw new NotImplementedException();
+        public ISpellOperator CreateSpellOperator()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
