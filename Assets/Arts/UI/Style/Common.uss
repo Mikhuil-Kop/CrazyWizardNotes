@@ -1,0 +1,109 @@
+.unity-text-element {
+    -unity-font-definition: url("project://database/Assets/Arts/UI/Settings/Pixellari%20Bitmap.asset?fileID=11400000&guid=4f9980134eb860e419a2ddfa2288a0f3&type=2#Pixellari Bitmap");
+    font-size: 32px;
+    color: rgb(226, 226, 226);
+}
+
+.unity-button {
+    background-image: url("project://database/Assets/CANVAS_UI.png?fileID=-1263605735&guid=172303d58af675743a61266545499ace&type=3#CANVAS_UI_0");
+    -unity-slice-left: 3;
+    -unity-slice-right: 3;
+    background-color: rgba(0, 0, 0, 0);
+    border-left-color: rgba(149, 149, 149, 0);
+    border-right-color: rgba(149, 149, 149, 0);
+    border-top-color: rgba(149, 149, 149, 0);
+    border-bottom-color: rgba(149, 149, 149, 0);
+    -unity-slice-type: sliced;
+    -unity-slice-scale: 1px;
+    -unity-slice-bottom: 12;
+    -unity-slice-top: 3;
+    padding-top: 4px;
+    padding-bottom: 33px;
+    padding-right: 10px;
+    padding-left: 10px;
+    width: auto;
+    height: 86px;
+    margin-top: 4px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+    margin-left: 4px;
+}
+
+.unity-button:active {
+    background-image: url("project://database/Assets/CANVAS_UI.png?fileID=-1314483733&guid=172303d58af675743a61266545499ace&type=3#CANVAS_UI_1");
+    padding-top: 10px;
+    padding-bottom: 27px;
+}
+
+.unity-radio-button__input {
+    justify-content: flex-end;
+}
+
+.unity-radio-button__checkmark {
+    background-color: rgb(0, 0, 0);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.unity-radio-button__checkmark-background {
+    background-image: url("project://database/Assets/CANVAS_UI.png?fileID=141110766&guid=172303d58af675743a61266545499ace&type=3#CANVAS_UI_3");
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.unity-toggle__input {
+    justify-content: flex-end;
+}
+
+.unity-toggle__checkmark {
+    background-color: rgba(0, 0, 0, 0);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    background-image: url("project://database/Assets/CANVAS_UI.png?fileID=-1551625092&guid=172303d58af675743a61266545499ace&type=3#CANVAS_UI_6");
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.unity-toggle:checked .unity-toggle__checkmark {
+    background-color: rgba(0, 0, 0, 0);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    background-image: url("project://database/Assets/CANVAS_UI.png?fileID=-1168801303&guid=172303d58af675743a61266545499ace&type=3#CANVAS_UI_5");
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.group_box {
+    padding-top: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-image: url("project://database/Assets/CANVAS_UI.png?fileID=-1314483733&guid=172303d58af675743a61266545499ace&type=3#CANVAS_UI_1");
+    height: 743px;
+    width: auto;
+    margin-bottom: -4px;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 4px;
+}

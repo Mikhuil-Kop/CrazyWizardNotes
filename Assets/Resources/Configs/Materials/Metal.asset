@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cddb8f1db07d474fbee67a0b79fe649, type: 3}
+  m_Name: Metal
+  m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Elements.Realization.MaterialConfigScriptable
+  MaterialConfig:
+    ThermalCapacity: 0.45
+    ThermalConductivity: 80
+    ThermalEmissivity: 0.7
+    MoistureCapacity: 0
+    MoistureLimit: 0
+    AutoignitionTemperature: 150000
+    FlashPointTemperature: 140000
+    Flammability: 0
+    ElectricCapacity: 5
+    ElectricResistance: 0
+    MagneticSusceptibility: 1
+    IsMetalicVisibly: 1

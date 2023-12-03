@@ -1,0 +1,135 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &966295931943115584
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -6086060029415344357, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: Spell
+      value: 
+      objectReference: {fileID: 11400000, guid: c3ad6818fc7305f479d72793285b4946, type: 2}
+    - target: {fileID: -6086060029415344357, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: SpellToSpawn
+      value: 
+      objectReference: {fileID: 11400000, guid: c3ad6818fc7305f479d72793285b4946, type: 2}
+    - target: {fileID: 189980026641995676, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1338045492, guid: 4c8e893783402eb40b611301bb0b2231, type: 3}
+    - target: {fileID: 419839608373887011, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: Hue
+      value: 0.746
+      objectReference: {fileID: 0}
+    - target: {fileID: 419839608373887011, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: HueBase
+      value: 0.743
+      objectReference: {fileID: 0}
+    - target: {fileID: 419839608373887011, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: LightBase
+      value: 0.254
+      objectReference: {fileID: 0}
+    - target: {fileID: 419839608373887011, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: ValueBase
+      value: 0.472
+      objectReference: {fileID: 0}
+    - target: {fileID: 419839608373887011, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: SaturationBase
+      value: 0.634
+      objectReference: {fileID: 0}
+    - target: {fileID: 1826085906362995264, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: TotemConfig.SpellId
+      value: BlackHole
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941485410089060250, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: HueBase
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941485410089060250, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: ValueBase
+      value: 0.481
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125956878677561381, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1338045492, guid: 4c8e893783402eb40b611301bb0b2231, type: 3}
+    - target: {fileID: 2794538803467445331, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794538803467445331, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794538803467445331, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794538803467445331, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794538803467445331, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794538803467445331, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794538803467445331, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794538803467445331, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794538803467445331, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2794538803467445331, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102290875738824449, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_Name
+      value: BlackHoleTotem
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969248411807746110, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969248411807746110, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_Color.r
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194983842286669703, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194983842286669703, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_Color.g
+      value: 0.59804404
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194983842286669703, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7821398
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194983842286669703, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_FalloffIntensity
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057438945626593464, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_Name
+      value: BlackHoleTotem
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: da0b3708667435747a242a11dad0affc, type: 3}

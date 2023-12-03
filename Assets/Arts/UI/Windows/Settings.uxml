@@ -1,0 +1,26 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Arts/UI/Style/Common.uss?fileID=7433441132597879392&amp;guid=4abd14a89c405a742a43a817b8fdf8ff&amp;type=3#Common"/>
+    <Style src="project://database/Assets/Arts/UI/Style/Settings.uss?fileID=7433441132597879392&amp;guid=3347e50deac83e047b33cdeea01525df&amp;type=3#Settings"/>
+    <ui:GroupBox name="" style="height: auto; width: 645px;">
+        <ui:GroupBox class="group_box">
+            <ui:Label text="Label"/>
+            <ui:Scroller high-value="100" direction="Horizontal" value="42"/>
+            <ui:TextField label="Text Field" placeholder-text="filler text"/>
+            <ui:Slider label="Slider" value="42" high-value="100"/>
+            <ui:ProgressBar value="22" title="my-progress"/>
+            <ui:MinMaxSlider label="Min/Max Slider" value="10,12" low-limit="-10" high-limit="40"/>
+            <ui:SliderInt label="SliderInt" value="111" high-value="100" direction="Horizontal" inverted="false" fill="true" low-value="0" view-data-key=""/>
+            <ui:Toggle label="Toggle" value="true" name="Toggle" enabled="true"/>
+            <ui:RadioButton label="Radio Button" toggle-on-label-click="true" value="true" tooltip="412412412"/>
+            <ui:RadioButton label="Radio Button" value="true" tooltip="312asfasfasfas" toggle-on-label-click="false"/>
+            <ui:RadioButton label="Radio Button"/>
+            <ui:DropdownField label="Dropdown" choices="Хи,Ха,СВО"/>
+            <ui:EnumField label="Enum" value="Center" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule"/>
+            <ui:HelpBox text="Help Box"/>
+        </ui:GroupBox>
+        <ui:GroupBox style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; flex-direction: row;">
+            <ui:Button text="Save" name="" style="flex-shrink: 1; flex-grow: 1; flex-basis: 0%;"/>
+            <ui:Button text="Cancel" style="flex-shrink: 1; flex-grow: 1; flex-basis: 0%;"/>
+        </ui:GroupBox>
+    </ui:GroupBox>
+</ui:UXML>

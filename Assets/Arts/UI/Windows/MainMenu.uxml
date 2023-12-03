@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Arts/UI/Style/MainMenu.uss?fileID=7433441132597879392&amp;guid=f2199f835cba4e147b5d6289797d07bc&amp;type=3#MainMenu"/>
+    <Style src="project://database/Assets/Arts/UI/Style/Common.uss?fileID=7433441132597879392&amp;guid=4abd14a89c405a742a43a817b8fdf8ff&amp;type=3#Common"/>
+    <ui:GroupBox style="height: 399px; width: 150px;">
+        <ui:Button text="SAVE" name="" class="button_big button"/>
+        <ui:Button text="LOAD" name="" class="button button_big"/>
+        <ui:Button text="HASH" name="" class="button_small button"/>
+    </ui:GroupBox>
+</ui:UXML>
