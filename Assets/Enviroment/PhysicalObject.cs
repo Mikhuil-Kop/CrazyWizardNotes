@@ -1,24 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Spells;
+using CrazyWizardNotes.Spells.Logic;
 
-public class PhysicalObject : MonoBehaviour, Spells.IPhysics, Spells.ISpaceObject
+public class PhysicalObject : MonoBehaviour, IPhysical, ISpaceObject, ICopyble
 {
-    public Vector2 Position => transform.position;
+    #region Поля
 
-    public Vector2 Size => transform.localScale;
+    public Rigidbody2D Rigidbody;
 
-    public float Rotation => transform.localRotation.eulerAngles.x;
+    #endregion
+
+    #region Обычное поведение
 
 
-    public void ApplyForce(Vector2 force)
-    {
-        throw new System.NotImplementedException();
-    }
+    #endregion
 
-    public void ApplyImpulse(Vector2 force)
-    {
-        throw new System.NotImplementedException();
-    }
+    #region Поведение заклинаний
+
+    Vector2 ISpacePoint.Position => transform.position;
+    Vector2 ISpaceObject.Size => transform.localScale;
+    float ISpaceObject.Rotation => transform.localRotation.eulerAngles.x;
+
+    void IPhysical.ApplyForce(Vector2 force) => Rigidbody.AddForce(force, ForceMode2D.Force);
+    void IPhysical.ApplyImpulse(Vector2 force) => Rigidbody.AddForce(force, ForceMode2D.Impulse);
+    object ICopyble.Copy() => Instantiate(this);
+
+    #endregion
 }

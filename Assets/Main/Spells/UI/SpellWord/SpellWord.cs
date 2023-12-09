@@ -4,11 +4,10 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using Spells;
-using Spells.Logic;
 
 namespace Spells.UI
 {
-    public class SpellWord : MonoBehaviour, ISpellWord, IDragHandler
+    public class SpellWord : MonoBehaviour, IDragHandler
     {
         [Header("Элементы")]
         public RectTransform RectTransform;
@@ -22,8 +21,6 @@ namespace Spells.UI
         public string WordTitle;
         [TextArea(3, 3)]
         public string WordDescription;
-
-        public ISpellEffect SpellEffect => throw new System.NotImplementedException();
 
 
         public void OnDrag(PointerEventData eventData)

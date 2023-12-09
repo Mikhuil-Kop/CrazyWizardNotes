@@ -2,8 +2,7 @@
 
 namespace CrazyWizardNotes.Spells.Logic.Exceptions
 {
-    public class WrondSpellSyntaxException : Exception
+    public class SpellSyntaxException : Exception
     {
     }
 }
-

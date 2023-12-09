@@ -4,9 +4,18 @@ namespace CrazyWizardNotes.Spells.Logic
 {
     public class SpellNode : ISpellNode
     {
+        public int Priority => Operator.Priority;
+
         public ISpellOperator CreateSpellOperator()
         {
-            throw new NotImplementedException();
+            return Operator;
+        }
+
+
+        private ISpellOperator Operator { get; set; }
+        public SpellNode(ISpellOperator @operator)
+        {
+            Operator = @operator;
         }
     }
 }

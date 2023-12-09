@@ -7,21 +7,6 @@ namespace CrazyWizardNotes.Spells.Logic
 {
     public static class SpellsExtension
     {
-        //public static IEnumerable<T> OfType<T, V>(this IEnumerable<V> values) where T : class
-        //{
-        //    return values.Select(x => x as T).Where(x => x != null);
-        //}
-
-        public static IEnumerable<T> Where<T>(this IEnumerable<T> values, IIndex index)
-        {
-            if (index == null)
-            {
-                return values;
-            }
-
-            return index.Filter(values);
-        }
-
         public static float Multiply(this float value, IMultiplier multiplier)
         {
             return multiplier.Multiply(value);
@@ -42,11 +27,6 @@ namespace CrazyWizardNotes.Spells.Logic
             return value.Select(x => (int)multiplier.Multiply(x));
         }
 
-        public static void Invoke(this IEffect effect)
-        {
-            effect.Action.Invoke(effect.Target);
-        }
-
         public static bool? ConditionValue(this ISpellOperand operand)
         {
             return (operand as IConditionOperand)?.Value;
@@ -57,11 +37,16 @@ namespace CrazyWizardNotes.Spells.Logic
             return (operand as IConditionOperand)?.Value ?? valueIfNull;
         }
 
+        public static IEnumerable<object> ObjectsCollection(this ISpellOperand operand)
+        {
+            return (operand as IObjectOperand)?.Objects;
+        }
+
         public static void MustBeNull(this object obj)
         {
             if (obj != null)
             {
-                throw new Exceptions.WrondSpellSyntaxException();
+                throw new Exceptions.SpellSyntaxException();
             }
         }
     }

@@ -16,31 +16,10 @@ namespace CrazyWizardNotes.Spells.Logic
         float Rotation { get; }
     }
 
-    public interface IPhysics
+    public interface IPhysical
     {
         void ApplyForce(Vector2 force);
         void ApplyImpulse(Vector2 force);
-    }
-
-    public interface IIndex
-    {
-        IEnumerable<T> Filter<T>(IEnumerable<T> values);
-    }
-
-    public interface IDistanceIndex : IIndex
-    {
-    }
-
-    public interface IDamageIndex : IIndex
-    {
-    }
-
-    public interface ITimeIndex : IIndex
-    {
-    }
-
-    public interface ISpaceIndex : IIndex
-    {
     }
 
     public interface IMultiplier
@@ -78,8 +57,6 @@ namespace CrazyWizardNotes.Spells.Logic
 
     public interface IDeflectable
     {
-        void Accumulate(ElementsValues energy);
-        ElementsValues GetAccumulated();
     }
 
     public interface ISplitable
@@ -89,12 +66,7 @@ namespace CrazyWizardNotes.Spells.Logic
 
     public interface ICopyble
     {
-        public object Copy(object obj);
-    }
-
-    public interface ICopyble<T> : ICopyble
-    {
-        public T Copy(T obj);
+        public object Copy();
     }
 
     public interface ILinkable
@@ -110,20 +82,5 @@ namespace CrazyWizardNotes.Spells.Logic
     public interface IRottable
     {
 
-    }
-
-    public interface IEffect
-    {
-        object Target { get; }
-        Action<object> Action { get; }
-    }
-
-    public interface IChangableEffect : IEffect
-    {
-        new Action<object> Action { set; }
-    }
-
-    public interface IPublicEffect : IEffect
-    {
     }
 }

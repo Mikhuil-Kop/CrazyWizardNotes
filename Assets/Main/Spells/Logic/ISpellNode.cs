@@ -6,6 +6,11 @@
     public interface ISpellNode
     {
         /// <summary>
+        /// Приоритет этого элемента в дереве вызова. 100 - вызывается первым. 0 - последним.
+        /// </summary>
+        int Priority { get; }
+
+        /// <summary>
         /// Создать оператор заклинания.
         /// </summary>
         ISpellOperator CreateSpellOperator();
