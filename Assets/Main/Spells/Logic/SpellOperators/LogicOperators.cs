@@ -4,7 +4,7 @@
     {
         public int Priority => 100;
 
-        public SpellOperatorDelegate Execute(SpellOperatorDelegate operator1, SpellOperatorDelegate operator2, SpellContext context)
+        public SpellOperatorDelegate Compile(SpellOperatorDelegate operator1, SpellOperatorDelegate operator2, SpellContext context)
         {
             return () =>
             {

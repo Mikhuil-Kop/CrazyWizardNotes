@@ -7,7 +7,7 @@ namespace CrazyWizardNotes.Spells.Logic.SpellOperators
     {
         public int Priority => 0;
 
-        public SpellOperatorDelegate Execute(SpellOperatorDelegate operator1, SpellOperatorDelegate operator2, SpellContext context)
+        public SpellOperatorDelegate Compile(SpellOperatorDelegate operator1, SpellOperatorDelegate operator2, SpellContext context)
         {
             operator1.MustBeNull();
 
@@ -24,7 +24,7 @@ namespace CrazyWizardNotes.Spells.Logic.SpellOperators
     {
         public int Priority => 0;
 
-        public SpellOperatorDelegate Execute(SpellOperatorDelegate operator1, SpellOperatorDelegate operator2, SpellContext context)
+        public SpellOperatorDelegate Compile(SpellOperatorDelegate operator1, SpellOperatorDelegate operator2, SpellContext context)
         {
             operator1.MustBeNull();
 
@@ -41,7 +41,7 @@ namespace CrazyWizardNotes.Spells.Logic.SpellOperators
     {
         public int Priority => 0;
 
-        public SpellOperatorDelegate Execute(SpellOperatorDelegate operator1, SpellOperatorDelegate operator2, SpellContext context)
+        public SpellOperatorDelegate Compile(SpellOperatorDelegate operator1, SpellOperatorDelegate operator2, SpellContext context)
         {
             operator1.MustBeNull();
 

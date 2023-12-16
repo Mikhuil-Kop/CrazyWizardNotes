@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CrazyWizardNotes.Spells.Logic
 {
@@ -16,7 +16,7 @@ namespace CrazyWizardNotes.Spells.Logic
 
         #region Поля
 
-        private List<BinaryTree<ISpellNode>> SpellNodes { get; set; }
+        private List<BinaryTree<ISpellOperator>> SpellOperators { get; set; }
 
         private SpellContext Context { get; set; }
 
@@ -24,18 +24,20 @@ namespace CrazyWizardNotes.Spells.Logic
 
         #region Функции
 
-        public Spell(IEnumerable<IEnumerable<ISpellNode>> list)
+        public Spell(string spellText)
         {
             Context = new SpellContext()
             {
                 Spell = this,
             };
 
-            SpellNodes = list.Select(x => Parse(x.ToArray())).ToList();
+            SpellOperators = ParseSpellString(spellText)
+                .Select(x => ParseTree(x.ToArray(), x => x.Priority))
+                .ToList();
 
-            foreach (var nodes in SpellNodes)
+            foreach (var operatorsRow in SpellOperators)
             {
-                ExecuteTree(nodes, Context);
+                CompileTree(operatorsRow, Context);
             }
         }
 
@@ -68,33 +70,53 @@ namespace CrazyWizardNotes.Spells.Logic
 
         #region Вспомогательное
 
-        private BinaryTree<ISpellNode> Parse(ISpellNode[] collection)
+        private List<List<ISpellOperator>> ParseSpellString(string spellString)
+        {
+            return spellString
+                .Split('\n')
+                .Select(x => x
+                    .Split(' ', ',', ';')
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Select(x =>
+                    {
+                        var typeParsed = x.Split(':', StringSplitOptions.RemoveEmptyEntries);
+                        var name = typeParsed[0];
+                        var param = typeParsed.Skip(1).ToArray();
+                        var typeName = "CrazyWizardNotes.Spells.Logic.SpellOperators." + name + "Operator";
+                        var type = Type.GetType(typeName);
+
+                        return Activator.CreateInstance(type, param);
+                    })
+                    .Cast<ISpellOperator>()
+                    .ToList())
+                .ToList();
+        }
+
+        private BinaryTree<T> ParseTree<T>(T[] collection, Func<T, int> prioritySelector)
         {
             if (collection.Length == 0)
             {
                 return null;
             }
 
-            var maxPriority = collection.Min(x => x.Priority);
-            var index = collection.IndexOf(x => x.Priority == maxPriority);
+            var maxPriority = collection.Min(x => prioritySelector(x));
+            var index = collection.IndexOf(x => prioritySelector(x) == maxPriority);
 
             var value = collection[index];
             var left = collection.BeforeIndex(index).ToArray();
             var right = collection.AfterIndex(index).ToArray();
 
-            return new BinaryTree<ISpellNode>(value, Parse(left), Parse(right));
+            return new BinaryTree<T>(value, ParseTree(left, prioritySelector), ParseTree(right, prioritySelector));
         }
 
-        private SpellOperatorDelegate ExecuteTree(BinaryTree<ISpellNode> nodes, SpellContext context)
+        private SpellOperatorDelegate CompileTree(BinaryTree<ISpellOperator> nodes, SpellContext context)
         {
             if(nodes == null)
             {
                 return null;
             }
 
-            var o = nodes.Value.CreateSpellOperator();
-
-            return o.Execute(ExecuteTree(nodes.Left, context), ExecuteTree(nodes.Right, context), context);
+            return nodes.Value.Compile(CompileTree(nodes.Left, context), CompileTree(nodes.Right, context), context);
         }
 
         #endregion

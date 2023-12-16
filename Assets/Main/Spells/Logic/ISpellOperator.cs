@@ -11,9 +11,9 @@
         int Priority { get; }
 
         /// <summary>
-        /// Эффект заклинания. Обычно вызывается каждый тик применения заклинания.
+        /// Эффект заклинания. Вызывается при создании заклинания.
         /// </summary>
-        SpellOperatorDelegate Execute(SpellOperatorDelegate operator1, SpellOperatorDelegate operator2, SpellContext context);
+        SpellOperatorDelegate Compile(SpellOperatorDelegate operator1, SpellOperatorDelegate operator2, SpellContext context);
     }
 
     public delegate ISpellOperand SpellOperatorDelegate();
