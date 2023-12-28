@@ -1,15 +1,29 @@
-﻿namespace CrazyWizardNotes.Spells.Logic.SpellOperators
+﻿using System.Linq;
+using CrazyWizardNotes.Spells.Logic.SpellOperands;
+
+namespace CrazyWizardNotes.Spells.Logic.SpellOperators
 {
-    public class фы : ISpellOperator
+    public class PointerOperator : ISpellOperator
     {
         public int Priority => 100;
+
+        private string Tag { get; }
+
+        public PointerOperator(string tag)
+        {
+            Tag = tag;
+        }
 
         public SpellOperatorDelegate Compile(SpellOperatorDelegate operator1, SpellOperatorDelegate operator2, SpellContext context)
         {
             return () =>
             {
-                UnityEngine.Debug.Log("Лог " + context.TimeFromStart);
-                return null;
+                operator1.MustBeNull();
+                operator2.MustBeNull();
+
+                var result = context.Components.FindByTag(Tag);
+
+                return new SimpleObjectOperand(result);
             };
         }
     }

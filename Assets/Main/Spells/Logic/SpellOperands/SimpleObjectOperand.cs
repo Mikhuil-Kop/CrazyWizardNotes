@@ -10,5 +10,10 @@ namespace CrazyWizardNotes.Spells.Logic.SpellOperands
         {
             Objects = objects;
         }
+
+        public SimpleObjectOperand(params object[] objects)
+        {
+            Objects = objects;
+        }
     }
 }

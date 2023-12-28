@@ -100,5 +100,16 @@ public static class LinqExtension
     {
         return enumarable.Where((x, i) => i > index);
     }
+
+    // TODO: Удалить
+    //public static IEnumerable<V> As<V, T>(this IEnumerable<T> enumerable) where V : class
+    //{
+    //    return enumerable.Select(x => x as V).Where(x => x != null);
+    //}
+
+    public static IEnumerable<V> As<V>(this IEnumerable<object> enumerable) where V : class
+    {
+        return enumerable.Select(x => x as V).Where(x => x != null);
+    }
 }
 

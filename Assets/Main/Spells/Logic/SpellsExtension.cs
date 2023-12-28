@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CrazyWizardNotes.Spells.Logic.SpellOperands;
 using CrazyWizardNotes.Spells.Logic.SpellOperators;
+using System;
 
 namespace CrazyWizardNotes.Spells.Logic
 {
@@ -48,6 +49,36 @@ namespace CrazyWizardNotes.Spells.Logic
             {
                 throw new Exceptions.SpellSyntaxException();
             }
+        }
+
+        public static IEnumerable<T> FindByTag<T>(this IEnumerable<T> enumerable, string tag)
+        {
+            return enumerable.Where(x =>
+            {
+                var tags = (x as ITaggable)?.Tags;
+
+                if (tags == null)
+                {
+                    return false;
+                }
+
+                return tags.Contains(tag);
+            });
+        }
+
+        public static IEnumerable<T> FindByTag<T>(this IEnumerable<T> enumerable, Func<List<string>, bool> selector)
+        {
+            return enumerable.Where(x =>
+            {
+                var tags = (x as ITaggable)?.Tags;
+
+                if (tags == null)
+                {
+                    return false;
+                }
+
+                return selector(tags);
+            });
         }
     }
 }

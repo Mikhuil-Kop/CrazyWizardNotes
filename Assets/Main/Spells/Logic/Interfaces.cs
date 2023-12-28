@@ -5,6 +5,16 @@ using UnityEngine;
 
 namespace CrazyWizardNotes.Spells.Logic
 {
+    public interface ITaggable
+    {
+        public List<string> Tags { get; }
+    }
+
+    public interface ISpawnable
+    {
+        public object Spawn();
+    }
+
     public interface ISpacePoint
     {
         Vector2 Position { get; }

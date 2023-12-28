@@ -13,6 +13,6 @@ namespace CrazyWizardNotes.Spells.Logic
 
         public int Ticks { get; set; }
 
-        public IEnumerable<Object> Components { get; set; }
+        public IEnumerable<object> Components { get; set; }
     }
 }
