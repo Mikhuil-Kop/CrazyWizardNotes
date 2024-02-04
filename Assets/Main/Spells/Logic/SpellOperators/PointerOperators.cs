@@ -21,9 +21,7 @@ namespace CrazyWizardNotes.Spells.Logic.SpellOperators
                 operator1.MustBeNull();
                 operator2.MustBeNull();
 
-                var result = context.Components.FindByTag(Tag);
-
-                return new SimpleObjectOperand(result);
+                return new QueryObjectOperand((x) => x is ITaggable && (x as ITaggable).Tags.Contains(Tag), () => context.Components);
             };
         }
     }

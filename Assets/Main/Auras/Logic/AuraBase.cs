@@ -34,8 +34,8 @@ namespace CrazyWizardNotes.Auras.Logic
 
         private void UpdateValues(T[] values, int part, int divider)
         {
-            var begin = Height / divider * part;
-            var end = Height / divider * (part + 1);
+            var begin = (Width * Height / divider) * part;
+            var end = (Width * Height / divider) * (part + 1);
 
             for (int i = begin; i < end; i++)
             {

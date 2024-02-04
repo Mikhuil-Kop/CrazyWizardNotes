@@ -32,6 +32,11 @@ namespace CrazyWizardNotes.Spells.Logic
         void ApplyImpulse(Vector2 force);
     }
 
+    public interface ITouches
+    {
+        event Action OnTouch;
+    }
+
     public interface IMultiplier
     {
         float Multiply(float value);
@@ -49,25 +54,30 @@ namespace CrazyWizardNotes.Spells.Logic
     {
     }
 
-    public interface IDispellable
+    public interface IContainsEnergy
     {
-    }
-
-    public interface IConsumable
-    {
-        void Consume(ElementsValues energy);
-        ElementsValues Contain { get; }
-    }
-
-    public interface IAccumulatable
-    {
-        void Accumulate(ElementsValues energy);
-        ElementsValues Accumulated { get; }
+        ElementsValues ContainedEnergy { get; }
     }
 
     public interface IDeflectable
     {
     }
+
+    public interface IVanishable
+    {
+        void Vanish();
+    }
+
+    public interface IDispellable
+    {
+        void Dispell();
+    }
+
+    public interface IExplosive
+    {
+        void Explode();
+    }
+
 
     public interface ISplitable
     {
@@ -92,5 +102,20 @@ namespace CrazyWizardNotes.Spells.Logic
     public interface IRottable
     {
 
+    }
+
+    public interface IReadable
+    {
+        public string GetReadText();
+    }
+
+    public interface IMagnetic
+    {
+        float MagneticPower { get; }
+    }
+
+    public interface IBook
+    {
+        string BookName { get; }
     }
 }

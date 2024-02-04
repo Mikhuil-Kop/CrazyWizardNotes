@@ -18,7 +18,7 @@ namespace CrazyWizardNotes.Spells.UI
         public void UpdateSpell()
         {
             var text = Text.text.Trim();
-            Spells.Controllers.SpellController.Instance.SetSpell(text);
+            //Spells.Controllers.WizardControlService.Instance.SetSpell(text);
         }
     }
 }

@@ -112,4 +112,3 @@ public static class LinqExtension
         return enumerable.Select(x => x as V).Where(x => x != null);
     }
 }
-

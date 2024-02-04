@@ -6,6 +6,10 @@ namespace CrazyWizardNotes.Auras.Logic
     {
         public FireAura(int height, int width) : base(height, width)
         {
+            for (int i = 0; i < height * width; i++)
+            {
+                Values[i] = new FireAuraElement() { Temperature = 200 };
+            }
         }
 
         protected override AuraColor GetColor(int index)
@@ -14,39 +18,24 @@ namespace CrazyWizardNotes.Auras.Logic
 
             return new AuraColor()
             {
-                R = 0,
-                G = val.Value.Fire,
-                B = val.Value.Fire
+                R = (byte)(val.Value.Temperature + 100).Limit(0, 255),
+                G = 0,
+                B = 0
             };
         }
 
         protected override FireAuraElement UpdateValue(int index)
         {
-            return new FireAuraElement()
-            {
-                Fire = 255
-            };
-
             var val = Get(index).Value;
 
-            if (val.Fire == 0)
-            {
-                val.Fire = 255;
-                return val;
-            }
-            else
-            {
-                val.Fire--;
-                return val;
-            }
+            val.Temperature -= 50;
+
+            return val;
         }
     }
 
     public struct FireAuraElement
     {
-        public ushort Joules;
-        public ushort Temperature;
-        public byte Fire;
-        public bool CanBurn;
+        public short Temperature;
     }
 }

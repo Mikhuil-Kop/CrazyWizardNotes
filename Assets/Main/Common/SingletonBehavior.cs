@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CrazyWizardNotes.Common
 {
-    public class SingletonBehavior<T> : MonoBehaviour where T : SingletonBehavior<T>
+    public class SingletonBehavior<T> : MonoBehaviour where T : class
     {
         public static T Instance { get; private set; }
 

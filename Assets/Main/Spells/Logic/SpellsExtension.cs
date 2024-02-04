@@ -43,6 +43,11 @@ namespace CrazyWizardNotes.Spells.Logic
             return (operand as IObjectOperand)?.Objects;
         }
 
+        public static Func<object, bool> ObjectsSelector(this ISpellOperand operand)
+        {
+            return (operand as IQueryObjectsOperand)?.Selector;
+        }
+
         public static void MustBeNull(this object obj)
         {
             if (obj != null)
