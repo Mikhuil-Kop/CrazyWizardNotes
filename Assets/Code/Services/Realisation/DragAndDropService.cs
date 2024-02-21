@@ -40,6 +40,8 @@ namespace CrazyWizardNotes.Common.Services
 
             CurrentDragger = dragger;
             CurrentPivot = new Vector2();
+
+            dragger.ToTop();
         }
 
         private void Drop(IDropper dropper)
@@ -81,7 +83,11 @@ namespace CrazyWizardNotes.Common.Services
                 if (dragger != null)
                 {
                     Drag(dragger);
-                    CurrentPivot = CurrentDragger.Position - inputService.ScreenPointer;
+
+                    if (CurrentDragger != null)
+                    {
+                        CurrentPivot = CurrentDragger.Position - inputService.ScreenPointer;
+                    }
                 }
             }
 

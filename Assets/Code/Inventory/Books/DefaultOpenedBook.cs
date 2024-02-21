@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Xml.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace CrazyWizardNotes.Inventory.OpenedBooks
@@ -8,19 +9,19 @@ namespace CrazyWizardNotes.Inventory.OpenedBooks
         [SerializeField]
         private TextMeshProUGUI TitleText;
 
-        public override void SetBookData(BookData bookData)
+        public override void SetInventoryData(XElement data)
         {
-            base.SetBookData(bookData);
-            TitleText.text = bookData.Parameters[0];
+            base.SetInventoryData(data);
+
+            TitleText.text = data.Element("Title").Value;
         }
 
-        public override BookData GetBookData()
+        public override XElement GetInventoryData()
         {
-            var bookData =  base.GetBookData();
+            var data =  base.GetInventoryData();
+            data.Add(new XElement("Title", TitleText.text));
 
-            bookData.Parameters[0] = TitleText.text;
-
-            return bookData;
+            return data;
         }
     }
 }

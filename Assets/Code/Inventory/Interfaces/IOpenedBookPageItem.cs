@@ -1,9 +1,8 @@
-﻿namespace CrazyWizardNotes.Inventory
-{
-    public interface IOpenedBookPageItem
-    {
-        PageItemData GetPageItemData();
+﻿using System.Xml.Linq;
 
-        void SetPageItemData(PageItemData pageItemData);
+namespace CrazyWizardNotes.Inventory
+{
+    public interface IOpenedBookPageItem : IInventoryObject
+    {
     }
 }

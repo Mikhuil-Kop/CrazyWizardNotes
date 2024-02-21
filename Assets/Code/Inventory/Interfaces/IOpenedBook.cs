@@ -2,10 +2,7 @@
 
 namespace CrazyWizardNotes.Inventory
 {
-    public interface IOpenedBook : ITableObject
+    public interface IOpenedBook : IInventoryObject
     {
-        BookData GetBookData();
-
-        void SetBookData(BookData bookData);
     }
 }

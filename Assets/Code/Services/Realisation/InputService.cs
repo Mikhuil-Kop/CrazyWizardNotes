@@ -17,6 +17,8 @@ namespace CrazyWizardNotes.Common.Services
         [SerializeField]
         private Dictionary<string, GameObject> Buttons;
 
+        public Vector2 CameraPosition { get; private set; }
+
         public Vector2 Pointer { get; private set; }
 
         public Vector2 ScreenPointer { get; private set; }
@@ -40,6 +42,7 @@ namespace CrazyWizardNotes.Common.Services
             var point = ray.GetPoint(-Camera.transform.position.z);
             var hit = Physics2D.Raycast(point, Vector2.zero);
 
+            CameraPosition = Camera.transform.position;
             ScreenPointer = Input.mousePosition;
             Pointer = point;
             PointedTargets = hit.transform != null

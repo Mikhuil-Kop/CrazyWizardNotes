@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using CrazyWizardNotes.Interface;
+using System.Xml.Linq;
 
 namespace CrazyWizardNotes.Inventory.OpenedBooks
 {
@@ -9,6 +10,8 @@ namespace CrazyWizardNotes.Inventory.OpenedBooks
     {
         #region Поля
 
+        [SerializeField]
+        private string TypeName;
         [SerializeField]
         private RectTransform RectTransform;
         [SerializeField]
@@ -30,42 +33,14 @@ namespace CrazyWizardNotes.Inventory.OpenedBooks
 
         #region Поведение книги
 
-        public virtual void SetBookData(BookData bookData)
-        {
-            RectTransform.anchoredPosition = Vector2.zero;
-
-            Pages = bookData.Pages
-                .Select(x =>
-                {
-                    var resource = Resources.Load<GameObject>("OpenedBookPages/" + x.Type);
-                    var gameObject = Instantiate(resource, PagesParentTransform);
-                    var page = gameObject.GetComponent<IOpenedBookPage>();
-
-                    page.SetPageItemData(x);
-
-                    return page;
-                })
-                .ToList();
-        }
-
-        public virtual BookData GetBookData()
-        {
-            var bookData = ScriptableObject.CreateInstance<BookData>();
-
-            bookData.Pages = Pages
-                .Select(x => x.GetPageData())
-                .ToArray();
-
-            return bookData;
-        }
 
         #endregion
 
-        #region Поведение объекта стола
+        #region Поведение инвентаря
 
         public void ToTop()
         {
-            RectTransform.SetAsFirstSibling();
+            RectTransform.SetAsLastSibling();
         }
 
         public bool CanDrag()
@@ -80,6 +55,28 @@ namespace CrazyWizardNotes.Inventory.OpenedBooks
 
         public void OnDrop(IDropper dropper)
         {
+        }
+
+        public virtual XElement GetInventoryData()
+        {
+            if (Pages == null)
+            {
+                Pages = PagesParentTransform.GetComponentsInChildren<IOpenedBookPage>().ToList();
+            }
+
+            return new XElement("Book",
+                new XAttribute("Type", TypeName),
+                new XElement("Pages",
+                    Pages.Select(page => page.GetInventoryData())));
+        }
+
+        public virtual void SetInventoryData(XElement data)
+        {
+            RectTransform.anchoredPosition = Vector2.zero;
+
+            Pages = data.Element("Pages").Elements()
+                .Select(x => InventoryService.Instance.LoadInventoryObject(x, PagesParentTransform) as IOpenedBookPage)
+                .ToList();
         }
 
         #endregion

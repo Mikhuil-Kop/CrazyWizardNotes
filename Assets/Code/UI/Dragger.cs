@@ -21,7 +21,7 @@ namespace CrazyWizardNotes.Interface
 
         public void ToTop()
         {
-            Rect.SetAsFirstSibling();
+            Rect.SetAsLastSibling();
         }
 
         public bool CanDrag()

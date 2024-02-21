@@ -4,6 +4,7 @@ namespace CrazyWizardNotes.Common.Services
 {
     public interface IInputService
     {
+        Vector2 CameraPosition { get; }
         Vector2 Pointer { get; }
         Vector2 ScreenPointer { get; }
         object[] PointedTargets { get; }

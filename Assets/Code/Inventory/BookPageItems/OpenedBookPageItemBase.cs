@@ -1,26 +1,68 @@
-﻿using UnityEngine;
+﻿using System.Xml.Linq;
+using UnityEngine;
+using CrazyWizardNotes.Interface;
 
 namespace CrazyWizardNotes.Inventory.OpenedBookPageItems
 {
     public class OpenedBookPageItemBase : MonoBehaviour, IOpenedBookPageItem
     {
+        #region Поля
+
+        [SerializeField]
+        private string TypeName;
         [SerializeField]
         private RectTransform RectTransform;
 
-        public virtual void SetPageItemData(PageItemData pageItemData)
+        public string Value => "BookPage";
+
+        public Vector2 Position
         {
-            RectTransform.anchoredPosition = pageItemData.Position;
-            RectTransform.sizeDelta = pageItemData.Size;
+            get => RectTransform.position;
+            set => RectTransform.position = value;
         }
 
-        public virtual PageItemData GetPageItemData()
+        public IDropper CurrentDropper { get; set; }
+
+        #endregion
+
+        #region Поведение инвентаря
+
+        public void ToTop()
         {
-            var pageItemData = new PageItemData();
-
-            pageItemData.Position = RectTransform.anchoredPosition;
-            pageItemData.Size = RectTransform.sizeDelta;
-
-            return pageItemData;
+            RectTransform.SetAsLastSibling();
         }
+
+        public bool CanDrag()
+        {
+            return true;
+        }
+
+        public bool CanDrop(IDropper dropper)
+        {
+            return false;
+        }
+
+        public void OnDrop(IDropper dropper)
+        {
+        }
+
+        public virtual XElement GetInventoryData()
+        {
+            var rect = new Rect(RectTransform.anchoredPosition, RectTransform.sizeDelta);
+
+            return new XElement("Item",
+                new XAttribute("Type", TypeName),
+                rect.ToXml());
+        }
+
+        public virtual void SetInventoryData(XElement data)
+        {
+            var rect = data.Element("Rect").ParseRect();
+
+            RectTransform.anchoredPosition = rect.position;
+            RectTransform.sizeDelta = rect.size;
+        }
+
+        #endregion
     }
 }
