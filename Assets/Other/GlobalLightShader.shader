@@ -7,6 +7,8 @@ Shader "Hidden/GlobalLightShader"
         _ForceTex ("ForceTexture", 2D) = "white" {}
         _Add("Add", Float) = 1
         _Force("Force", Float) = 1
+        _PixelSizeX("Pixel Size X", Float) = 1
+        _PixelSizeY("Pixel Size Y", Float) = 1
     }
     SubShader
     {
@@ -46,12 +48,17 @@ Shader "Hidden/GlobalLightShader"
             sampler2D _ForceTex;
             Float _Add;
             Float _Force;
+            Float _PixelSizeX;
+            Float _PixelSizeY;
             
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 force = tex2D(_ForceTex, i.uv);
+                //fixed4 force = tex2D(_ForceTex, i.uv);
                 
-                i.uv += _Force * (force.xy - fixed2(0.5019608, 0.5019608));
+                //i.uv += _Force * (force.xy - fixed2(0.5019608, 0.5019608));
+
+                //i.uv[0] = ((int)(i.uv[0] * _PixelSizeX)) / _PixelSizeX;
+                //i.uv[1] = ((int)(i.uv[1] * _PixelSizeY)) / _PixelSizeY;
                 
                 fixed4 col = tex2D(_MainTex, i.uv);
                 col = col * tex2D(_LightTex, i.uv) * _Add;

@@ -28,7 +28,7 @@ namespace CrazyWizardNotes.Spells.DefaultSpells
         {
             var inputService = InputService.Instance;
             var casterService = CasterService.Instance;
-            var particleService = SpellParticleService.Instance;
+            var particleService = SpellLogicService.Instance;
             var shedulerService = SchedulerService.Instance;
 
             var casterPostion = casterService.CasterPosition;

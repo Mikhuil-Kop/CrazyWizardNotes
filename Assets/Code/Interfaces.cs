@@ -2,17 +2,19 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using CrazyWizardNotes.Model;
+using CrazyWizardNotes.Model.EventArguments;
 
 namespace CrazyWizardNotes.Spells.Logic
 {
     public interface ITaggable
     {
-        public List<string> Tags { get; }
+        List<string> Tags { get; }
     }
 
     public interface ISpawnable
     {
-        public object Spawn();
+        object Spawn();
     }
 
     public interface ISpacePoint
@@ -34,7 +36,7 @@ namespace CrazyWizardNotes.Spells.Logic
 
     public interface ITouches
     {
-        event Action OnTouch;
+        event Action<OnTouchEventArgs> OnTouch;
     }
 
     public interface IMultiplier
@@ -59,25 +61,39 @@ namespace CrazyWizardNotes.Spells.Logic
         ElementsValues ContainedEnergy { get; }
     }
 
-    public interface IDeflectable
+    public interface IDispellable
     {
+        bool CanDispell { get; }
+        void Dispell();
+        event Action OnDispell;
     }
 
     public interface IVanishable
     {
+        bool CanVanish { get; }
         void Vanish();
-    }
-
-    public interface IDispellable
-    {
-        void Dispell();
+        event Action OnVanish;
     }
 
     public interface IExplosive
     {
+        bool CanExplode { get; }
         void Explode();
+        event Action OnExplode;
     }
 
+    public interface IDestructible
+    {
+        bool CanDestruct { get; }
+        void Destruct();
+        event Action OnDestruct;
+    }
+
+    public interface IJoint
+    {
+        void Connect(IPhysical target1, IPhysical target2);
+        event OnJointBreakDelegate OnJointBreak;
+    }
 
     public interface ISplitable
     {
@@ -87,6 +103,13 @@ namespace CrazyWizardNotes.Spells.Logic
     public interface ICopyble
     {
         public object Copy();
+    }
+
+    public interface IFlammable
+    {
+        float FuelEnergy { get; set; }
+        float FuelEnergyBurnoutSpeed { get; set; }
+        float EnergyToStartFire { get; set; }
     }
 
     public interface ILinkable

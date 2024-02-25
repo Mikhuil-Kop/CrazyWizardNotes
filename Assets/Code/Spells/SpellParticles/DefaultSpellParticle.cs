@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using CrazyWizardNotes.Spells.Logic;
-using UnityEngine.U2D;
+using CrazyWizardNotes.Model.EventArguments;
 
 namespace CrazyWizardNotes.Spells.SpellParticles
 {
@@ -15,13 +15,52 @@ namespace CrazyWizardNotes.Spells.SpellParticles
         [SerializeField]
         private Collider2D Collider;
 
+        event Action IVanishable.OnVanish
+        {
+            add
+            {
+                throw new NotImplementedException();
+            }
+
+            remove
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        event Action IDispellable.OnDispell
+        {
+            add
+            {
+                throw new NotImplementedException();
+            }
+
+            remove
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        event Action IExplosive.OnExplode
+        {
+            add
+            {
+                throw new NotImplementedException();
+            }
+
+            remove
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         #endregion
 
         #region Поведение
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            OnTouch?.Invoke();
+            OnTouch?.Invoke(new OnTouchEventArgs());
         }
 
         #endregion
@@ -34,7 +73,13 @@ namespace CrazyWizardNotes.Spells.SpellParticles
 
         Vector2 ISpacePoint.Position => transform.position;
 
-        public event Action OnTouch;
+        bool IVanishable.CanVanish => throw new NotImplementedException();
+
+        bool IDispellable.CanDispell => throw new NotImplementedException();
+
+        bool IExplosive.CanExplode => throw new NotImplementedException();
+
+        public event Action<OnTouchEventArgs> OnTouch;
 
         void IPhysical.ApplyForce(Vector2 force) => Rigidbody.AddForce(force, ForceMode2D.Force);
 

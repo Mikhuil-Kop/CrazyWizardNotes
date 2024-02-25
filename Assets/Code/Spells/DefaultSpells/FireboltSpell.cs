@@ -10,7 +10,7 @@ namespace CrazyWizardNotes.Spells.DefaultSpells
         {
             var inputService = InputService.Instance;
             var casterService = CasterService.Instance;
-            var particleService = SpellParticleService.Instance;
+            var particleService = SpellLogicService.Instance;
             var shedulerService = SchedulerService.Instance;
 
             var casterPostion = casterService.CasterPosition;
@@ -20,7 +20,7 @@ namespace CrazyWizardNotes.Spells.DefaultSpells
             var particle = particleService.CreateParticle("Firebolt", casterPostion);
 
             (particle as IPhysical)?.ApplyImpulse(30 * castDirection);
-            (particle as ITouches).OnTouch += () => (particle as IVanishable)?.Vanish();
+            (particle as ITouches).OnTouch += (e) => (particle as IVanishable)?.Vanish();
             shedulerService.Shedule(5f, () => (particle as IVanishable)?.Vanish());
         }
 

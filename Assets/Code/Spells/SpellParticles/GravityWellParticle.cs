@@ -12,6 +12,32 @@ namespace CrazyWizardNotes.Spells.SpellParticles
         [SerializeField]
         private Collider2D Collider;
 
+        event Action IVanishable.OnVanish
+        {
+            add
+            {
+                throw new NotImplementedException();
+            }
+
+            remove
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        event Action IDispellable.OnDispell
+        {
+            add
+            {
+                throw new NotImplementedException();
+            }
+
+            remove
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         #endregion
 
         #region Поведение
@@ -35,6 +61,10 @@ namespace CrazyWizardNotes.Spells.SpellParticles
         float ISpaceObject.Rotation => transform.rotation.z;
 
         Vector2 ISpacePoint.Position => transform.position;
+
+        bool IVanishable.CanVanish => throw new NotImplementedException();
+
+        bool IDispellable.CanDispell => throw new NotImplementedException();
 
         void IVanishable.Vanish()
         {

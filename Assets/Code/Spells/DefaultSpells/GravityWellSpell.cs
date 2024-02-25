@@ -23,7 +23,7 @@ namespace CrazyWizardNotes.Spells.DefaultSpells
         {
             Debug.Log("123");
             var inputService = InputService.Instance;
-            var particleService = SpellParticleService.Instance;
+            var particleService = SpellLogicService.Instance;
             var shedulerService = SchedulerService.Instance;
 
             var startPoint = StartPoint;

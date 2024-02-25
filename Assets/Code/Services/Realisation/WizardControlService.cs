@@ -58,6 +58,6 @@ namespace CrazyWizardNotes.Common.Services
             }
         }
 
-        private ISpell Spell = new Spells.DefaultSpells.GravityWellSpell();
+        private ISpell Spell = new Spells.DefaultSpells.PushSpell();
     }
 }
