@@ -7,7 +7,7 @@ using UnityEngine;
 namespace CrazyWizardNotes.Environment.Components.Realisation
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class PhysicalComponent : ObjectComponentBase, IPhysicalComponent, ISpaceObjectComponent, ITouches
+    public class PhysicalComponent : ObjectComponentBase, IPhysicalComponent, ISpaceObjectComponent
     {
         private Rigidbody2D Rigidbody { get; set; }
         private Collider2D Collider2D { get; set; }

@@ -48,8 +48,8 @@ namespace CrazyWizardNotes.Environment.Objects
 
         event Action<OnTouchEventArgs> ITouches.OnTouch
         {
-            add { }
-            remove { PhysicalComponent.O}
+            add { PhysicalComponent.OnTouch += value; }
+            remove { PhysicalComponent.OnTouch -= value;  }
         }
 
         object ICopyble.Copy() => CopybleComponent.Copy();

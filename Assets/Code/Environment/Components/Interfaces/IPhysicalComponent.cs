@@ -1,4 +1,6 @@
-﻿using CrazyWizardNotes.Spells.Logic;
+﻿using System;
+using CrazyWizardNotes.Model.EventArguments;
+using CrazyWizardNotes.Spells.Logic;
 using UnityEngine;
 
 namespace CrazyWizardNotes.Environment.Components.Interfaces
@@ -8,5 +10,6 @@ namespace CrazyWizardNotes.Environment.Components.Interfaces
         float Mass { get; }
         void ApplyForce(Vector2 force);
         void ApplyImpulse(Vector2 force);
+        event Action<OnTouchEventArgs> OnTouch;
     }
 }

@@ -1,4 +1,6 @@
-﻿using CrazyWizardNotes.Environment.Components.Interfaces;
+﻿using System;
+using CrazyWizardNotes.Environment.Components.Interfaces;
+using CrazyWizardNotes.Model.EventArguments;
 using UnityEngine;
 
 namespace CrazyWizardNotes.Environment.Components.DefaultRealisation
@@ -11,6 +13,8 @@ namespace CrazyWizardNotes.Environment.Components.DefaultRealisation
         }
 
         public float Mass => 1;
+
+        public event Action<OnTouchEventArgs> OnTouch;
 
         public void ApplyForce(Vector2 force)
         {

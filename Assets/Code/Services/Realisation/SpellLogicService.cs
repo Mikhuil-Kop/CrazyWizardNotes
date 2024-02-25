@@ -30,7 +30,6 @@ namespace CrazyWizardNotes.Common.Services
                 var distance = direction.magnitude;
                 var normal = direction / distance;
 
-                Debug.Log((obj as MonoBehaviour).gameObject);
                 (obj as IPhysical).ApplyImpulse((impulse / (distance * distance)) * normal);
             }
         }

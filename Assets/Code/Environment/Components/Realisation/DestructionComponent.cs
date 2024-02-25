@@ -29,42 +29,46 @@ namespace CrazyWizardNotes.Environment.Components.Realisation
 
         void IDestructionComponent.Vanish()
         {
-            if (CanVanish)
+            if (!CanVanish)
             {
                 return;
             }
 
             OnVanish?.Invoke();
+            Destroy(gameObject);
         }
 
         void IDestructionComponent.Dispell()
         {
-            if (CanDispell)
+            if (!CanDispell)
             {
                 return;
             }
 
             OnDispell?.Invoke();
+            Destroy(gameObject);
         }
 
         void IDestructionComponent.Destruct()
         {
-            if (CanDestruct)
+            if (!CanDestruct)
             {
                 return;
             }
 
             OnDestruct?.Invoke();
+            Destroy(gameObject);
         }
 
         void IDestructionComponent.Explode()
         {
-            if (CanExplode)
+            if (!CanExplode)
             {
                 return;
             }
 
             OnExplode?.Invoke();
+            Destroy(gameObject);
         }
 
 
