@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using CrazyWizardNotes.Common.Services;
+using CrazyWizardNotes.Interfaces;
 using CrazyWizardNotes.Spells.Logic;
-using CrazyWizardNotes.Common.Services;
+using UnityEngine;
 
 namespace CrazyWizardNotes.Spells.DefaultSpells
 {
@@ -30,7 +31,7 @@ namespace CrazyWizardNotes.Spells.DefaultSpells
             var endPoint = inputService.Pointer;
 
             var particle = particleService.CreateParticle("GravityWell", (startPoint + endPoint) / 2, Quaternion.FromToRotation(Vector2.up, (endPoint - startPoint)));
-            shedulerService.Shedule(15f, () => (particle as IVanishable)?.Vanish());
+            shedulerService.Shedule(15f, () => particle.As<IVanishable>()?.Vanish());
         }
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8798722791334694746}
   - component: {fileID: 8713719648323691831}
   - component: {fileID: 1681356384475714497}
-  - component: {fileID: 5452815433782931465}
+  - component: {fileID: 4718095976955063777}
   m_Layer: 0
   m_Name: Pushwave
   m_TagString: Untagged
@@ -179,7 +179,7 @@ MonoBehaviour:
   CanDispell: 1
   CanDestruct: 1
   CanExplode: 1
---- !u!114 &5452815433782931465
+--- !u!114 &4718095976955063777
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -188,6 +188,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6166364041111645542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ca7acb11822741669c689202a2928da, type: 3}
+  m_Script: {fileID: 11500000, guid: d734887249c124444a08ed55bf3b3042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -111,4 +111,9 @@ public static class LinqExtension
     {
         return enumerable.Select(x => x as V).Where(x => x != null);
     }
+
+    //public static IEnumerable<T> ToSearchCollection<T>(this IEnumerable<T> values) where T : class
+    //{
+    //    return new CrazyWizardNotes.Common.SearchCollection<T>(values);
+    //}
 }

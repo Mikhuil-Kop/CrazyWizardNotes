@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using CrazyWizardNotes.Common.Services;
+using CrazyWizardNotes.Interfaces;
 using CrazyWizardNotes.Spells.Logic;
-using CrazyWizardNotes.Common.Services;
 
 namespace CrazyWizardNotes.Spells.DefaultSpells
 {
@@ -19,14 +19,14 @@ namespace CrazyWizardNotes.Spells.DefaultSpells
 
             var particle = spellLogicService.CreateParticle("Pushwave", casterPostion);
 
-            (particle as IPhysical).ApplyImpulse(2 * castDirection);
-            (particle as ITouches).OnTouch += (e) => (particle as IVanishable)?.Vanish();
-            shedulerService.Shedule(0.5f, () => (particle as IVanishable)?.Vanish());
+            particle.As<IPhysical>().ApplyImpulse(2f * castDirection);
+            particle.As<ITouches>().OnTouch += (e) => particle.As<IVanishable>()?.Vanish();
+            shedulerService.Shedule(0.3f, () => particle.As<IVanishable>()?.Vanish());
 
-            (particle as IVanishable).OnVanish += () =>
+            particle.As<IVanishable>().OnVanish += () =>
             {
-                var pos = (particle as ISpacePoint).Position;
-                spellLogicService.ForceExplosion(pos, 3, 10);
+                var pos = particle.As<ISpacePoint>().Position;
+                spellLogicService.ForceExplosion(pos, 5, 10);
             };
         }
 

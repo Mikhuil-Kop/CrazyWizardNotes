@@ -1,7 +1,7 @@
-﻿using UnityEngine;
-using System.Linq;
+﻿using System.Linq;
+using CrazyWizardNotes.Interfaces;
 using CrazyWizardNotes.Spells;
-using CrazyWizardNotes.Spells.Logic;
+using UnityEngine;
 
 namespace CrazyWizardNotes.Common.Services
 {
@@ -10,11 +10,11 @@ namespace CrazyWizardNotes.Common.Services
         [SerializeField]
         private Transform ParticlesParent;
 
-        public ISpellParticle CreateParticle(string particleName, Vector2 position, Quaternion? rotation = null)
+        public ISubject CreateParticle(string particleName, Vector2 position, Quaternion? rotation = null)
         {
             var resource = Resources.Load("SpellParticles/" + particleName);
             var gameObject = Instantiate(resource, position, rotation ?? Quaternion.identity, ParticlesParent) as GameObject;
-            var spellParticle = gameObject.GetComponent<ISpellParticle>();
+            var spellParticle = gameObject.GetComponent<ISubject>();
 
             return spellParticle;
         }

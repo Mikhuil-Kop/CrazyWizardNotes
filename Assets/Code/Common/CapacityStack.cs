@@ -77,4 +77,3 @@ public class CapacityStack<T> : IEnumerable<T>
         return GetEnumerator();
     }
 }
-

@@ -1,4 +1,5 @@
 ﻿using CrazyWizardNotes.Common.Services;
+using CrazyWizardNotes.Interfaces;
 using CrazyWizardNotes.Spells.Logic;
 using UnityEngine;
 
@@ -34,8 +35,8 @@ namespace CrazyWizardNotes.Spells.DefaultSpells
 
                 var particle = particleService.CreateParticle("Fireflow", casterPostion);
 
-                (particle as IPhysical)?.ApplyImpulse(1f * castDirection);
-                shedulerService.Shedule(0.3f, () => (particle as IExplosive)?.Explode());
+                particle.As<IPhysical>()?.ApplyImpulse(1f * castDirection);
+                shedulerService.Shedule(0.3f, () => particle.As<IDestructible>()?.Destruct());
             }
         }
 

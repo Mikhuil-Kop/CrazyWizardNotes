@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1993329806599269295}
   - component: {fileID: 2163068851957377094}
   - component: {fileID: 2555852433866661160}
-  - component: {fileID: 6589891241107555080}
+  - component: {fileID: 6883183448861287185}
   m_Layer: 0
   m_Name: Potion_3
   m_TagString: Untagged
@@ -150,7 +150,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 623897280, guid: cae04182fad9448fe9c5a82e85682386, type: 3}
-  m_Color: {r: 0.4575472, g: 1, b: 0.68614924, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adebb3b0032074f7cbcc7a255c77f35f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6589891241107555080
+--- !u!114 &6883183448861287185
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,6 +181,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4928661177272738161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bafbe87fe0ce4fe1acc08dbd6ac6559, type: 3}
+  m_Script: {fileID: 11500000, guid: d734887249c124444a08ed55bf3b3042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

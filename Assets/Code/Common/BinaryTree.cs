@@ -32,4 +32,3 @@ public class BinaryTree<T> : IEnumerable<T>
             .GetEnumerator();
     }
 }
-

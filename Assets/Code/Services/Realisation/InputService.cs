@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CrazyWizardNotes.Interfaces;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -23,17 +24,17 @@ namespace CrazyWizardNotes.Common.Services
 
         public Vector2 ScreenPointer { get; private set; }
 
-        public object[] PointedTargets { get; private set; }
+        public ISubject[] PointedTargets { get; private set; }
 
-        public object[] ScreenPointedTargets { get; private set; }
+        public ISubject[] ScreenPointedTargets { get; private set; }
 
 
         protected override void Awake()
         {
             base.Awake();
 
-            PointedTargets = new object[0];
-            ScreenPointedTargets = new object[0];
+            PointedTargets = new ISubject[0];
+            ScreenPointedTargets = new ISubject[0];
         }
 
         private void Update()
@@ -46,8 +47,8 @@ namespace CrazyWizardNotes.Common.Services
             ScreenPointer = Input.mousePosition;
             Pointer = point;
             PointedTargets = hit.transform != null
-                ? hit.transform.gameObject.GetComponents<MonoBehaviour>()
-                : new object[0];
+                ? hit.transform.gameObject.GetComponents<ISubject>()
+                : new ISubject[0];
 
             var results = new List<RaycastResult>();
             var pointerEventData = new PointerEventData(EventSystem);
@@ -56,11 +57,10 @@ namespace CrazyWizardNotes.Common.Services
             Raycaster.Raycast(pointerEventData, results);
 
             ScreenPointedTargets = results
-                .SelectMany(x => x.gameObject.GetComponents<MonoBehaviour>())
-                .Select(x => x as object)
+                .SelectMany(x => x.gameObject.GetComponents<ISubject>())
+                .Select(x => x as ISubject)
                 .ToArray();
         }
-
 
         public bool GetButtonDown(string buttonName)
         {

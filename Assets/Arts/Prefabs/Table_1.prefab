@@ -89,7 +89,9 @@ GameObject:
   - component: {fileID: 1993329806599269295}
   - component: {fileID: 2163068851957377094}
   - component: {fileID: 3567996781113124856}
-  - component: {fileID: 6589891241107555080}
+  - component: {fileID: 1139680027459153243}
+  - component: {fileID: 7343256334297982547}
+  - component: {fileID: 6883183448861287185}
   m_Layer: 0
   m_Name: Table_1
   m_TagString: Untagged
@@ -209,7 +211,7 @@ MonoBehaviour:
   FuelEnergy: 0.13
   FuelEnergyBurnoutSpeed: 0
   EnergyToStartFire: 0
---- !u!114 &6589891241107555080
+--- !u!114 &1139680027459153243
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,7 +220,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 4928661177272738161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bafbe87fe0ce4fe1acc08dbd6ac6559, type: 3}
+  m_Script: {fileID: 11500000, guid: adebb3b0032074f7cbcc7a255c77f35f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7343256334297982547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928661177272738161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdb2bd25810544885a42e9e4b9232706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanVanish: 0
+  CanDispell: 0
+  CanDestruct: 1
+  CanExplode: 1
+  DestructionForce: 50
+--- !u!114 &6883183448861287185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928661177272738161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d734887249c124444a08ed55bf3b3042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5951794336406408285

@@ -1,5 +1,5 @@
-﻿using System;
-using CrazyWizardNotes.Common.Services;
+﻿using CrazyWizardNotes.Common.Services;
+using CrazyWizardNotes.Interfaces;
 using CrazyWizardNotes.Spells.Logic;
 
 namespace CrazyWizardNotes.Spells.DefaultSpells
@@ -19,9 +19,9 @@ namespace CrazyWizardNotes.Spells.DefaultSpells
 
             var particle = particleService.CreateParticle("Firebolt", casterPostion);
 
-            (particle as IPhysical)?.ApplyImpulse(30 * castDirection);
-            (particle as ITouches).OnTouch += (e) => (particle as IVanishable)?.Vanish();
-            shedulerService.Shedule(5f, () => (particle as IVanishable)?.Vanish());
+            particle.As<IPhysical>().ApplyImpulse(30 * castDirection);
+            particle.As<ITouches>().OnTouch += (e) => particle.As<IVanishable>().Vanish();
+            shedulerService.Shedule(5f, () => particle.As<IVanishable>().Vanish());
         }
 
         public void TickCust(float deltaTime)

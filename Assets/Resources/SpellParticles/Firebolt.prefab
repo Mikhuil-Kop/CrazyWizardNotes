@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8798722791334694746}
   - component: {fileID: 2499200726031194527}
   - component: {fileID: 2315207320891967916}
-  - component: {fileID: 110885588964175088}
   m_Layer: 0
   m_Name: Firebolt
   m_TagString: Untagged
@@ -149,17 +148,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &110885588964175088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6166364041111645542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d04d68095fa04a72a32f57d912924c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Rigidbody: {fileID: 2315207320891967916}
-  Collider: {fileID: 2499200726031194527}

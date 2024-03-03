@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3065797738697300910}
   - component: {fileID: 266373511476826804}
   - component: {fileID: 4077275172523609170}
-  - component: {fileID: -8358515738349835177}
+  - component: {fileID: 3001777440028855274}
   m_Layer: 0
   m_Name: Scarecrow
   m_TagString: Untagged
@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1358057951311739045
 BoxCollider2D:
@@ -189,7 +189,7 @@ MonoBehaviour:
   CanDispell: 0
   CanDestruct: 0
   CanExplode: 0
---- !u!114 &-8358515738349835177
+--- !u!114 &3001777440028855274
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,6 +198,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1848104254373098326}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bafbe87fe0ce4fe1acc08dbd6ac6559, type: 3}
+  m_Script: {fileID: 11500000, guid: d734887249c124444a08ed55bf3b3042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

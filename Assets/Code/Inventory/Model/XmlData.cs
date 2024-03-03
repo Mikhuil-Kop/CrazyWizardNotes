@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Linq;
 using UnityEngine;
 
 namespace CrazyWizardNotes.Inventory
@@ -8,5 +9,7 @@ namespace CrazyWizardNotes.Inventory
     {
         [TextArea(1, 50)]
         public string XML;
+
+        public XElement XElement => XElement.Parse(XML);
     }
 }

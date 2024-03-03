@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityEngine;
 using CrazyWizardNotes.Spells.Logic;
+using CrazyWizardNotes.Interfaces;
 
 namespace CrazyWizardNotes.Common.Services
 {
@@ -16,7 +17,7 @@ namespace CrazyWizardNotes.Common.Services
             {
                 if (inputService.GetButtonDown("mouse"))
                 {
-                    foreach (var readable in inputService.PointedTargets.Select(x => x as IReadable).Where(x => x != null))
+                    foreach (var readable in inputService.PointedTargets.Select(x => x.As<IReadable>()).Where(x => x != null))
                     {
                         var eventParams = new EventParams()
                         {

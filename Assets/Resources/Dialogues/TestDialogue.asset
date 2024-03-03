@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c3a2ebcff9034ef2b38c68b6e05fc41, type: 3}
+  m_Name: TestDialogue
+  m_EditorClassIdentifier: 
+  XML: "<Dialog>\n    <TextArea Type=\"Normal\" Speed=\"1\">\n        Lorem ipsum
+    dolor sit amet, consectetur adipiscing elit. Curabitur neque tortor,\n       
+    vestibulum a quam ac, dignissim vehicula ex. Phasellus ultricies et ipsum a rutrum.
+    Integer.\n    </TextArea>\n    <Pause Time=\"5.0\"/>\n    <TextArea Type=\"Angry\"
+    Speed=\"3\">\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Curabitur neque tortor, vestibulum a quam ac, dignissim vehicula ex. Phasellus
+    ultricies et ipsum a rutrum. Integer.\n    </TextArea>\n</Dialog>"

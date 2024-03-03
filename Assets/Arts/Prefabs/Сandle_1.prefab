@@ -96,9 +96,10 @@ GameObject:
   - component: {fileID: 3174888818607361153}
   - component: {fileID: 7066251451710257660}
   - component: {fileID: 6144321223718189226}
+  - component: {fileID: 2387165792232853789}
   - component: {fileID: 1570528216020969818}
   - component: {fileID: 8925375594157238908}
-  - component: {fileID: 7362233206044552179}
+  - component: {fileID: 527911832461403160}
   m_Layer: 0
   m_Name: "\u0421andle_1"
   m_TagString: Untagged
@@ -120,7 +121,7 @@ Transform:
   m_Children:
   - {fileID: 6322902528133230158}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &3174888818607361153
 BoxCollider2D:
@@ -246,6 +247,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2387165792232853789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4977667326580979433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e003e27278f845b1af6baff02571817, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ContainedEnergy:
+    Temperature: 2
+    Charge: 0
+    Structure: 0
+    Form: 0
+    Time: 0
+    Life: 0
+    Mind: 0
+    Magnet: 0
 --- !u!114 &1570528216020969818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,9 +280,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8c5a077fd0a402d90b5f02826134d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FuelEnergy: 0
-  FuelEnergyBurnoutSpeed: 0
+  Burning: 1
+  MaxFuelEnergy: 100
+  CurrentFuelEnergy: 100
+  FuelEnergyBurnoutSpeed: 0.5
   EnergyToStartFire: 0
+  Sprite: {fileID: 6144321223718189226}
 --- !u!114 &8925375594157238908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,7 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adebb3b0032074f7cbcc7a255c77f35f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7362233206044552179
+--- !u!114 &527911832461403160
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -282,6 +307,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4977667326580979433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bafbe87fe0ce4fe1acc08dbd6ac6559, type: 3}
+  m_Script: {fileID: 11500000, guid: d734887249c124444a08ed55bf3b3042, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

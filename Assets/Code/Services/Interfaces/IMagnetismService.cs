@@ -1,4 +1,4 @@
-﻿using CrazyWizardNotes.Spells.Logic;
+﻿using CrazyWizardNotes.Interfaces;
 
 namespace CrazyWizardNotes.Common.Services
 {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using CrazyWizardNotes.Interfaces;
+using UnityEngine;
 
 namespace CrazyWizardNotes.Common.Services
 {
@@ -7,8 +8,8 @@ namespace CrazyWizardNotes.Common.Services
         Vector2 CameraPosition { get; }
         Vector2 Pointer { get; }
         Vector2 ScreenPointer { get; }
-        object[] PointedTargets { get; }
-        object[] ScreenPointedTargets { get; }
+        ISubject[] PointedTargets { get; }
+        ISubject[] ScreenPointedTargets { get; }
 
         bool GetButtonDown(string buttonName);
 
