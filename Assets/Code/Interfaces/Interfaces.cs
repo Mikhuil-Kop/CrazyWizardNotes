@@ -7,31 +7,9 @@ using CrazyWizardNotes.Model.EventArguments;
 
 namespace CrazyWizardNotes.Interfaces
 {
-    public interface IDispellable
+    public interface IIntelegent
     {
-        bool CanDispell { get; }
-        void Dispell();
-        event Action OnDispell;
-    }
 
-    public interface IVanishable
-    {
-        bool CanVanish { get; }
-        void Vanish();
-        event Action OnVanish;
-    }
-
-    public interface IStopsExisting
-    {
-        void StopExisting();
-        event Action OnStopExisting;
-    }
-
-    public interface IDestructible
-    {
-        bool CanDestruct { get; }
-        void Destruct();
-        event Action OnDestruct;
     }
 
     public interface IJoint

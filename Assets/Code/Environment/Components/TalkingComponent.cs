@@ -5,7 +5,7 @@ using CrazyWizardNotes.Inventory;
 
 namespace CrazyWizardNotes.Environment.Components
 {
-    public class TalkingComponent : ObjectComponentBase, ITalking
+    public class TalkingComponent : ObjectComponentBase
     {
         private XElement Dialog { get; set; }
 

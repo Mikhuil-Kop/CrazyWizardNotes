@@ -12,10 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c3a2ebcff9034ef2b38c68b6e05fc41, type: 3}
   m_Name: TestDialogue
   m_EditorClassIdentifier: 
-  XML: "<Dialog>\n    <TextArea Type=\"Normal\" Speed=\"1\">\n        Lorem ipsum
-    dolor sit amet, consectetur adipiscing elit. Curabitur neque tortor,\n       
-    vestibulum a quam ac, dignissim vehicula ex. Phasellus ultricies et ipsum a rutrum.
-    Integer.\n    </TextArea>\n    <Pause Time=\"5.0\"/>\n    <TextArea Type=\"Angry\"
-    Speed=\"3\">\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Curabitur neque tortor, vestibulum a quam ac, dignissim vehicula ex. Phasellus
-    ultricies et ipsum a rutrum. Integer.\n    </TextArea>\n</Dialog>"
+  XML: "<Dialog>\n    <Text>\n        <p speed=1>1232 312 312 312 312 </p><delay
+    time=3/><p speed=2>3 123 12 32 312 132</p><delay time=10/>\n    </Text>\n</Dialog>"
