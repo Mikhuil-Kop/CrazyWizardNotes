@@ -12,14 +12,14 @@ namespace CrazyWizardNotes.UI.Realisation
         [SerializeField]
         private RectTransform Transform;
         [SerializeField]
-        private TextMeshPro Text;
+        private TextMeshProUGUI Text;
 
         private Queue<DialogItem> DialogItems { get; set; }
 
         // TEST
         private void Awake()
         {
-            StartDialog(XElement.Parse("<Dialog><Text><p speed=1>1232 312 312 312 312 </p><delay time=3/><p speed=2>3 123 12 32 312 132</p><delay time=10/></Text></Dialog>"));
+            StartDialog(XElement.Parse("<Dialog><Text><p speed=\"1\">1232 312 312 312 312 </p><delay time=\"3\"/><p speed=\"2\">3 123 12 32 312 132</p><delay time=\"10\"/></Text></Dialog>"));
         }
 
         public void StartDialog(XElement dialogData)
@@ -117,6 +117,18 @@ namespace CrazyWizardNotes.UI.Realisation
             public override void Update(DialogUpdateEventArgs args)
             {
                 base.Update(args);
+
+                var symbols = Mathf.FloorToInt(FullTime * Speed * SymbolsPerSecond);
+
+                if (FullText.Length > symbols)
+                {
+                    args.Text = FullText.Substring(0, symbols);
+                }
+                else
+                {
+                    args.Text = FullText;
+                    args.Finished = true;
+                }
             }
         }
 
@@ -132,8 +144,6 @@ namespace CrazyWizardNotes.UI.Realisation
             public override void Update(DialogUpdateEventArgs args)
             {
                 base.Update(args);
-
-                args.Text = "";
 
                 if (FullTime >= DelayTime)
                 {
