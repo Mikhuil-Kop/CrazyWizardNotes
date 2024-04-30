@@ -6,35 +6,39 @@ using CrazyWizardNotes.Inventory;
 using CrazyWizardNotes.Inventory.OpenedBooks;
 using System.Xml.Linq;
 
-[CustomEditor(typeof(OpenedBookBase), true)]
-public class InventoryObjectInspector : Editor
+namespace CrazyWizardNotes.CustEditor
 {
-    private IInventoryObject Target { get; set; }
-    private string TargetXML { get; set; }
 
-    public override VisualElement CreateInspectorGUI()
+    [CustomEditor(typeof(OpenedBookBase), true)]
+    public class InventoryObjectInspector : Editor
     {
-        return base.CreateInspectorGUI();
-    }
+        private IInventoryObject Target { get; set; }
+        private string TargetXML { get; set; }
 
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
-
-        if (GUILayout.Button("Get XML"))
+        public override VisualElement CreateInspectorGUI()
         {
-            var obj = target as IInventoryObject;
-            var xml = obj.GetInventoryData();
-
-            TargetXML = xml.ToString();
+            return base.CreateInspectorGUI();
         }
 
-        if (GUILayout.Button("Set XML"))
+        public override void OnInspectorGUI()
         {
-            var obj = target as IInventoryObject;
-            obj.SetInventoryData(XElement.Parse(TargetXML));
-        }
+            base.OnInspectorGUI();
 
-        TargetXML = GUILayout.TextArea(TargetXML);
+            if (GUILayout.Button("Get XML"))
+            {
+                var obj = target as IInventoryObject;
+                var xml = obj.GetInventoryData();
+
+                TargetXML = xml.ToString();
+            }
+
+            if (GUILayout.Button("Set XML"))
+            {
+                var obj = target as IInventoryObject;
+                obj.SetInventoryData(XElement.Parse(TargetXML));
+            }
+
+            TargetXML = GUILayout.TextArea(TargetXML);
+        }
     }
 }
