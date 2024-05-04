@@ -1,19 +1,25 @@
 using System;
-using System.IO;
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
+using DS.Utilities;
 using UnityEditor;
 using UnityEditor.UIElements;
+using UnityEngine;
 using UnityEngine.UIElements;
-using DS.Utilities;
 
 namespace CrazyWizardNotes.Editor
 {
-    public abstract class GraphWindowBase<T> : EditorWindow where T : GraphViewBase
+    public abstract class GraphWindowBase<T, N, G, R> : EditorWindow
+        where T : GraphViewBase<N, G, R>
+        where N : GraphNodeBase
+        where G : GraphGroupBase
+        where R : ScriptableObject
     {
         protected T GraphView { get; set; }
 
         protected abstract string DefaultFileName { get; }
+
+        private string FilePath { get; set; }
 
 
         protected abstract void Initialize();
@@ -43,49 +49,81 @@ namespace CrazyWizardNotes.Editor
             var toolbar = new Toolbar();
             toolbar.AddStyleSheets("DialogueSystem/DSToolbarStyles.uss");
 
-            var buttons = GetButtons();
-
-            foreach (var buttonInfo in buttons)
+            var defaultButtons = new List<ToolbarButtonInfo>
             {
-                var button = DSElementUtility.CreateButton(buttonInfo.Title, buttonInfo.OnClick);
+                new ToolbarButtonInfo(){ Title = "Load", OnClick = Load },
+                new ToolbarButtonInfo(){ Title = "Save", OnClick = Save },
+                new ToolbarButtonInfo(){ Title = "Save as", OnClick = SaveAs },
+            };
+
+            var addButtons = GetButtons();
+
+            foreach (var buttonInfo in defaultButtons.Concat(addButtons))
+            {
+                var button = new Button(buttonInfo.OnClick);
+                button.text = buttonInfo.Title;
+
                 toolbar.Add(button);
             }
 
             rootVisualElement.Add(toolbar);
         }
 
-
         private void AddStyles()
         {
             rootVisualElement.AddStyleSheets("DialogueSystem/DSVariables.uss");
         }
 
-        private void Save()
-        {
-            //if (string.IsNullOrEmpty(fileNameTextField.value))
-            //{
-            //    EditorUtility.DisplayDialog("Invalid file name.", "Please ensure the file name you've typed in is valid.", "Roger!");
-
-            //    return;
-            //}
-
-            //DSIOUtility.Initialize(graphView, fileNameTextField.value);
-            //DSIOUtility.Save();
-        }
 
         private void Load()
         {
-            //string filePath = EditorUtility.OpenFilePanel("Dialogue Graphs", "Assets/Editor/DialogueSystem/Graphs", "asset");
+            var newfilePath = EditorUtility.OpenFilePanel("Dialogue Graphs", "Assets/Resource", "asset");
 
-            //if (string.IsNullOrEmpty(filePath))
-            //{
-            //    return;
-            //}
+            if (string.IsNullOrEmpty(newfilePath))
+            {
+                return;
+            }
 
-            //Clear();
+            FilePath = newfilePath;
 
-            //DSIOUtility.Initialize(graphView, Path.GetFileNameWithoutExtension(filePath));
-            //DSIOUtility.Load();
+            var resource = Resources.Load<R>(FilePath);
+            GraphView.OpenResource(resource);
+        }
+
+        private void Save()
+        {
+            if (string.IsNullOrEmpty(FilePath))
+            {
+                return;
+            }
+
+            var resource = GraphView.GetResource();
+
+            AssetDatabase.CreateAsset(resource, FilePath);
+            AssetDatabase.SaveAssets();
+
+            EditorUtility.FocusProjectWindow();
+
+            Selection.activeObject = resource;
+        }
+
+        private void SaveAs()
+        {
+            FilePath = EditorUtility.OpenFilePanel("Dialogue Graphs", "Assets/Resource", "asset");
+
+            if (string.IsNullOrEmpty(FilePath))
+            {
+                return;
+            }
+
+            var resource = GraphView.GetResource();
+
+            AssetDatabase.CreateAsset(resource, FilePath);
+            AssetDatabase.SaveAssets();
+
+            EditorUtility.FocusProjectWindow();
+
+            Selection.activeObject = resource;
         }
 
 
