@@ -295,7 +295,7 @@ namespace DS.Utilities
                 return;
             }
 
-            DSEditorWindow.UpdateFileName(graphData.FileName);
+            DSEditorWIndow.UpdateFileName(graphData.FileName);
 
             LoadGroups(graphData.Groups);
             LoadNodes(graphData.Nodes);

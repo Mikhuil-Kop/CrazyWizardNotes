@@ -8,7 +8,7 @@ namespace DS.Windows
     using System;
     using Utilities;
 
-    public class DSEditorWindow : EditorWindow
+    public class DSEditorWIndow : EditorWindow
     {
         private DSGraphView graphView;
 
@@ -21,7 +21,7 @@ namespace DS.Windows
         [MenuItem("Window/DS/Dialogue Graph")]
         public static void Open()
         {
-            GetWindow<DSEditorWindow>("Dialogue Graph");
+            GetWindow<DSEditorWIndow>("Dialogue Graph");
         }
 
         private void OnEnable()
@@ -125,16 +125,6 @@ namespace DS.Windows
         public static void UpdateFileName(string newFileName)
         {
             fileNameTextField.value = newFileName;
-        }
-
-        public void EnableSaving()
-        {
-            saveButton.SetEnabled(true);
-        }
-
-        public void DisableSaving()
-        {
-            saveButton.SetEnabled(false);
         }
     }
 }

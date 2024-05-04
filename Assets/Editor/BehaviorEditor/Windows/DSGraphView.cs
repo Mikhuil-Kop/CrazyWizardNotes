@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 
 namespace DS.Windows
 {
+    using System.Linq;
+    using CrazyWizardNotes.Characters;
     using Data.Error;
     using Data.Save;
     using Elements;
@@ -14,47 +16,19 @@ namespace DS.Windows
 
     public class DSGraphView : GraphView
     {
-        private DSEditorWindow editorWindow;
+        private DSEditorWIndow editorWindow;
         private DSSearchWindow searchWindow;
 
         private MiniMap miniMap;
 
-        private SerializableDictionary<string, DSNodeErrorData> ungroupedNodes;
-        private SerializableDictionary<string, DSGroupErrorData> groups;
-        private SerializableDictionary<Group, SerializableDictionary<string, DSNodeErrorData>> groupedNodes;
+        private List<DSNode> Nodes { get; set; }
 
-        private int nameErrorsAmount;
 
-        public int NameErrorsAmount
-        {
-            get
-            {
-                return nameErrorsAmount;
-            }
-
-            set
-            {
-                nameErrorsAmount = value;
-
-                if (nameErrorsAmount == 0)
-                {
-                    editorWindow.EnableSaving();
-                }
-
-                if (nameErrorsAmount == 1)
-                {
-                    editorWindow.DisableSaving();
-                }
-            }
-        }
-
-        public DSGraphView(DSEditorWindow dsEditorWindow)
+        public DSGraphView(DSEditorWIndow dsEditorWindow)
         {
             editorWindow = dsEditorWindow;
 
-            ungroupedNodes = new SerializableDictionary<string, DSNodeErrorData>();
-            groups = new SerializableDictionary<string, DSGroupErrorData>();
-            groupedNodes = new SerializableDictionary<Group, SerializableDictionary<string, DSNodeErrorData>>();
+            Nodes = new List<DSNode>();
 
             AddManipulators();
             AddGridBackground();
@@ -73,29 +47,26 @@ namespace DS.Windows
 
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
         {
-            List<Port> compatiblePorts = new List<Port>();
-
-            ports.ForEach(port =>
+            return ports.Where(port =>
             {
                 if (startPort == port)
                 {
-                    return;
+                    return false;
                 }
 
                 if (startPort.node == port.node)
                 {
-                    return;
+                    return false;
                 }
 
                 if (startPort.direction == port.direction)
                 {
-                    return;
+                    return false;
                 }
 
-                compatiblePorts.Add(port);
-            });
-
-            return compatiblePorts;
+                return true;
+            })
+            .ToList();
         }
 
         private void AddManipulators()
@@ -170,6 +141,18 @@ namespace DS.Windows
 
             return node;
         }
+
+        public void OpenTree(BehaviorTreeResource behaviorTree)
+        {
+            throw new NotImplementedException();
+        }
+
+        public BehaviorTreeResource GetTree()
+        {
+            throw new NotImplementedException();
+        }
+
+        #region События Unity
 
         private void OnElementsDeleted()
         {
@@ -361,188 +344,8 @@ namespace DS.Windows
             };
         }
 
+        #endregion
 
-        public void AddUngroupedNode(DSNode node)
-        {
-            string nodeName = node.DialogueName.ToLower();
-
-            if (!ungroupedNodes.ContainsKey(nodeName))
-            {
-                DSNodeErrorData nodeErrorData = new DSNodeErrorData();
-
-                nodeErrorData.Nodes.Add(node);
-
-                ungroupedNodes.Add(nodeName, nodeErrorData);
-
-                return;
-            }
-
-            List<DSNode> ungroupedNodesList = ungroupedNodes[nodeName].Nodes;
-
-            ungroupedNodesList.Add(node);
-
-            Color errorColor = ungroupedNodes[nodeName].ErrorData.Color;
-
-            node.SetErrorStyle(errorColor);
-
-            if (ungroupedNodesList.Count == 2)
-            {
-                ++NameErrorsAmount;
-
-                ungroupedNodesList[0].SetErrorStyle(errorColor);
-            }
-        }
-
-        public void RemoveUngroupedNode(DSNode node)
-        {
-            string nodeName = node.DialogueName.ToLower();
-
-            List<DSNode> ungroupedNodesList = ungroupedNodes[nodeName].Nodes;
-
-            ungroupedNodesList.Remove(node);
-
-            node.ResetStyle();
-
-            if (ungroupedNodesList.Count == 1)
-            {
-                --NameErrorsAmount;
-
-                ungroupedNodesList[0].ResetStyle();
-
-                return;
-            }
-
-            if (ungroupedNodesList.Count == 0)
-            {
-                ungroupedNodes.Remove(nodeName);
-            }
-        }
-
-        private void AddGroup(DSGroup group)
-        {
-            string groupName = group.title.ToLower();
-
-            if (!groups.ContainsKey(groupName))
-            {
-                DSGroupErrorData groupErrorData = new DSGroupErrorData();
-
-                groupErrorData.Groups.Add(group);
-
-                groups.Add(groupName, groupErrorData);
-
-                return;
-            }
-
-            List<DSGroup> groupsList = groups[groupName].Groups;
-
-            groupsList.Add(group);
-
-            Color errorColor = groups[groupName].ErrorData.Color;
-
-            //group.SetErrorStyle(errorColor);
-
-            if (groupsList.Count == 2)
-            {
-                ++NameErrorsAmount;
-
-                //groupsList[0].SetErrorStyle(errorColor);
-            }
-        }
-
-        private void RemoveGroup(DSGroup group)
-        {
-            string oldGroupName = group.OldTitle.ToLower();
-
-            List<DSGroup> groupsList = groups[oldGroupName].Groups;
-
-            groupsList.Remove(group);
-
-            //group.ResetStyle();
-
-            if (groupsList.Count == 1)
-            {
-                --NameErrorsAmount;
-
-              //  groupsList[0].ResetStyle();
-
-                return;
-            }
-
-            if (groupsList.Count == 0)
-            {
-                groups.Remove(oldGroupName);
-            }
-        }
-
-        public void AddGroupedNode(DSNode node, DSGroup group)
-        {
-            string nodeName = node.DialogueName.ToLower();
-
-            node.Group = group;
-
-            if (!groupedNodes.ContainsKey(group))
-            {
-                groupedNodes.Add(group, new SerializableDictionary<string, DSNodeErrorData>());
-            }
-
-            if (!groupedNodes[group].ContainsKey(nodeName))
-            {
-                DSNodeErrorData nodeErrorData = new DSNodeErrorData();
-
-                nodeErrorData.Nodes.Add(node);
-
-                groupedNodes[group].Add(nodeName, nodeErrorData);
-
-                return;
-            }
-
-            List<DSNode> groupedNodesList = groupedNodes[group][nodeName].Nodes;
-
-            groupedNodesList.Add(node);
-
-            Color errorColor = groupedNodes[group][nodeName].ErrorData.Color;
-
-            node.SetErrorStyle(errorColor);
-
-            if (groupedNodesList.Count == 2)
-            {
-                ++NameErrorsAmount;
-
-                groupedNodesList[0].SetErrorStyle(errorColor);
-            }
-        }
-
-        public void RemoveGroupedNode(DSNode node, DSGroup group)
-        {
-            string nodeName = node.DialogueName.ToLower();
-
-            node.Group = null;
-
-            List<DSNode> groupedNodesList = groupedNodes[group][nodeName].Nodes;
-
-            groupedNodesList.Remove(node);
-
-            node.ResetStyle();
-
-            if (groupedNodesList.Count == 1)
-            {
-                --NameErrorsAmount;
-
-                groupedNodesList[0].ResetStyle();
-
-                return;
-            }
-
-            if (groupedNodesList.Count == 0)
-            {
-                groupedNodes[group].Remove(nodeName);
-
-                if (groupedNodes[group].Count == 0)
-                {
-                    groupedNodes.Remove(group);
-                }
-            }
-        }
 
         private void AddGridBackground()
         {
