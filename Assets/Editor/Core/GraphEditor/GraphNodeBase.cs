@@ -10,7 +10,7 @@ namespace CrazyWizardNotes.Editor
     {
         public virtual void Initialize(Vector2 position)
         {
-            SetPosition(new Rect(position, Vector2.zero));
+            SetPosition(new Rect(position, Vector2.one * 5));
 
             mainContainer.AddToClassList("ds-node__main-container");
             extensionContainer.AddToClassList("ds-node__extension-container");
@@ -20,12 +20,11 @@ namespace CrazyWizardNotes.Editor
 
         #region Инструменты
 
-        protected TextField AddTitleField(string title, string value, EventCallback<ChangeEvent<string>> onValueChanged = null)
+        protected Label AddTitleField(string title, EventCallback<ChangeEvent<string>> onValueChanged = null)
         {
-            var textField = new TextField()
+            var textField = new Label()
             {
-                value = value,
-                label = title
+                text = title
             };
 
             if (onValueChanged != null)
@@ -33,7 +32,13 @@ namespace CrazyWizardNotes.Editor
                 textField.RegisterValueChangedCallback(onValueChanged);
             }
 
-            titleContainer.Add(textField);
+            textField.AddClasses(
+                "ds-node__text-field",
+                "ds-node__text-field__hidden",
+                "ds-node__filename-text-field"
+            );
+
+            titleContainer.Insert(0, textField);
 
             return textField;
         }
@@ -43,7 +48,8 @@ namespace CrazyWizardNotes.Editor
             var textField = new TextField()
             {
                 value = value,
-                label = title
+                label = title,
+                multiline = false
             };
 
             if (onValueChanged != null)
@@ -56,7 +62,7 @@ namespace CrazyWizardNotes.Editor
             return textField;
         }
 
-        protected TextField AddTextArea(string label, string value = null, EventCallback<ChangeEvent<string>> onValueChanged = null)
+        protected TextField AddTextArea(string title, string value = null, EventCallback<ChangeEvent<string>> onValueChanged = null)
         {
             var textField = new TextField()
             {
@@ -75,9 +81,39 @@ namespace CrazyWizardNotes.Editor
             return textField;
         }
 
+        protected Foldout AddFoldoutTextArea(string title, string value, EventCallback<ChangeEvent<string>> onValueChanged = null)
+        {
+            var customDataContainer = new VisualElement();
+
+            var foldout = new Foldout()
+            {
+                text = title,
+                value = true
+            };
+
+            var textField = new TextField()
+            {
+                value = value,
+                multiline = true
+            };
+
+            if (onValueChanged != null)
+            {
+                textField.RegisterValueChangedCallback(onValueChanged);
+            }
+
+            foldout.Add(textField);
+            customDataContainer.Add(foldout);
+            extensionContainer.Add(customDataContainer);
+
+            customDataContainer.AddToClassList("ds-node__custom-data-container");
+
+            return foldout;
+        }
+
         protected Button AddButton(string title, Action onClick = null)
         {
-            Button button = new Button(onClick)
+            var button = new Button(onClick)
             {
                 text = title
             };
@@ -87,20 +123,21 @@ namespace CrazyWizardNotes.Editor
             return button;
         }
 
-        protected Foldout AddFoldout(string title, bool collapsed = false)
+        protected Button AddOutputButton(string title, Action onClick = null)
         {
-            Foldout foldout = new Foldout()
+            var button = new Button(onClick)
             {
-                text = title,
-                value = !collapsed
+                text = title
             };
 
-            return foldout;
+            outputContainer.Add(button);
+
+            return button;
         }
 
         protected Port AddInputPort(string title, Port.Capacity capacity = Port.Capacity.Single)
         {
-            Port port = InstantiatePort(Orientation.Horizontal, Direction.Input, capacity, typeof(bool));
+            var port = InstantiatePort(Orientation.Horizontal, Direction.Input, capacity, typeof(bool));
 
             port.portName = title;
 
@@ -111,9 +148,62 @@ namespace CrazyWizardNotes.Editor
 
         protected Port AddOutputPort(string title, Port.Capacity capacity = Port.Capacity.Single)
         {
-            Port port = InstantiatePort(Orientation.Horizontal, Direction.Output, capacity, typeof(bool));
+            var port = InstantiatePort(Orientation.Horizontal, Direction.Output, capacity, typeof(bool));
 
             port.portName = title;
+
+            outputContainer.Add(port);
+
+            return port;
+        }
+
+        protected Port AddNamedInputPort(string value, Port.Capacity capacity = Port.Capacity.Single)
+        {
+            var port = InstantiatePort(Orientation.Horizontal, Direction.Input, capacity, typeof(bool));
+
+            var textField = new TextField()
+            {
+                value = value,
+                label = null,
+                multiline = false
+            };
+
+            port.Add(textField);
+
+            textField.RegisterValueChangedCallback(x =>
+            {
+                port.userData = x.newValue;
+            });
+
+            inputContainer.Add(port);
+
+            return port;
+        }
+
+        protected Port AddNamedOutputPort(string value, EventCallback<ChangeEvent<string>> onValueChanged = null, Port.Capacity capacity = Port.Capacity.Single)
+        {
+            var port = InstantiatePort(Orientation.Horizontal, Direction.Output, capacity, typeof(bool));
+
+            var textField = new TextField()
+            {
+                value = value,
+                label = null,
+                multiline = false,
+            };
+
+            port.Add(textField);
+
+            textField.RegisterValueChangedCallback(x =>
+            {
+                port.userData = x.newValue;
+                onValueChanged?.Invoke(x);
+            });
+
+            textField.AddClasses(
+                "ds-node__text-field",
+                "ds-node__text-field__hidden",
+                "ds-node__choice-text-field"
+            );
 
             outputContainer.Add(port);
 

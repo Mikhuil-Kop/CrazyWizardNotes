@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DS.Utilities;
+using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -12,20 +14,26 @@ namespace CrazyWizardNotes.Editor
         where G : GraphGroupBase
         where R : ScriptableObject
     {
-        private SearchWindowBase SearchWindow { get; set; }
+        private EditorWindow ParentWindow { get; set; }
 
-        private MiniMap MiniMap { get; set; }
+        private SearchWindow SearchWindow { get; set; }
 
+        protected IEnumerable<N> Nodes => nodes.Select(x => x as N).Where(x => x != null);
 
-        public GraphViewBase()
+        protected IEnumerable<NodeConnection> Connections => edges.Select(x => new NodeConnection()
         {
+            From = Nodes.First(y => y.outputContainer.Children().Any(p => p is Port && (p as Port).connections.Contains(x))),
+            To = Nodes.First(y => y.inputContainer.Children().Any(p => p is Port && (p as Port).connections.Contains(x)))
+        });
+
+        public GraphViewBase(EditorWindow parent)
+        {
+            ParentWindow = ParentWindow;
+
             AddManipulators();
             AddGridBackground();
             AddSearchWindow();
-            AddMiniMap();
-
             AddStyles();
-            AddMiniMapStyles();
         }
 
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
@@ -56,10 +64,9 @@ namespace CrazyWizardNotes.Editor
 
         public abstract R GetResource();
 
-        protected abstract G CreateGroup(string title, Vector2 position);
+        protected abstract IEnumerable<ContextButtonInfo> GetContextButtons();
 
-        protected abstract N CreateNode(string nodeName, Vector2 position);
-
+        #region Инициализация
 
         private void AddManipulators()
         {
@@ -69,28 +76,13 @@ namespace CrazyWizardNotes.Editor
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
 
-            this.AddManipulator(CreateNodeContextualMenu("Add Node (Single Choice)"));
-            this.AddManipulator(CreateNodeContextualMenu("Add Node (Multiple Choice)"));
+            foreach (var buttonInfo in GetContextButtons())
+            {
+                var manipulator = new ContextualMenuManipulator(menuEvent =>
+                    menuEvent.menu.AppendAction(buttonInfo.Title, buttonInfo.OnClick));
 
-            this.AddManipulator(CreateGroupContextualMenu());
-        }
-
-        private IManipulator CreateNodeContextualMenu(string actionTitle)
-        {
-            var manipulator = new ContextualMenuManipulator(
-                menuEvent => menuEvent.menu.AppendAction(actionTitle, actionEvent => AddElement(CreateNode("DialogueName", dialogueType, GetLocalMousePosition(actionEvent.eventInfo.localMousePosition))))
-            );
-
-            return manipulator;
-        }
-
-        private IManipulator CreateGroupContextualMenu()
-        {
-            ContextualMenuManipulator contextualMenuManipulator = new ContextualMenuManipulator(
-                menuEvent => menuEvent.menu.AppendAction("Add Group", actionEvent => CreateGroup("DialogueGroup", GetLocalMousePosition(actionEvent.eventInfo.localMousePosition)))
-            );
-
-            return contextualMenuManipulator;
+                this.AddManipulator(manipulator);
+            }
         }
 
         private void AddGridBackground()
@@ -106,26 +98,10 @@ namespace CrazyWizardNotes.Editor
         {
             if (SearchWindow == null)
             {
-                SearchWindow = ScriptableObject.CreateInstance<SearchWindowBase>();
+                SearchWindow = ScriptableObject.CreateInstance<SearchWindow>();
             }
 
-            SearchWindow.Initialize(this);
-
             nodeCreationRequest = context => UnityEditor.Experimental.GraphView.SearchWindow.Open(new SearchWindowContext(context.screenMousePosition), SearchWindow);
-        }
-
-        private void AddMiniMap()
-        {
-            MiniMap = new MiniMap()
-            {
-                anchored = true
-            };
-
-            MiniMap.SetPosition(new Rect(15, 50, 200, 180));
-
-            Add(MiniMap);
-
-            MiniMap.visible = false;
         }
 
         private void AddStyles()
@@ -136,46 +112,40 @@ namespace CrazyWizardNotes.Editor
             );
         }
 
-        private void AddMiniMapStyles()
-        {
-            StyleColor backgroundColor = new StyleColor(new Color32(29, 29, 30, 255));
-            StyleColor borderColor = new StyleColor(new Color32(51, 51, 51, 255));
+        #endregion
 
-            MiniMap.style.backgroundColor = backgroundColor;
-            MiniMap.style.borderTopColor = borderColor;
-            MiniMap.style.borderRightColor = borderColor;
-            MiniMap.style.borderBottomColor = borderColor;
-            MiniMap.style.borderLeftColor = borderColor;
-        }
+        #region Вспомогательное
 
-        public Vector2 GetLocalMousePosition(Vector2 mousePosition, bool isSearchWindow = false)
+        protected Vector2 GetLocalMousePosition(Vector2 mousePosition, bool isSearchWindow = false)
         {
-            Vector2 worldMousePosition = mousePosition;
+            var worldMousePosition = mousePosition;
 
             if (isSearchWindow)
             {
-                worldMousePosition = editorWindow.rootVisualElement.ChangeCoordinatesTo(editorWindow.rootVisualElement.parent, mousePosition - editorWindow.position.position);
+                worldMousePosition = ParentWindow.rootVisualElement.ChangeCoordinatesTo(ParentWindow.rootVisualElement.parent, mousePosition - ParentWindow.position.position);
             }
 
-            Vector2 localMousePosition = contentViewContainer.WorldToLocal(worldMousePosition);
+            var localMousePosition = contentViewContainer.WorldToLocal(worldMousePosition);
 
             return localMousePosition;
         }
 
-        public void ClearGraph()
+        #endregion
+
+        #region Внутренние классы
+
+        protected class ContextButtonInfo
         {
-            graphElements.ForEach(graphElement => RemoveElement(graphElement));
-
-            groups.Clear();
-            groupedNodes.Clear();
-            ungroupedNodes.Clear();
-
-            NameErrorsAmount = 0;
+            public string Title { get; set; }
+            public Action<DropdownMenuAction> OnClick { get; set; }
         }
 
-        public void ToggleMiniMap()
+        protected class NodeConnection
         {
-            MiniMap.visible = !MiniMap.visible;
+            public N From { get; set; }
+            public N To { get; set; }
         }
-    }
+
+            #endregion
+        }
 }

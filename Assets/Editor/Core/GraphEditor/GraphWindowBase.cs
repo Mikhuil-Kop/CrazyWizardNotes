@@ -74,19 +74,21 @@ namespace CrazyWizardNotes.Editor
             rootVisualElement.AddStyleSheets("DialogueSystem/DSVariables.uss");
         }
 
+        #region Сохранение и Загрузка
 
         private void Load()
         {
-            var newfilePath = EditorUtility.OpenFilePanel("Dialogue Graphs", "Assets/Resource", "asset");
+            var newfilePath = EditorUtility.OpenFilePanel("Dialogue Graphs", "Assets/Resources", "asset");
 
             if (string.IsNullOrEmpty(newfilePath))
             {
                 return;
             }
 
-            FilePath = newfilePath;
+            FilePath = "Assets" + newfilePath.Split("Assets")[1];
 
-            var resource = Resources.Load<R>(FilePath);
+            var loadPath = FilePath.Split("Resources/")[1].Split(".asset")[0];
+            var resource = Resources.Load<R>(loadPath);
             GraphView.OpenResource(resource);
         }
 
@@ -94,7 +96,14 @@ namespace CrazyWizardNotes.Editor
         {
             if (string.IsNullOrEmpty(FilePath))
             {
-                return;
+                var newfilePath = EditorUtility.SaveFilePanel("Dialogue Graphs", "Assets/Resources", DefaultFileName, "asset");
+
+                if (string.IsNullOrEmpty(newfilePath))
+                {
+                    return;
+                }
+
+                FilePath = "Assets" + newfilePath.Split("Assets")[1];
             }
 
             var resource = GraphView.GetResource();
@@ -109,16 +118,18 @@ namespace CrazyWizardNotes.Editor
 
         private void SaveAs()
         {
-            FilePath = EditorUtility.OpenFilePanel("Dialogue Graphs", "Assets/Resource", "asset");
+            var newfilePath = EditorUtility.SaveFilePanel("Dialogue Graphs", "Assets/Resources", DefaultFileName, "asset");
 
-            if (string.IsNullOrEmpty(FilePath))
+            if (string.IsNullOrEmpty(newfilePath))
             {
                 return;
             }
 
+            newfilePath = "Assets" + newfilePath.Split("Assets")[1];
+
             var resource = GraphView.GetResource();
 
-            AssetDatabase.CreateAsset(resource, FilePath);
+            AssetDatabase.CreateAsset(resource, newfilePath);
             AssetDatabase.SaveAssets();
 
             EditorUtility.FocusProjectWindow();
@@ -126,11 +137,16 @@ namespace CrazyWizardNotes.Editor
             Selection.activeObject = resource;
         }
 
+        #endregion
+
+        #region Внутренние классы
 
         protected class ToolbarButtonInfo
         {
             public string Title { get; set; }
             public Action OnClick { get; set; }
         }
+
+        #endregion
     }
 }

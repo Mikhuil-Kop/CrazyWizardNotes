@@ -13,7 +13,8 @@ namespace CrazyWizardNotes.Characters
         public BehaviorTreeLinkResource[] Links;
     }
 
-    public class BehaviorTreeNodeResource : ScriptableObject
+    [Serializable]
+    public class BehaviorTreeNodeResource
     {
         public string NodeID;
         public string NodeType;
@@ -21,9 +22,11 @@ namespace CrazyWizardNotes.Characters
         public Vector2 Position;
     }
 
-    public class BehaviorTreeLinkResource : ScriptableObject
+    [Serializable]
+    public class BehaviorTreeLinkResource
     {
-        public string NodeID1;
-        public string NodeID2;
+        public string NodeFromID;
+        public string NodeToID;
     }
+
 }
