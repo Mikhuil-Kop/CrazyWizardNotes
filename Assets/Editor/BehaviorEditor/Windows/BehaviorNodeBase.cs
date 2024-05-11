@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
 
@@ -9,6 +10,9 @@ namespace CrazyWizardNotes.Editor
         public string ID { get; protected set; }
         public string Type { get; protected set; }
         public string[] Params { get; protected set; }
+
+        public IEnumerable<Port> InputPorts => inputContainer.Children().Select(y => y as Port).Where(y => y != null);
+        public IEnumerable<Port> OutputPorts => outputContainer.Children().Select(y => y as Port).Where(y => y != null);
 
         protected BehaviorNodeBase(string type, string id, string[] param)
         {
@@ -25,20 +29,40 @@ namespace CrazyWizardNotes.Editor
             AddRecursionPort();
         }
 
-        public void AddRecursionPort()
+        public void Connect(VisualElement parent, BehaviorNodeBase node, string name)
         {
-            AddNamedOutputPort(null, x =>
+            AddRecursionPort(name);
+
+            var portFrom = OutputPorts.First(x => x.userData as string == name);
+            var portTo = node.InputPorts.First();
+
+            var edge = new Edge();
+            parent.Add(edge);
+
+            edge.output = portFrom;
+            edge.input = portTo;
+
+            portFrom.Connect(edge);
+            portTo.Connect(edge);
+
+            edge.MarkDirtyRepaint();
+            edge.OnPortChanged(true);
+        }
+
+        private void AddRecursionPort(string value = null)
+        {
+            AddNamedOutputPort(value, x =>
             {
                 if (string.IsNullOrWhiteSpace(x.newValue))
                 {
-                    if (outputContainer.Children().Select(y => y as Port).Where(y => y != null).LastOrDefault() != x.target)
+                    if (OutputPorts.LastOrDefault() != x.target)
                     {
                         outputContainer.Remove((x.target as VisualElement).parent);
                     }
                 }
                 else
                 {
-                    if (outputContainer.Children().Select(y => y as Port).Where(y => y != null).All(y => !string.IsNullOrWhiteSpace(y.userData as string)))
+                    if (OutputPorts.All(y => !string.IsNullOrWhiteSpace(y.userData as string)))
                     {
                         AddRecursionPort();
                     }

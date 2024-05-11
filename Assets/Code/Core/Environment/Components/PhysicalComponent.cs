@@ -1,8 +1,7 @@
 ﻿using System;
-using CrazyWizardNotes.Model.EventArguments;
 using CrazyWizardNotes.Interfaces;
+using CrazyWizardNotes.Model.Events;
 using UnityEngine;
-using System.Collections.Generic;
 
 namespace CrazyWizardNotes.Environment.Components
 {

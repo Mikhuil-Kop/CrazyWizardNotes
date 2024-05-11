@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using CrazyWizardNotes.Model;
-using CrazyWizardNotes.Model.EventArguments;
+using CrazyWizardNotes.Model.Events;
 
 namespace CrazyWizardNotes.Interfaces
 {
@@ -50,11 +50,6 @@ namespace CrazyWizardNotes.Interfaces
     public interface IRottable
     {
 
-    }
-
-    public interface IReadable
-    {
-        public string GetReadText();
     }
 
     public interface IMagnetic

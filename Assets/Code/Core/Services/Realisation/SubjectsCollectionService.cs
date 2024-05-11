@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using CrazyWizardNotes.Interfaces;
 
 namespace CrazyWizardNotes.Common.Services
@@ -21,6 +22,11 @@ namespace CrazyWizardNotes.Common.Services
         public IEnumerable<ISubject> GetAll()
         {
             return Collection;
+        }
+
+        public IEnumerable<T> Get<T>() where T : class
+        {
+            return Collection.Select(x => x.As<T>()).Where(x => x != null);
         }
     }
 }

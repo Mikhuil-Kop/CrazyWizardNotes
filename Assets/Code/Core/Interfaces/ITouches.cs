@@ -1,5 +1,5 @@
 ﻿using System;
-using CrazyWizardNotes.Model.EventArguments;
+using CrazyWizardNotes.Model.Events;
 
 namespace CrazyWizardNotes.Interfaces
 {

@@ -7,5 +7,7 @@ namespace CrazyWizardNotes.Common.Services
     {
         void AddSubject(ISubject subject);
         IEnumerable<ISubject> GetAll();
+        IEnumerable<T> Get<T>() where T : class;
+
     }
 }

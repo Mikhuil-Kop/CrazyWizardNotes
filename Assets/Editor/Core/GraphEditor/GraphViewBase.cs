@@ -22,8 +22,10 @@ namespace CrazyWizardNotes.Editor
 
         protected IEnumerable<NodeConnection> Connections => edges.Select(x => new NodeConnection()
         {
-            From = Nodes.First(y => y.outputContainer.Children().Any(p => p is Port && (p as Port).connections.Contains(x))),
-            To = Nodes.First(y => y.inputContainer.Children().Any(p => p is Port && (p as Port).connections.Contains(x)))
+            NodeFrom = Nodes.First(y => y.outputContainer.Children().Any(p => p is Port && (p as Port).connections.Contains(x))),
+            NodeTo = Nodes.First(y => y.inputContainer.Children().Any(p => p is Port && (p as Port).connections.Contains(x))),
+            PortFrom = x.output,
+            PortTo = x.input
         });
 
         public GraphViewBase(EditorWindow parent)
@@ -142,10 +144,12 @@ namespace CrazyWizardNotes.Editor
 
         protected class NodeConnection
         {
-            public N From { get; set; }
-            public N To { get; set; }
+            public N NodeFrom { get; set; }
+            public N NodeTo { get; set; }
+            public Port PortFrom { get; set; }
+            public Port PortTo { get; set; }
         }
 
-            #endregion
-        }
+        #endregion
+    }
 }

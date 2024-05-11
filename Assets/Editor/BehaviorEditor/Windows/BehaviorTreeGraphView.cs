@@ -19,6 +19,7 @@ namespace CrazyWizardNotes.Editor
             return new ContextButtonInfo[]
             {
                 new ContextButtonInfo(){ Title = "Create Start", OnClick = f => AddNode(new StartNode(), GetLocalMousePosition(f.eventInfo.mousePosition)) },
+                new ContextButtonInfo(){ Title = "Create Any", OnClick = f => AddNode(new AnyNode(), GetLocalMousePosition(f.eventInfo.mousePosition)) },
                 new ContextButtonInfo(){ Title = "Create Dialog", OnClick = f => AddNode(new DialogNode(), GetLocalMousePosition(f.eventInfo.mousePosition)) },
                 new ContextButtonInfo(){ Title = "Create Event Call", OnClick = f => AddNode(new EventCallNode(), GetLocalMousePosition(f.eventInfo.mousePosition)) },
             };
@@ -31,6 +32,7 @@ namespace CrazyWizardNotes.Editor
             var factory = new Dictionary<string, Func<BehaviorTreeNodeResource, BehaviorNodeBase>>
             {
                 { "Start", (x) => new StartNode(x.NodeID, x.Params) },
+                { "Any", (x) => new AnyNode(x.NodeID, x.Params) },
                 { "Dialog", (x) => new DialogNode(x.NodeID, x.Params) },
                 { "EventCall", (x) => new EventCallNode(x.NodeID, x.Params) },
             };
@@ -55,17 +57,7 @@ namespace CrazyWizardNotes.Editor
                 var nodeFrom = Nodes.First(x => x.ID == link.NodeFromID);
                 var nodeTo = Nodes.First(x => x.ID == link.NodeToID);
 
-                var portFrom = nodeFrom.outputContainer.Children().First(x => x is Port) as Port;
-                var portTo = nodeTo.inputContainer.Children().First(x => x is Port) as Port;
-
-                var edge = new Edge();
-                contentContainer.Add(edge);
-
-                edge.output = portFrom;
-                edge.input = portTo;
-
-                edge.MarkDirtyRepaint();
-                edge.OnPortChanged(true);
+                nodeFrom.Connect(contentContainer, nodeTo, link.PortFromParam);
             }
         }
 
@@ -86,8 +78,9 @@ namespace CrazyWizardNotes.Editor
             tree.Links = Connections
                 .Select(x => new BehaviorTreeLinkResource()
                 {
-                    NodeFromID = x.From.ID,
-                    NodeToID = x.To.ID
+                    NodeFromID = x.NodeFrom.ID,
+                    NodeToID = x.NodeTo.ID,
+                    PortFromParam = x.PortFrom.userData as string
                 })
                 .ToArray();
 

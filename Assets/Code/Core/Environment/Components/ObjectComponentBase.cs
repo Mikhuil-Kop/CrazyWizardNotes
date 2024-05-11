@@ -11,7 +11,17 @@ namespace CrazyWizardNotes.Environment.Components
 
         protected virtual void Start()
         {
-            Parent = GetComponent<ISubject>();
+            Parent = Locate<ISubject>();
+        }
+
+        protected T Locate<T>()
+        {
+            if (this is T)
+            {
+                throw new System.Exception("Components can't depend on themselves");
+            }
+
+            return GetComponent<T>();
         }
     }
 }

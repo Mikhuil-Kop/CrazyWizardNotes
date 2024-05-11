@@ -31,5 +31,15 @@ namespace CrazyWizardNotes.Common
 
             Instance = null;
         }
+
+        protected C Locate<C>()
+        {
+            if (this is C)
+            {
+                throw new Exception("Services must not depend on themselves.");
+            }
+
+            return GetComponent<C>();
+        }
     }
 }

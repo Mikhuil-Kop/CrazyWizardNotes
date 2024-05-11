@@ -191,6 +191,7 @@ namespace CrazyWizardNotes.Editor
                 multiline = false,
             };
 
+            port.userData = value;
             port.Add(textField);
 
             textField.RegisterValueChangedCallback(x =>
