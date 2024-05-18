@@ -40,21 +40,21 @@ namespace CrazyWizardNotes.Common.Services
                     Debug.Log("WizardControlService - StartCasting");
 
                     //SpellExecuteService.Instance.
-                    Spell.StartCast(Time.deltaTime);
+                    //Spell.StartCast(Time.deltaTime);
                 }
 
                 if (inputService.GetButton("mouse"))
                 {
                     Debug.Log("WizardControlService - TickCasting");
 
-                    Spell.TickCust(Time.deltaTime);
+                    //Spell.TickCust(Time.deltaTime);
                 }
 
                 if (inputService.GetButtonUp("mouse"))
                 {
                     Debug.Log("WizardControlService - EndCasting");
 
-                    Spell.EndCust(Time.deltaTime);
+                    //Spell.EndCust(Time.deltaTime);
                 }
             }
         }

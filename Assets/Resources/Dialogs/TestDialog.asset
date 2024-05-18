@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c3a2ebcff9034ef2b38c68b6e05fc41, type: 3}
-  m_Name: TestDialogue
+  m_Name: TestDialog
   m_EditorClassIdentifier: 
-  XML: "<Dialog>\n    <Text>\n        <p speed=1>1232 312 312 312 312 </p><delay
-    time=3/><p speed=2>3 123 12 32 312 132</p><delay time=10/>\n    </Text>\n</Dialog>"
+  XML: "<Dialog>\n    <Text>\n        <p speed=\"1\">\u041F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435
+    1</p><delay time=\"3\"/><p speed=\"2\">\u041F\u0440\u0435\u0434\u043B\u043E\u0436\u0435\u043D\u0438\u0435
+    2</p><delay time=\"10\"/>\n    </Text>\n</Dialog>"

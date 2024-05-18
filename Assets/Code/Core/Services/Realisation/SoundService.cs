@@ -5,7 +5,7 @@ using UnityEngine;
 namespace CrazyWizardNotes.Common.Services
 {
     [RequireComponent(typeof(ISubjectsCollectionService))]
-    public class SoundService : SingletonBehavior<SoundService>
+    public class SoundService : SingletonBehavior<ISoundService>, ISoundService
     {
         private ISubjectsCollectionService SubjectsCollectionService { get; set; }
 

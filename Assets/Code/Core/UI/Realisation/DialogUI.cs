@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CrazyWizardNotes.UI.Realisation
 {
-    public class DialogUI : MonoBehaviour
+    public class DialogUI : MonoBehaviour, IDialogUI
     {
         [SerializeField]
         private RectTransform Transform;
@@ -15,12 +15,6 @@ namespace CrazyWizardNotes.UI.Realisation
         private TextMeshProUGUI Text;
 
         private Queue<DialogItem> DialogItems { get; set; }
-
-        // TEST
-        private void Awake()
-        {
-            StartDialog(XElement.Parse("<Dialog><Text><p speed=\"1\">1232 312 312 312 312 </p><delay time=\"3\"/><p speed=\"2\">3 123 12 32 312 132</p><delay time=\"10\"/></Text></Dialog>"));
-        }
 
         public void StartDialog(XElement dialogData)
         {

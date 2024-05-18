@@ -40,10 +40,10 @@ namespace CrazyWizardNotes.Characters
         {
             var factories = new Dictionary<string, Func<BehaviorTreeNodeResource, BehaviorTreeNode>>()
             {
-                {  "Start", x => null },
-                {  "Any", x => null },
-                {  "Dialog", x => null },
-                {  "EventCall", x => null },
+                {  "Start", x => new BehaviorTreeNode() { Links = new Dictionary<string, BehaviorTreeNode>(), OnStart = () => { } } },
+                {  "Any", x => new BehaviorTreeNode() { Links = new Dictionary<string, BehaviorTreeNode>(), OnStart = () => { } } },
+                {  "Dialog", x => new BehaviorTreeNode() { Links = new Dictionary<string, BehaviorTreeNode>(), OnStart = () => { } } },
+                {  "EventCall", x => new BehaviorTreeNode() { Links = new Dictionary<string, BehaviorTreeNode>(), OnStart = () => { } } }
             };
 
             var nodes = resource.Nodes.ToDictionary(
@@ -55,7 +55,7 @@ namespace CrazyWizardNotes.Characters
                 var nodeFrom = nodes[link.NodeFromID];
                 var nodeTo = nodes[link.NodeToID];
 
-                nodeFrom.Links.Add("", nodeTo);
+                nodeFrom.Links.Add(link.PortFromParam, nodeTo);
             }
 
             var tree = new BehaviorTree()
