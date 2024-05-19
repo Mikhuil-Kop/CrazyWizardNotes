@@ -39,7 +39,14 @@ namespace CrazyWizardNotes.Common
                 throw new Exception("Services must not depend on themselves.");
             }
 
-            return GetComponent<C>();
+            var component = GetComponent<C>();
+
+            if (component is null)
+            {
+                throw new Exception($"\"{this.GetType().Name}\" cannot find service \"{typeof(C).Name}\".");
+            }
+
+            return component;
         }
     }
 }

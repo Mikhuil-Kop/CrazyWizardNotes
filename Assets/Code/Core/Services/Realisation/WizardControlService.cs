@@ -1,64 +1,79 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using CrazyWizardNotes.Spells.Logic;
 using CrazyWizardNotes.Interfaces;
+using CrazyWizardNotes.Magic;
+using UnityEngine;
 
 namespace CrazyWizardNotes.Common.Services
 {
     public class WizardControlService : SingletonBehavior<WizardControlService>
     {
+        private ISpellsService SpellService { get; set; }
+        private IInputService InputService { get; set; }
+
+        private List<ISpellBendable> CurrentSpells { get; set; }
+
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            SpellService = Locate<ISpellsService>();
+            InputService = Locate<IInputService>();
+
+            CurrentSpells = new List<ISpellBendable>();
+        }
+
         public void Update()
         {
-            var inputService = InputService.Instance;
-            var eventService = EventsService.Instance;
-
-            if (!inputService.GetButton("WandActive"))
+            if (!InputService.GetButton("WandActive"))
             {
-                if (inputService.GetButtonDown("mouse"))
-                {
-                    foreach (var readable in inputService.PointedTargets.Select(x => x.As<IReadable>()).Where(x => x != null))
-                    {
-                        var eventParams = new EventParams()
-                        {
-                            Target1 = this,
-                            Target2 = readable,
-                            TextValue = readable.GetReadText()
-                        };
+                //if (inputService.GetButtonDown("mouse"))
+                //{
+                //    foreach (var readable in inputService.PointedTargets.Select(x => x.As<IReadable>()).Where(x => x != null))
+                //    {
+                //        var eventParams = new EventParams()
+                //        {
+                //            Target1 = this,
+                //            Target2 = readable,
+                //            TextValue = readable.GetReadText()
+                //        };
 
-                        eventService.RaiseEvent(EventType.WordReaded, eventParams);
-                        Debug.Log("RaisedSound " + readable.GetReadText());
-                    }
+                //        eventService.RaiseEvent(EventType.WordReaded, eventParams);
+                //        Debug.Log("RaisedSound " + readable.GetReadText());
+                //    }
 
-                    Debug.Log("Sound");
-                }
+                //    Debug.Log("Sound");
+                //}
             }
             else
             {
-                if (inputService.GetButtonDown("mouse"))
+                if (InputService.GetButtonDown("mouse"))
                 {
-                    Debug.Log("WizardControlService - StartCasting");
+                    CurrentSpells = InputService.PointedTargets.SubjectsAs<ISpellBendable>().ToList();
 
-                    //SpellExecuteService.Instance.
-                    //Spell.StartCast(Time.deltaTime);
+                    foreach (var spell in CurrentSpells)
+                    {
+                        SpellService.StartBending(spell, InputService.Pointer);
+                    }
                 }
 
-                if (inputService.GetButton("mouse"))
+                if (InputService.GetButton("mouse"))
                 {
-                    Debug.Log("WizardControlService - TickCasting");
-
-                    //Spell.TickCust(Time.deltaTime);
+                    foreach (var spell in CurrentSpells)
+                    {
+                        SpellService.UpdateBending(spell, InputService.Pointer);
+                    }
                 }
 
-                if (inputService.GetButtonUp("mouse"))
+                if (InputService.GetButtonUp("mouse"))
                 {
-                    Debug.Log("WizardControlService - EndCasting");
-
-                    //Spell.EndCust(Time.deltaTime);
+                    foreach (var spell in CurrentSpells)
+                    {
+                        SpellService.EndBending(spell, InputService.Pointer);
+                    }
                 }
             }
         }
-
-        private ISpell Spell = new Spells.DefaultSpells.PushSpell();
     }
 }

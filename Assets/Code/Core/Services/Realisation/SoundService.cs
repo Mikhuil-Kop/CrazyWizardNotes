@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CrazyWizardNotes.Interfaces;
+using CrazyWizardNotes.Model.Events;
 using UnityEngine;
 
 namespace CrazyWizardNotes.Common.Services
@@ -8,6 +9,8 @@ namespace CrazyWizardNotes.Common.Services
     public class SoundService : SingletonBehavior<ISoundService>, ISoundService
     {
         private ISubjectsCollectionService SubjectsCollectionService { get; set; }
+
+        public event OnSoundRecievedEventHandler OnSoundRecieved;
 
         protected override void Awake()
         {
@@ -19,6 +22,15 @@ namespace CrazyWizardNotes.Common.Services
         public void MakeSound(ISoundSource source, string sound, float volume)
         {
             var recievers = SubjectsCollectionService.Get<ISoundReciever>();
+
+            var args = new OnSoundRecievedEventArgs()
+            {
+                Sound = sound,
+                Volume = volume,
+                Source = source
+            };
+
+            OnSoundRecieved?.Invoke(args);
 
             foreach (var reciever in recievers)
             {
