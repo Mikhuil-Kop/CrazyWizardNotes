@@ -26,7 +26,7 @@ namespace CrazyWizardNotes.Common.Services
 
         public IEnumerable<T> Get<T>() where T : class
         {
-            return Collection.Select(x => x.As<T>()).Where(x => x != null);
+            return Collection.SubjectsAs<T>();
         }
     }
 }

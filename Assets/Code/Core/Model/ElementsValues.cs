@@ -131,6 +131,42 @@ public struct ElementsValues : IEnumerable<float>
         return returnValue;
     }
 
+    public static ElementsValues operator *(ElementsValues val1, float val2)
+    {
+        var returnValue = new ElementsValues();
+
+        for (byte i = 0; i < ELEMENTS_COUNT; i++)
+        {
+            returnValue[i] = val1[i] * val2;
+        }
+
+        return returnValue;
+    }
+
+    public static ElementsValues operator *(float val2, ElementsValues val1)
+    {
+        var returnValue = new ElementsValues();
+
+        for (byte i = 0; i < ELEMENTS_COUNT; i++)
+        {
+            returnValue[i] = val1[i] * val2;
+        }
+
+        return returnValue;
+    }
+
+    public static ElementsValues operator /(ElementsValues val1, float val2)
+    {
+        var returnValue = new ElementsValues();
+
+        for (byte i = 0; i < ELEMENTS_COUNT; i++)
+        {
+            returnValue[i] = val1[i] / val2;
+        }
+
+        return returnValue;
+    }
+
     #endregion
 
     #region Функции

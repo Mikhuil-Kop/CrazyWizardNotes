@@ -12,6 +12,14 @@ public static class UnityExtension
         }
     }
 
+    public static IEnumerable<RectTransform> GetChildren(this RectTransform transform)
+    {
+        foreach (RectTransform t in transform)
+        {
+            yield return t;
+        }
+    }
+
     public static Vector3 Multiply(this Vector3 a, Vector3 b)
     {
         return new Vector3(a.x * b.x, a.y * b.y, a.z * b.z);

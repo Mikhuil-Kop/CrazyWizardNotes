@@ -44,6 +44,11 @@ namespace CrazyWizardNotes.Magic
 
         public void OnUpdateBend(SpellBendUpdateEventArgs args)
         {
+
+        }
+
+        public void OnFixedUpdateBend(SpellBendUpdateEventArgs args)
+        {
             var direction = (args.Target - SpacePoint.Position);
 
             Physical.ApplyForce(direction * direction.magnitude);
@@ -51,6 +56,7 @@ namespace CrazyWizardNotes.Magic
 
         public void OnEndBend(SpellBendEndEventArgs args)
         {
+
         }
     }
 }

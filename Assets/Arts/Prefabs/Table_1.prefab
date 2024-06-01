@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 9057094053914184562}
   - component: {fileID: 1993329806599269295}
   - component: {fileID: 2163068851957377094}
+  - component: {fileID: 4687620009719353735}
   - component: {fileID: 3567996781113124856}
   - component: {fileID: 1139680027459153243}
   - component: {fileID: 7343256334297982547}
@@ -196,6 +197,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4687620009719353735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928661177272738161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e003e27278f845b1af6baff02571817, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnergyTransfer: 0.1
+  ContainedEnergy:
+    Temperature: 0
+    Charge: 0
+    Structure: 0
+    Form: 0
+    Time: 0
+    Life: 0
+    Mind: 0
+    Magnet: 0
 --- !u!114 &3567996781113124856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,9 +231,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8c5a077fd0a402d90b5f02826134d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FuelEnergy: 0.13
-  FuelEnergyBurnoutSpeed: 0
-  EnergyToStartFire: 0
+  Burning: 0
+  MaxFuelEnergy: 1000
+  CurrentFuelEnergy: 1000
+  FuelEnergyBurnoutSpeed: 50
+  EnergyToStartFire: 50
+  Sprite: {fileID: 2163068851957377094}
 --- !u!114 &1139680027459153243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +264,6 @@ MonoBehaviour:
   CanVanish: 0
   CanDispell: 0
   CanDestruct: 1
-  CanExplode: 1
   DestructionForce: 50
 --- !u!114 &6883183448861287185
 MonoBehaviour:

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1993329806599269295}
   - component: {fileID: 3256308824353847536}
   - component: {fileID: 2163068851957377094}
+  - component: {fileID: 4473478692186409106}
   - component: {fileID: 3567996781113124856}
   - component: {fileID: 8414677664211382489}
   - component: {fileID: 6883183448861287185}
@@ -36,7 +37,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &4025243412216883124
 BoxCollider2D:
@@ -126,7 +127,7 @@ FixedJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -4.52, y: -1.267}
+  m_ConnectedAnchor: {x: -6.65, y: 1.518}
   m_DampingRatio: 0
   m_Frequency: 0
 --- !u!212 &2163068851957377094
@@ -181,6 +182,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4473478692186409106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928661177272738161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e003e27278f845b1af6baff02571817, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnergyTransfer: 0.1
+  ContainedEnergy:
+    Temperature: 0
+    Charge: 0
+    Structure: 0
+    Form: 0
+    Time: 0
+    Life: 0
+    Mind: 0
+    Magnet: 0
 --- !u!114 &3567996781113124856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,10 +217,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Burning: 0
-  MaxFuelEnergy: 0
-  CurrentFuelEnergy: 0
-  FuelEnergyBurnoutSpeed: 0
-  EnergyToStartFire: 0
+  MaxFuelEnergy: 500
+  CurrentFuelEnergy: 500
+  FuelEnergyBurnoutSpeed: 30
+  EnergyToStartFire: 50
   Sprite: {fileID: 2163068851957377094}
 --- !u!114 &8414677664211382489
 MonoBehaviour:

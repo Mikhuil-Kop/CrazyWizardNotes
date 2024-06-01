@@ -58,7 +58,7 @@ MonoBehaviour:
   uiBounds:
     serializedVersion: 2
     x: -1497
-    y: -1688
+    y: -1687
     width: 4170
     height: 3490
 --- !u!114 &114350483966674976
@@ -141,8 +141,8 @@ MonoBehaviour:
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: New Texture2D
-    path: New Texture2D
+  - name: FireParticleTexture
+    path: FireParticleTexture
     tooltip: 
     sheetType: m_NamedObject
     realType: Texture2D
@@ -3919,12 +3919,12 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 0
+  m_UICollapsed: 1
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615024}
-  m_ExposedName: New Texture2D
+  m_ExposedName: FireParticleTexture
   m_Exposed: 1
   m_Order: 2
   m_Category: 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using CrazyWizardNotes.Common;
 using CrazyWizardNotes.Common.Services;
@@ -12,13 +13,23 @@ namespace CrazyWizardNotes.Inventory
         [SerializeField]
         private RectTransform InventoryParent;
 
+        private IInputService InputService { get; set; }
+
         private Dictionary<string, IInventoryObject> InventoryItems { get; set; }
+
 
         protected override void Awake()
         {
             base.Awake();
 
+            InputService = Locate<IInputService>();
+
             InventoryItems = new Dictionary<string, IInventoryObject>();
+
+            foreach (var child in InventoryParent.GetChildren().ToArray())
+            {
+                Destroy(child.gameObject);
+            }
         }
 
         // TEST
@@ -32,17 +43,15 @@ namespace CrazyWizardNotes.Inventory
 
         protected void Update()
         {
-            var inputService = InputService.Instance;
-
-            if (inputService.GetButtonDown("mouse"))
+            if (InputService.GetButtonDown("mouse"))
             {
             }
 
-            if (inputService.GetButton("mouse"))
+            if (InputService.GetButton("mouse"))
             {
             }
 
-            if (inputService.GetButtonUp("mouse"))
+            if (InputService.GetButtonUp("mouse"))
             {
             }
         }

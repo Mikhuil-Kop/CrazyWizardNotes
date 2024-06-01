@@ -5,6 +5,6 @@ namespace CrazyWizardNotes.Model.Events
 {
     public class OnTouchEventArgs
     {
+        public ISubject Subject { get; set; }
     }
-
 }

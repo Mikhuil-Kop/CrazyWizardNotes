@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 7287029997310206245}
   - component: {fileID: 1993329806599269295}
   - component: {fileID: 2163068851957377094}
-  - component: {fileID: 2555852433866661160}
+  - component: {fileID: 4953624714106773904}
   - component: {fileID: 7758788118477861140}
+  - component: {fileID: 2555852433866661160}
   - component: {fileID: 6883183448861287185}
   m_Layer: 0
   m_Name: BookBase
@@ -161,7 +162,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2555852433866661160
+--- !u!114 &4953624714106773904
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,9 +171,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 4928661177272738161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: adebb3b0032074f7cbcc7a255c77f35f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e003e27278f845b1af6baff02571817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnergyTransfer: 0.3
+  ContainedEnergy:
+    Temperature: 0
+    Charge: 0
+    Structure: 0
+    Form: 0
+    Time: 0
+    Life: 0
+    Mind: 0
+    Magnet: 0
 --- !u!114 &7758788118477861140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,9 +196,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8c5a077fd0a402d90b5f02826134d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FuelEnergy: 0
-  FuelEnergyBurnoutSpeed: 0
-  EnergyToStartFire: 0
+  Burning: 0
+  MaxFuelEnergy: 100
+  CurrentFuelEnergy: 100
+  FuelEnergyBurnoutSpeed: 30
+  EnergyToStartFire: 10
+  Sprite: {fileID: 2163068851957377094}
+--- !u!114 &2555852433866661160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928661177272738161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adebb3b0032074f7cbcc7a255c77f35f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6883183448861287185
 MonoBehaviour:
   m_ObjectHideFlags: 0

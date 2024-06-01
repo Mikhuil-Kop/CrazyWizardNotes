@@ -1,7 +1,8 @@
-﻿using CrazyWizardNotes.Interfaces;
+﻿using CrazyWizardNotes.Environment.Components;
+using CrazyWizardNotes.Interfaces;
 using UnityEngine;
 
-namespace CrazyWizardNotes.Environment.Components
+namespace CrazyWizardNotes.Elements
 {
     public class FlammableComponent : ObjectComponentBase, IFlammable
     {
