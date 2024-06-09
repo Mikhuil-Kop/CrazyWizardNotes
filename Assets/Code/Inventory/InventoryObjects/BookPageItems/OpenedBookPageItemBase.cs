@@ -4,7 +4,7 @@ using CrazyWizardNotes.Interface;
 
 namespace CrazyWizardNotes.Inventory.OpenedBookPageItems
 {
-    public class OpenedBookPageItemBase : MonoBehaviour, IOpenedBookPageItem
+    public abstract class OpenedBookPageItemBase : MonoBehaviour, IOpenedBookPageItem
     {
         #region Поля
 
