@@ -1,12 +1,7 @@
-﻿using System;
-using System.Linq;
-using UnityEngine;
-using CrazyWizardNotes.Common;
+﻿using System.Linq;
 using CrazyWizardNotes.Interface;
-using CrazyWizardNotes.Common.Services;
 using CrazyWizardNotes.Realisation;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using UnityEngine;
 
 namespace CrazyWizardNotes.Common.Services
 {

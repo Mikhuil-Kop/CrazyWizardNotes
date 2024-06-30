@@ -1,11 +1,8 @@
-﻿using System.Xml.Linq;
-using CrazyWizardNotes.Interface;
+﻿using CrazyWizardNotes.Interface;
 
 namespace CrazyWizardNotes.Inventory
 {
-    public interface IInventoryObject : IDragger
+    public interface IInventoryObject : IInventorizable, IDragger
     {
-        XElement GetInventoryData();
-        void SetInventoryData(XElement data);
     }
 }
