@@ -16,6 +16,27 @@ namespace CrazyWizardNotes.Common.Services
             SubjectsCollectionService = Locate<ISubjectsCollectionService>();
         }
 
+        public Vector2 GetDistance(ISpacePoint point1, ISpacePoint point2)
+        {
+            var targetSpace = GetCommonSpace(point1, point2);
+            var pos1 = GetPosition(point1, targetSpace);
+            var pos2 = GetPosition(point2, targetSpace);
+
+            return pos1 - pos2;
+        }
+
+        public Vector2 GetPosition(ISpacePoint point, ISpaceContainer targetSpace)
+        {
+            var position = point.Position;
+
+            var newPosition = point.ParentSpace?
+                .ToRecursion(x => x.ParentSpace)
+                .TakeWhile(x => x.ParentSpace != targetSpace)
+                .Aggregate(position, (x, y) => y.TranslateToParentSpace(x));
+
+            return newPosition ?? position;
+        }
+
         public void AddForce(PhysicsForceParams forceParams)
         {
             var objects = SubjectsCollectionService.GetAll()
@@ -36,6 +57,16 @@ namespace CrazyWizardNotes.Common.Services
                     obj.Physical.ApplyImpulse(force);
                 }
             }
+        }
+
+        private ISpaceContainer GetCommonSpace(ISpacePoint point1, ISpacePoint point2)
+        {
+            var spaces1 = point1.ParentSpace.ToRecursion(x => x.ParentSpace).ToArray();
+            var spaces2 = point2.ParentSpace.ToRecursion(x => x.ParentSpace).ToArray();
+
+            var space = spaces1.FirstOrDefault(x => spaces2.Contains(x));
+
+            return space;
         }
     }
 

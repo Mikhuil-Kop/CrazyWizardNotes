@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections;
 
 public static class LinqExtension
 {
@@ -116,4 +117,16 @@ public static class LinqExtension
     //{
     //    return new CrazyWizardNotes.Common.SearchCollection<T>(values);
     //}
+
+    public static IEnumerable<T> ToRecursion<T>(this T root, Func<T, T> selector)
+    {
+        var now = root;
+
+        while (now != null)
+        {
+            yield return now;
+
+            now = selector.Invoke(now);
+        }
+    }
 }
