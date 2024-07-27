@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections;
+using static LinqExtension;
 
 public static class LinqExtension
 {
@@ -128,5 +129,29 @@ public static class LinqExtension
 
             now = selector.Invoke(now);
         }
+    }
+
+    public static IEnumerable<Pair<T1, T2>> ToParallel<T1, T2>(this IEnumerable<T1> col1, IEnumerable<T2> col2)
+    {
+        using var en1 = col1.GetEnumerator();
+        using var en2 = col2.GetEnumerator();
+
+        var col1Finished = false;
+        var col2Finished = false;
+
+        while (!col1Finished && !col2Finished)
+        {
+            yield return new Pair<T1, T2>
+            {
+                Item1 = en1.Current,
+                Item2 = en2.Current
+            };
+        }
+    }
+
+    public class Pair<T1, T2>
+    {
+        public T1 Item1 { get; set; }
+        public T2 Item2 { get; set; }
     }
 }

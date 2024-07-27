@@ -61,12 +61,12 @@ namespace CrazyWizardNotes.Common.Services
 
         private ISpaceContainer GetCommonSpace(ISpacePoint point1, ISpacePoint point2)
         {
-            var spaces1 = point1.ParentSpace.ToRecursion(x => x.ParentSpace).ToArray();
-            var spaces2 = point2.ParentSpace.ToRecursion(x => x.ParentSpace).ToArray();
+            var spaces1 = point1.ParentSpace.ToRecursion(x => x.ParentSpace).Reverse().ToArray();
+            var spaces2 = point2.ParentSpace.ToRecursion(x => x.ParentSpace).Reverse().ToArray();
 
-            var space = spaces1.FirstOrDefault(x => spaces2.Contains(x));
+            var space = spaces1.ToParallel(spaces2).LastOrDefault(x => x.Item1 == x.Item2);
 
-            return space;
+            return space.Item1 ?? point1.ParentSpace;
         }
     }
 

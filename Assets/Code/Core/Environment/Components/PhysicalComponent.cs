@@ -74,7 +74,11 @@ namespace CrazyWizardNotes.Environment.Components
         Vector2 IPhysical.ForceSummary => Rigidbody.totalForce;
         Vector2 IPhysical.SpeedSummary => Rigidbody.velocity;
 
+        ISpaceContainer ISpacePoint.ParentSpace { get; set; }
+
         IEnumerable<ISubject> ITouches.TouchingSubjects => TouchingSubjects;
+
+
         event Action<OnTouchEventArgs> ITouches.OnTouch
         {
             add => OnTouch += value;
