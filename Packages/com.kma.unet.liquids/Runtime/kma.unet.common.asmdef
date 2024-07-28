@@ -1,0 +1,14 @@
+{
+    "name": "kma.unet.liquids",
+    "rootNamespace": "",
+    "references": [ "kma.unet.common", "kma.unet.core", "kma.unet.calculations", "kma.unet.physics", "Unity.Mathematics"  ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using CrazyWizardNotes.Characters;
+﻿using CrazyWizardNotes.Characters.Abstractions;
+using System.Collections.Generic;
 using UnityEditor;
 
 namespace CrazyWizardNotes.Editor

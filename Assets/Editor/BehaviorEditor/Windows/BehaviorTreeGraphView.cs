@@ -1,9 +1,8 @@
-﻿using System;
+﻿using CrazyWizardNotes.Characters.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using CrazyWizardNotes.Characters;
 using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace CrazyWizardNotes.Editor
