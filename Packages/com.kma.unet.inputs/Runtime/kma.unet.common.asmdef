@@ -1,0 +1,14 @@
+{
+    "name": "kma.unet.input",
+    "rootNamespace": "",
+    "references": [ "kma.unet.common", "kma.unet.core"  ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
