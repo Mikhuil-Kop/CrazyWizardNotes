@@ -1,9 +1,10 @@
-﻿using UNet.Core.Abstractions;
+﻿using System;
+using UNet.Core.Abstractions;
 using UnityEngine;
 
 namespace UNet.Core.Realization
 {
-    public class CameraService : ICameraService
+    public class CameraService : ICameraService, IHandlesUpdate
     {
         private Camera Camera { get; }
 
@@ -15,6 +16,7 @@ namespace UNet.Core.Realization
 
         public IActor[] PointedTargets { get; private set; }
 
+        [Obsolete("Еще не доделано")]
         public IActor[] ScreenPointedTargets { get; private set; }
 
         public CameraService(Camera camera)

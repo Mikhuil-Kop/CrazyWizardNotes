@@ -6,6 +6,7 @@ namespace UNet.Core.Realization
     {
         public IUAppBuilder AppBuilder { get; internal set; }
         public IUSceneBuilder SceneBuilder { get; internal set; }
+        public IUActorBuilder ActorBuilder { get; internal set; }
         public IUServiceBuilder ServiceBuilder { get; internal set; }
     }
 }

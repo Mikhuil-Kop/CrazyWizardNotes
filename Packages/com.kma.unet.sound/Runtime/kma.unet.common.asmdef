@@ -1,7 +1,7 @@
 {
     "name": "kma.unet.sound",
     "rootNamespace": "",
-    "references": [ "kma.unet.common", "kma.unet.core" ],
+    "references": [ "kma.unet.common", "kma.unet.core", "kma.unet.physics" ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

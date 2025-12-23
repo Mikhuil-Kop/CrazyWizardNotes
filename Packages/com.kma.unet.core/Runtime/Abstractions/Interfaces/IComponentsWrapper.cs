@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace UNet.Core.Abstractions
+﻿namespace UNet.Core.Abstractions
 {
     public interface IComponentsWrapper
     {

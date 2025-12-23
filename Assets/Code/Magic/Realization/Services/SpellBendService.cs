@@ -9,12 +9,14 @@ namespace CrazyWizardNotes.Magic.Realization
 {
     public class SpellBendService : ISpellBendService, IHandlesUpdate
     {
+        private ILogger Logger { get; }
         private IPhysicsService PhysicsService { get; }
         private Dictionary<(ISpellBending, object), SpellBendingInfo> Spells { get; }
         private float SpellCatchRadius { get; }
 
-        public SpellBendService(IPhysicsService physicsService)
+        public SpellBendService(ILogger logger, IPhysicsService physicsService)
         {
+            Logger = logger;
             PhysicsService = physicsService;
 
             Spells = new Dictionary<(ISpellBending, object), SpellBendingInfo>();
@@ -24,6 +26,8 @@ namespace CrazyWizardNotes.Magic.Realization
 
         public void StartBend(ISpellBending owner, object key, ISpacePoint point)
         {
+            Logger.LogInfo("StartBend - Begin.");
+
             if (owner == null)
             {
                 throw new ArgumentNullException(nameof(owner));
@@ -63,10 +67,14 @@ namespace CrazyWizardNotes.Magic.Realization
             Spells.Add(new(owner, key), spellInfo);
 
             InvokeOnStartBend(spellInfo);
+
+            Logger.LogInfo("StartBend - End.");
         }
 
         public void UpdateBend(ISpellBending owner, object key, ISpacePoint point)
         {
+            Logger.LogInfo("UpdateBend - Begin.");
+
             if (owner == null)
             {
                 throw new ArgumentNullException(nameof(owner));
@@ -80,10 +88,14 @@ namespace CrazyWizardNotes.Magic.Realization
             }
 
             spell.TargetBendingPosition = point;
+
+            Logger.LogInfo("UpdateBend - End.");
         }
 
         public void EndBend(ISpellBending owner, object key)
         {
+            Logger.LogInfo("EndBend - Begin.");
+
             if (owner == null)
             {
                 throw new ArgumentNullException(nameof(owner));
@@ -97,10 +109,14 @@ namespace CrazyWizardNotes.Magic.Realization
             }
 
             InvokeOnEndBend(spell);
+
+            Logger.LogInfo("EndBend - End.");
         }
 
         public void EndBend(ISpellBending owner)
         {
+            Logger.LogInfo("EndBend - Begin.");
+
             if (owner == null)
             {
                 throw new ArgumentNullException(nameof(owner));
@@ -112,6 +128,8 @@ namespace CrazyWizardNotes.Magic.Realization
             {
                 EndBend(owner, key);
             }
+
+            Logger.LogInfo("EndBend - End.");
         }
 
         public void OnUpdate(float deltaTime)

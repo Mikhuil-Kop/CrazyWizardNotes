@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UNet.Core.Abstractions;
@@ -7,8 +8,8 @@ using Logger = UnityEngine.Debug;
 namespace UNet.Core.Realization
 {
     public class UNetServiceProvider : IUServiceProvider
-	{
-		private ServiceScopeType Scope { get; }
+    {
+        private ServiceScopeType Scope { get; }
         private UNetServiceProvider ParentServiceProvider { get; }
         private LinkedList<UNetServiceSetting> Factories { get; }
 		private Stack<CreatedService> CreatedServices { get; }
@@ -40,24 +41,53 @@ namespace UNet.Core.Realization
         {
             if (Scope != ServiceScopeType.Application && scopeType != ServiceScopeType.Application && (byte)scopeType != ((byte)Scope + 1))
             {
-                throw new Exception($"Cannot create Scope with type {scopeType}. Expecting {Scope + 1}.");
+                throw new ArgumentException($"Cannot create Scope with type {scopeType}. Expecting {Scope + 1}.", nameof(scopeType));
             }
 
             return new UNetServiceProvider(scopeType, this, null);
         }
 
-        public void Add(Type targetType, Func<IServiceProvider, object> factory)
+        public void Add(Type targetType, string key, Func<IServiceProvider, object> factory)
         {
             var setting = new UNetServiceSetting
             {
                 ServiceScopeType = Scope,
                 Factory = factory,
+                OriginalType = null,
                 TargetType = targetType,
+                Key = key,
             };
 
             Factories.AddLast(setting);
 
             Logger.Log($"Added object of type \"{targetType.Name}\".");
+        }
+
+        public void Add(Type targetType, string key, Type originalType)
+        {
+            var setting = new UNetServiceSetting
+            {
+                ServiceScopeType = Scope,
+                Factory = GetDefaultFactory(originalType),
+                OriginalType = originalType,
+                TargetType = targetType,
+                Key = key,
+            };
+
+            Factories.AddLast(setting);
+
+            Logger.Log($"Added object of type \"{targetType.Name}\".");
+        }
+
+        public IEnumerable<UNetServiceProviderItem> GetServicesInfo()
+        {
+            return Factories.Select(x => new UNetServiceProviderItem
+            {
+                OriginalType = x.OriginalType,
+                TargetType = x.TargetType,
+                Key = x.Key,
+                IsCreated = CreatedServices.Any(y => (y.Key == x.Key || x.Key == null) && x.TargetType.IsAssignableFrom(y.Service.GetType()))
+            });
         }
 
         public object GetService(Type serviceType)
@@ -110,9 +140,14 @@ namespace UNet.Core.Realization
 
                     return service;
                 }
+                else if (setting.ServiceScopeType > Scope)
+                {
+                    throw new KeyNotFoundException($"No registred service for \"{serviceType.Name}\" and key \"{key}\". \"{setting.ServiceScopeType}\" > \"{Scope}\".");
+                }
                 else
                 {
                     var provider = this.ToRecursion(x => x.ParentServiceProvider).First(x => x.Scope == setting.ServiceScopeType);
+
                     return provider.IntertanlGetService(serviceType, key);
                 }
             }
@@ -144,11 +179,19 @@ namespace UNet.Core.Realization
 
             return (s) => constuctor.Invoke(parameters.Select(x => s.GetService(x)).ToArray());
         }
-    
+
         private class CreatedService
         {
             public string Key { get; set; }
             public object Service { get; set; }
+        }
+
+        public class UNetServiceProviderItem
+        {
+            public Type TargetType { get; set; }
+            public Type OriginalType { get; set; }
+            public string Key { get; set; }
+            public bool IsCreated { get; set; }
         }
     }
 }

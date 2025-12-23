@@ -19,10 +19,12 @@ namespace UNet.Core.Realization
         private static bool Initialized { get; set; }
         private static IUServiceProvider CoreServiceProvider { get; set; }
         private static IUServiceProvider ApplicationServiceProvider { get; set; }
-        private static Action<IUServiceProvider>[] ApplicationActions { get; set; }
-        private static Func<IUServiceProvider, Task>[] ApplicationAsyncActions { get; set; }
-        private static Action<IUServiceProvider>[] SceneActions { get; set; }
-        private static Func<IUServiceProvider, Task>[] SceneAsyncActions { get; set; }
+        private static Action<IApplicationCreateContext>[] ApplicationActions { get; set; }
+        private static Func<IApplicationCreateContext, Task>[] ApplicationAsyncActions { get; set; }
+        private static Action<ISceneCreateContext>[] SceneActions { get; set; }
+        private static Func<ISceneCreateContext, Task>[] SceneAsyncActions { get; set; }
+        private static Action<IActorCreateContext>[] ActorActions { get; set; }
+        private static Func<IActorCreateContext, Task>[] ActorAsyncActions { get; set; }
 
         #endregion
 
@@ -30,6 +32,13 @@ namespace UNet.Core.Realization
 
         private IUServiceProvider SceneServiceProvider { get; set; }
         private List<object> SceneComponents { get; set; }
+        public IReadonlyTags Tags { get; set; }
+
+        #endregion
+
+        #region Поля Unity
+
+        public string[] tags;
 
         #endregion
 
@@ -45,10 +54,52 @@ namespace UNet.Core.Realization
             }
 
             InitializeScene();
+
+            foreach (var component in SceneComponents.As<IHandlesAwake>())
+            {
+                component.OnAwake();
+            }
+        }
+
+        protected virtual void Start()
+        {
+            foreach (var component in SceneComponents.As<IHandlesStart>())
+            {
+                component.OnStart();
+            }
+        }
+
+        protected virtual void Update()
+        {
+            foreach (var component in SceneComponents.As<IHandlesUpdate>())
+            {
+                component.OnUpdate(Time.deltaTime);
+            }
+        }
+
+        protected virtual void LateUpdate()
+        {
+            foreach (var component in SceneComponents.As<IHandlesLateUpdate>())
+            {
+                component.OnLateUpdate(Time.deltaTime);
+            }
+        }
+
+        protected virtual void FixedUpdate()
+        {
+            foreach (var component in SceneComponents.As<IHandlesFixedUpdate>())
+            {
+                component.OnFixedUpdate(Time.deltaTime);
+            }
         }
 
         protected override void OnDestroy()
         {
+            foreach (var component in SceneComponents.As<IHandlesDestroy>())
+            {
+                component.OnDestroy();
+            }
+
             SceneServiceProvider?.Dispose();
         }
 
@@ -63,12 +114,14 @@ namespace UNet.Core.Realization
 
             var appBuilder = new UNetAppBuilder();
             var sceneBuilder = new UNetSceneBuilder();
+            var actorBuilder = new UNetActorBuilder();
             var serviceBuilder = new UNetServiceBuilder();
 
             var context = new UNetStartupContext
             {
                 AppBuilder = appBuilder,
                 SceneBuilder = sceneBuilder,
+                ActorBuilder = actorBuilder,
                 ServiceBuilder = serviceBuilder,
             };
 
@@ -81,16 +134,24 @@ namespace UNet.Core.Realization
             ApplicationAsyncActions = appBuilder.GetAsyncActions();
             SceneActions = sceneBuilder.GetActions();
             SceneAsyncActions = sceneBuilder.GetAsyncActions();
+            ActorActions = actorBuilder.GetActions();
+            ActorAsyncActions = actorBuilder.GetAsyncActions();
+
+            var appContext = new UNetApplicationCreateContext
+            {
+                ServiceProvider = ApplicationServiceProvider,
+            };
 
             foreach (var action in ApplicationActions)
             {
-                action.Invoke(ApplicationServiceProvider);
+                action.Invoke(appContext);
             }
         }
 
         private void InitializeScene()
         {
             SceneServiceProvider = ApplicationServiceProvider.BeginScope(ServiceScopeType.Scene);
+            Tags = new Tags(tags);
 
             // ComponentsInitialization
 
@@ -121,9 +182,32 @@ namespace UNet.Core.Realization
 
             // Actions Execution
 
+            var sceneContext = new UNetSceneCreateContext
+            {
+                ServiceProvider = SceneServiceProvider,
+                Logger = SceneServiceProvider.GetService<Abstractions.ILogger>(),
+                Scene = this,
+            };
+
             foreach (var action in SceneActions)
             {
-                action.Invoke(SceneServiceProvider);
+                action.Invoke(sceneContext);
+            }
+        }
+
+        internal void InitializeActor(IActor actor, IUServiceProvider provider)
+        {
+            var actorContext = new UNetActorCreateContext
+            {
+                ServiceProvider = provider,
+                Logger = provider.GetService<Abstractions.ILogger>(),
+                Scene = this,
+                Actor = actor,
+            };
+
+            foreach (var asyncAction in ActorActions)
+            {
+                asyncAction.Invoke(actorContext);
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UNet.Common;
 
 namespace UNet.Core.Abstractions
 {
@@ -7,6 +8,7 @@ namespace UNet.Core.Abstractions
     {
         bool Is<T>() where T : class;
         T As<T>() where T : class;
+        IReadonlyTags Tags { get; }
     }
 
     public static class ActorsExtensions

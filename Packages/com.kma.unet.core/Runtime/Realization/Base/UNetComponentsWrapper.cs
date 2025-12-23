@@ -21,7 +21,7 @@ namespace UNet.Core.Realization
             {
                 var names = ComponentsNames.Concat(ComponentsObjects.Select(x => x.name));
 
-                Components = names.Select(x => serviceProvider.GetKeyedRequiredService<object>(name)).ToArray();
+                Components = names.Select(x => serviceProvider.GetKeyedRequiredService<object>(x)).ToArray();
             }
 
             return Components;

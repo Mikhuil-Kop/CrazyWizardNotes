@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UNet.Common;
 using UNet.Core.Abstractions;
 using UnityEngine;
 
@@ -10,10 +11,17 @@ namespace UNet.Core.Realization
     /// </summary>
     public class UNetActor : MonoBehaviour, IActor
     {
+        #region Поля Unity
+
+        public string[] tags;
+
+        #endregion
+
         #region Поля
 
-        private IUServiceProvider ServiceProvider { get; set; }
-        private List<object> Components { get; set; }
+        public IUServiceProvider ServiceProvider { get; private set; } // TODO: закрыть
+        public List<object> Components { get; private set; } // TODO: закрыть
+        public IReadonlyTags Tags { get; set; }
 
         #endregion
 
@@ -31,6 +39,8 @@ namespace UNet.Core.Realization
 
         private void Initialize()
         {
+            Tags = new Tags(tags);
+
             var scene = UNetScene.Instance;
             var provider = scene.GetServiceProvider().BeginScope(ServiceScopeType.Actor);
 
@@ -56,6 +66,8 @@ namespace UNet.Core.Realization
                     provider.Add(option);
                 }
             }
+
+            scene.InitializeActor(this, provider);
 
             ServiceProvider = provider;
             Components = origins.Concat(componentsWrappers.SelectMany(x => x.GetComponents(provider))).ToList();

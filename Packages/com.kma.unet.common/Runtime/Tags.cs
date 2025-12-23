@@ -17,7 +17,7 @@ namespace UNet.Common
     /// Все операции возвращают новые экземпляры, не изменяя исходный.
     /// </para>
     /// </summary>
-    public class Tags : IEnumerable<string>
+    public class Tags : IEnumerable<string>, IReadonlyTags
     {
         private HashSet<string> TagsSet { get; set; }
 
@@ -75,7 +75,7 @@ namespace UNet.Common
         /// <param name="tag">Проверяемый тег. Не может быть null.</param>
         /// <returns>true, если тег присутствует; иначе false.</returns>
         /// <exception cref="ArgumentNullException">Если tag равен null.</exception>
-        public bool Contains(string tag)
+        public bool Has(string tag)
         {
             if (tag == null) throw new ArgumentNullException(nameof(tag));
             return TagsSet.Contains(tag);
