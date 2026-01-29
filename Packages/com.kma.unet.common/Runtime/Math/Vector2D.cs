@@ -74,7 +74,7 @@ namespace UNet
 
         public static implicit operator Vector3(Vector2D param)
         {
-            return new Vector2(param.X, param.Y);
+            return new Vector3(param.X, param.Y, 0);
         }
 
         public static implicit operator Vector2D(Vector3 param)

@@ -21,7 +21,7 @@ namespace CrazyWizardNotes.Magic.Realization
 
             Spells = new Dictionary<(ISpellBending, object), SpellBendingInfo>();
 
-            SpellCatchRadius = 0.3f;
+            SpellCatchRadius = 2f;
         }
 
         public void StartBend(ISpellBending owner, object key, ISpacePoint point)

@@ -2,6 +2,6 @@
 {
     public interface IReadSource
     {
-        string GetReadText(IReadHandler reading);
+        ReadText GetReadText(IReadHandler reading);
     }
 }

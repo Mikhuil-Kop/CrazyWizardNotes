@@ -10,7 +10,7 @@ namespace CrazyWizardNotes.Main.Wrappers
             return new[]
             {
                 typeof(UNet.Physics.Realization.PhysicalObject),
-                typeof(CrazyWizardNotes.Reading.Realization.ReadSource),
+                typeof(Reading.Realization.ResourcesReadSource),
             };
         }
     }

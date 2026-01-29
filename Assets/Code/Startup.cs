@@ -1,5 +1,4 @@
-﻿using CrazyWizardNotes.Reading.Abstractions;
-using UNet.Core.Abstractions;
+﻿using UNet.Core.Abstractions;
 
 namespace Assets.Code
 {
@@ -57,6 +56,12 @@ namespace Assets.Code
             {
                 var s = x.ServiceProvider.GetService<IActorsCollectionService>();
                 s.AddActor(x.Actor);
+            });
+
+            context.ActorBuilder.RunPerActorDestroy(x =>
+            {
+                var s = x.ServiceProvider.GetService<IActorsCollectionService>();
+                s.RemoveActor(x.Actor);
             });
 
             #endregion

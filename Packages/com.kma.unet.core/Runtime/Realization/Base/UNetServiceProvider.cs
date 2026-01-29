@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UNet.Core.Abstractions;
@@ -47,7 +46,7 @@ namespace UNet.Core.Realization
             return new UNetServiceProvider(scopeType, this, null);
         }
 
-        public void Add(Type targetType, string key, Func<IServiceProvider, object> factory)
+        public void Add(Type targetType, string key, Func<IKeyedServiceProvider, object> factory)
         {
             var setting = new UNetServiceSetting
             {
@@ -58,7 +57,7 @@ namespace UNet.Core.Realization
                 Key = key,
             };
 
-            Factories.AddLast(setting);
+            Factories.AddFirst(setting);
 
             Logger.Log($"Added object of type \"{targetType.Name}\".");
         }
@@ -74,7 +73,7 @@ namespace UNet.Core.Realization
                 Key = key,
             };
 
-            Factories.AddLast(setting);
+            Factories.AddFirst(setting);
 
             Logger.Log($"Added object of type \"{targetType.Name}\".");
         }
@@ -165,19 +164,23 @@ namespace UNet.Core.Realization
             }
         }
 
-        private Func<IServiceProvider, object> GetDefaultFactory(Type type)
+        private Func<IKeyedServiceProvider, object> GetDefaultFactory(Type type)
         {
             var constuctor = type.GetConstructors().SingleOrDefault()
                 ?? throw new Exception($"—ервис {type.FullName} должен иметь только один конструктор.");
 
-            var parameters = constuctor.GetParameters().Select(x => x.ParameterType).ToArray();
+            var parameters = constuctor.GetParameters().Select(x => new
+            {
+                Type = x.ParameterType,
+                Key = x.GetCustomAttributes(typeof(FromKeyAttribute), true).Select(x => x as FromKeyAttribute).FirstOrDefault(x => x != null)?.Key
+            }).ToArray();
 
-            if (parameters.Any(x => x.IsAssignableFrom(type)))
+            if (parameters.Any(x => x.Type.IsAssignableFrom(type)))
             {
                 throw new Exception($"¬ конструкторе {constuctor.DeclaringType} обнаружена циклическа€ зависимость.");
             }
 
-            return (s) => constuctor.Invoke(parameters.Select(x => s.GetService(x)).ToArray());
+            return (s) => constuctor.Invoke(parameters.Select(x => s.GetKeyedService(x.Type, x.Key)).ToArray());
         }
 
         private class CreatedService

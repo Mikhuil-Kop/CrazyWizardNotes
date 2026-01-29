@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using UNet.Core.Realization;
 using UnityEditor;
 
@@ -48,6 +49,10 @@ namespace CrazyWizardNotes.Editor
             }
 
             EditorGUILayout.EndFoldoutHeaderGroup();
+        }
+
+        public static void LayoutEnum<T, E>(Expression<Func<T, string>> property) where T : class where E : Enum
+        {
         }
     }
 }

@@ -1,8 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UNet.Common;
 using UNet.Core.Abstractions;
+using UnityEditor.VersionControl;
 using UnityEngine;
+using ILogger = UNet.Core.Abstractions.ILogger;
 
 namespace UNet.Core.Realization
 {
@@ -21,6 +24,8 @@ namespace UNet.Core.Realization
 
         public IUServiceProvider ServiceProvider { get; private set; } // TODO: закрыть
         public List<object> Components { get; private set; } // TODO: закрыть
+        public Queue<Action<IActorCreateContext>> ActorActions { get; } = new Queue<Action<IActorCreateContext>>(); // TODO: закрыть
+        public Queue<Action<IActorDestroyContext>> DestroyActions { get; } = new Queue<Action<IActorDestroyContext>>(); // TODO: закрыть
         public IReadonlyTags Tags { get; set; }
 
         #endregion
@@ -35,6 +40,14 @@ namespace UNet.Core.Realization
         public T As<T>() where T : class
         {
             return Components.FirstOrDefault(x => x is T) as T;
+        }
+
+        public void InsertContext(params Action<IActorCreateContext>[] context)
+        {
+            foreach (var action in context)
+            {
+                ActorActions.Enqueue(action);
+            }
         }
 
         private void Initialize()
@@ -127,6 +140,9 @@ namespace UNet.Core.Realization
             {
                 component.OnDestroy();
             }
+
+            var scene = UNetScene.Instance;
+            scene.DestroyActor(this, ServiceProvider);
 
             Dispose();
         }

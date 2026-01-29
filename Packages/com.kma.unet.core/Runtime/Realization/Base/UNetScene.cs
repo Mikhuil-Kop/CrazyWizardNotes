@@ -25,6 +25,7 @@ namespace UNet.Core.Realization
         private static Func<ISceneCreateContext, Task>[] SceneAsyncActions { get; set; }
         private static Action<IActorCreateContext>[] ActorActions { get; set; }
         private static Func<IActorCreateContext, Task>[] ActorAsyncActions { get; set; }
+        private static Action<IActorDestroyContext>[] ActorActionsDestroy { get; set; }
 
         #endregion
 
@@ -136,6 +137,7 @@ namespace UNet.Core.Realization
             SceneAsyncActions = sceneBuilder.GetAsyncActions();
             ActorActions = actorBuilder.GetActions();
             ActorAsyncActions = actorBuilder.GetAsyncActions();
+            ActorActionsDestroy = actorBuilder.GetDestroyActions();
 
             var appContext = new UNetApplicationCreateContext
             {
@@ -195,7 +197,7 @@ namespace UNet.Core.Realization
             }
         }
 
-        internal void InitializeActor(IActor actor, IUServiceProvider provider)
+        internal void InitializeActor(UNetActor actor, IUServiceProvider provider)
         {
             var actorContext = new UNetActorCreateContext
             {
@@ -205,9 +207,29 @@ namespace UNet.Core.Realization
                 Actor = actor,
             };
 
+            foreach (var asyncAction in actor.ActorActions)
+            {
+                asyncAction.Invoke(actorContext);
+            }
+
             foreach (var asyncAction in ActorActions)
             {
                 asyncAction.Invoke(actorContext);
+            }
+        }
+
+        internal void DestroyActor(UNetActor actor, IUServiceProvider provider)
+        {
+            var actorContext = new UNetActorDestroyContext
+            {
+                ServiceProvider = provider,
+                Logger = provider.GetService<Abstractions.ILogger>(),
+                Scene = this,
+                Actor = actor,
+            };
+            foreach (var action in ActorActionsDestroy)
+            {
+                action.Invoke(actorContext);
             }
         }
 

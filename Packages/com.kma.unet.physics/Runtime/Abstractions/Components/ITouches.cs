@@ -6,7 +6,7 @@ namespace UNet.Physics.Abstractions
 {
     public interface ITouches
     {
-        IEnumerable<IActor> TouchingSubjects { get; }
+        IEnumerable<IActor> TouchingActors { get; }
         event Action<OnTouchEventArgs> OnTouch;
     }
 }

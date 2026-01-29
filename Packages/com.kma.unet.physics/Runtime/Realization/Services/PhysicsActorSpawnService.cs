@@ -20,10 +20,16 @@ namespace UNet.Physics.Realization
             var prefab = Resources.Load<GameObject>($"Actors/{actorId}");
             var gameObject = GameObject.Instantiate(prefab, spawnPoint.Position, Quaternion.identity, ActorsRootTransform);
             var actor = gameObject.GetComponent<IActor>();
-            var point = gameObject.GetComponent<IEditableSpacePoint>();
 
-            point.ParentSpace = spawnPoint.ParentSpace;
-            point.Position = spawnPoint.Position;
+            gameObject.transform.position = spawnPoint.Position;
+            actor.InsertContext(onCreate);
+
+            //var hasSpacePoint = actor.As<IHasSpacePoint>();
+
+            //if (hasSpacePoint != null)
+            //{
+            //    hasSpacePoint.SpacePoint = spawnPoint;
+            //}
         }
 
         public void SpawnActor(string actorId, Action<IActorCreateContext> onCreate = null)

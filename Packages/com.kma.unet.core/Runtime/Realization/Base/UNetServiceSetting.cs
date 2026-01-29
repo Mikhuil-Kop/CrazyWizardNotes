@@ -9,6 +9,6 @@ namespace UNet.Core.Realization
         public Type TargetType { get; set; }
         public Type OriginalType { get; set; }
         public ServiceScopeType ServiceScopeType { get; set; }
-        public Func<IServiceProvider, object> Factory { get; set; }
+        public Func<IKeyedServiceProvider, object> Factory { get; set; }
     }
 }

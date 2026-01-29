@@ -2,6 +2,6 @@
 {
     public interface IReadHandler
     {
-
+        string GetKnownText(ReadText text);
     }
 }

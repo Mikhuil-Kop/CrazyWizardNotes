@@ -1,4 +1,5 @@
 ﻿using UNet.Core.Abstractions;
+using UNet.Physics.Abstractions;
 using UNet.Sound.Abstractions;
 
 namespace UNet.Sound.Realization
@@ -6,12 +7,14 @@ namespace UNet.Sound.Realization
     public class SoundService : ISoundService
     {
         private IActorsCollectionService ActorsCollectionService { get; set; }
+        private IPhysicsService PhysicsService { get; set; }
 
         public event OnSoundRecievedEventHandler OnSoundRecieved;
 
-        public SoundService(IActorsCollectionService actorsCollectionService)
+        public SoundService(IActorsCollectionService actorsCollectionService, IPhysicsService physicsService)
         {
             ActorsCollectionService = actorsCollectionService;
+            PhysicsService = physicsService;
         }
 
         public void MakeSound(ISoundSource source, string sound, float volume)
@@ -24,13 +27,15 @@ namespace UNet.Sound.Realization
             {
                 Sound = sound,
                 Volume = volume,
-                Source = source
+                Source = source,
             };
 
             OnSoundRecieved?.Invoke(args);
 
             foreach (var reciever in recievers)
             {
+                args.Distance = PhysicsService.GetDistance(source.SoundSourcePosition, reciever.SoundRecieverPosition).Magnitude;
+
                 reciever.RecieveSound(source, sound, volume);
             }
         }

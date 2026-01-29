@@ -6,21 +6,22 @@ using UnityEngine;
 
 namespace UNet.Physics.Realization
 {
-    public class PhysicalObject : IPhysical, ISpacePoint, ISpaceObject, IEditableSpacePoint, ITouches, IMovable
+    public class PhysicalObject : IPhysical, IHasSpaceObject, ITouches, IMovable, IHandlesStart
     {
         #region Поля
 
+        private IPhysicsService PhysicsService { get; }
         private Transform Transform { get; }
         private Rigidbody2D Rigidbody { get; }
+        private LinkedList<IActor> TouchingActors { get; set; }
 
-        public LinkedList<IActor> TouchingSubjects { get; set; }
-
-        public PhysicalObject(Transform transform, Rigidbody2D physicsBody2D)
+        public PhysicalObject(IPhysicsService physicsService, Transform transform, Rigidbody2D physicsBody2D)
         {
+            PhysicsService = physicsService;
             Transform = transform;
             Rigidbody = physicsBody2D;
 
-            TouchingSubjects = new LinkedList<IActor>();
+            TouchingActors = new LinkedList<IActor>();
         }
 
         #endregion
@@ -29,35 +30,66 @@ namespace UNet.Physics.Realization
 
         public ISpaceContainer ParentSpace { get; set; }
 
-        [Obsolete("Должно set-ится через функцию")]
-        public Vector2D Position { get => Transform.position; set => Transform.position = value; }
-        [Obsolete("Должно set-ится через функцию")]
-        public Vector2D Size { get => Transform.localScale; set => Transform.localScale = value; }
-        [Obsolete("Должно set-ится через функцию")]
-        public float Rotation { get => Transform.rotation.z; set => Transform.rotation = Quaternion.Euler(0, 0, value); }
-
         public float Mass => Rigidbody.mass;
         public Vector2D ForceSummary => Rigidbody.totalForce;
         public Vector2D SpeedSummary => Rigidbody.linearVelocity;
 
-        IEnumerable<IActor> ITouches.TouchingSubjects => TouchingSubjects;
+        public ISpaceObject SpaceObject { get => GetSpace(); set => SetSpace(value); }
+        public ISpacePoint SpacePoint { get => GetSpace(); set => SetSpace(value); }
+
+        IEnumerable<IActor> ITouches.TouchingActors => TouchingActors;
+
         public event Action<OnTouchEventArgs> OnTouch;
 
         public void ApplyForce(Vector2D force) => Rigidbody.AddForce(force, ForceMode2D.Force);
         public void ApplyImpulse(Vector2D force) => Rigidbody.AddForce(force, ForceMode2D.Impulse);
-        public void Move(Vector2D delta) => Rigidbody.MovePosition(Position + delta);
+        public void Move(Vector2D delta) => Rigidbody.MovePosition(Transform.position + (Vector3)delta);
+
+        private ISpaceObject GetSpace()
+        {
+            ParentSpace ??= PhysicsService.GetDefaultSpacePoint(Vector2D.Zero).ParentSpace;
+
+            return new VectorSpaceObject()
+            {
+                ParentSpace = ParentSpace,
+                Position = Transform.position,
+                Size = Transform.localScale,
+                Rotation = Transform.eulerAngles.z
+            };
+        }
+
+        private void SetSpace(ISpacePoint point)
+        {
+            ParentSpace = point.ParentSpace;
+            Rigidbody.position = point.Position;
+
+            if (point is not ISpaceObject)
+            {
+                return;
+            }
+
+            var obj = point as ISpaceObject;
+
+            Transform.localScale = new Vector3(obj.Size.X, obj.Size.Y, 1);
+            Transform.eulerAngles = new Vector3(0, 0, obj.Rotation);
+        }
 
         #endregion
 
         #region События Unity
 
-        protected virtual void OnCollisionEnter(Collision c)
+        public void OnStart()
+        {
+            Transform.gameObject.AddComponent<CollisionTriggerProxy>().Initialize(this);
+        }
+
+        protected virtual void OnCollisionEnter2D(Collision2D c)
         {
             var actors = c.gameObject.GetComponents<IActor>();
 
             foreach (var actor in actors)
             {
-                TouchingSubjects.AddFirst(actor);
+                TouchingActors.AddFirst(actor);
             }
 
             foreach (var actor in actors)
@@ -69,13 +101,13 @@ namespace UNet.Physics.Realization
             }
         }
 
-        protected virtual void OnTriggerEnter(Collider c)
+        protected virtual void OnTriggerEnter2D(Collider2D c)
         {
             var actors = c.gameObject.GetComponents<IActor>();
 
             foreach (var actor in actors)
             {
-                TouchingSubjects.AddFirst(actor);
+                TouchingActors.AddFirst(actor);
             }
 
             foreach (var actor in actors)
@@ -87,24 +119,50 @@ namespace UNet.Physics.Realization
             }
         }
 
-        protected virtual void OnCollisionExit(Collision c)
+        protected virtual void OnCollisionExit2D(Collision2D c)
         {
             var actors = c.gameObject.GetComponents<IActor>();
 
             foreach (var actor in actors)
             {
-                TouchingSubjects.Remove(actor);
+                TouchingActors.Remove(actor);
             }
         }
 
-        protected virtual void OnTriggerExit(Collider c)
+        protected virtual void OnTriggerExit2D(Collider2D c)
         {
             var actors = c.gameObject.GetComponents<IActor>();
 
             foreach (var actor in actors)
             {
-                TouchingSubjects.Remove(actor);
+                TouchingActors.Remove(actor);
             }
+        }
+
+        #endregion
+
+        #region Внутренние классы
+
+        private class VectorSpaceObject : ISpaceObject
+        {
+            public ISpaceContainer ParentSpace { get; set; }
+            public Vector2D Position { get; set; }
+            public Vector2D Size { get; set; }
+            public float Rotation { get; set; }
+        }
+
+        public class CollisionTriggerProxy : MonoBehaviour
+        {
+            private PhysicalObject Owner { get; set; }
+            public void Initialize(PhysicalObject owner)
+            {
+                Owner = owner;
+            }
+
+            public void OnCollisionEnter2D(Collision2D c) => Owner.OnCollisionEnter2D(c);
+            public void OnTriggerEnter2D(Collider2D c) => Owner.OnTriggerEnter2D(c);
+            public void OnCollisionExit2D(Collision2D c) => Owner.OnCollisionExit2D(c);
+            public void OnTriggerExit2D(Collider2D c) => Owner.OnTriggerExit2D(c);
         }
 
         #endregion

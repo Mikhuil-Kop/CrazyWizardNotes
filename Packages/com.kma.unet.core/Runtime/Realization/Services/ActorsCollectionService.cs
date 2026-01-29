@@ -12,9 +12,14 @@ namespace UNet.Core.Realization
             Collection = new LinkedList<IActor>();
         }
 
-        public void AddActor(IActor subject)
+        public void AddActor(IActor actor)
         {
-            Collection.AddLast(subject);
+            Collection.AddLast(actor);
+        }
+
+        public void RemoveActor(IActor actor)
+        {
+            Collection.Remove(actor);
         }
 
         public IEnumerable<IActor> GetAll()

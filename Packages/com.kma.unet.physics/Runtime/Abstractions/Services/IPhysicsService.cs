@@ -15,6 +15,21 @@ namespace UNet.Physics.Abstractions
 
     public static class PhysicsServiceExtensions
     {
+        public static Vector2D GetDistance(this IPhysicsService service, IHasSpacePoint point1, IHasSpacePoint point2)
+        {
+            return service.GetDistance(point1.SpacePoint, point2.SpacePoint);
+        }
+
+        public static Vector2D GetDistance(this IPhysicsService service, ISpacePoint point1, IHasSpacePoint point2)
+        {
+            return service.GetDistance(point1, point2.SpacePoint);
+        }
+
+        public static Vector2D GetDistance(this IPhysicsService service, IHasSpacePoint point1, ISpacePoint point2)
+        {
+            return service.GetDistance(point1.SpacePoint, point2);
+        }
+
         public static void AddCircleGravity(this IPhysicsService service, Vector2D center, float force)
         {
             var forceParams = new PhysicsForceParams()

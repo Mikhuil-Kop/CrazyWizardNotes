@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UNet.Common;
 
@@ -6,9 +7,10 @@ namespace UNet.Core.Abstractions
 {
     public interface IActor
     {
+        IReadonlyTags Tags { get; }
         bool Is<T>() where T : class;
         T As<T>() where T : class;
-        IReadonlyTags Tags { get; }
+        void InsertContext(params Action<IActorCreateContext>[] context);
     }
 
     public static class ActorsExtensions

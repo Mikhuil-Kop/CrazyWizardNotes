@@ -1,5 +1,6 @@
 ﻿using CrazyWizardNotes.Magic.Abstractions;
 using System.Linq;
+using UNet.Core.Abstractions;
 using UNet.Physics.Abstractions;
 using UNet.Sound.Abstractions;
 
@@ -7,11 +8,13 @@ namespace CrazyWizardNotes.Magic.Realization
 {
     public class SpellParticleService : ISpellParticleService
     {
+        private IPhysicsActorSpawnService SpawnService { get; }
         private IPhysicsService PhysicsService { get; }
         private ISoundService SoundService { get; }
 
-        public SpellParticleService(IPhysicsService physicsService, ISoundService soundService)
+        public SpellParticleService(IPhysicsService physicsService, ISoundService soundService, IPhysicsActorSpawnService physicsActorSpawnService)
         {
+            SpawnService = physicsActorSpawnService;
             PhysicsService = physicsService;
             SoundService = soundService;
 
@@ -27,13 +30,16 @@ namespace CrazyWizardNotes.Magic.Realization
 
             foreach (var s in spellWords)
             {
-                CreateParticle(s);
+                CreateParticle(s, args.Source.SoundSourcePosition);
             }
         }
 
-        private void CreateParticle(string spellWord)
+        private void CreateParticle(string spellWord, ISpacePoint point)
         {
-            UnityEngine.Debug.Log($"Creating particle for spell word: {spellWord}");
+            SpawnService.SpawnActor("Magic/Particle", point, x =>
+            {
+                x.ServiceProvider.Add("SpellWord", spellWord);
+            });
         }
     }
 }

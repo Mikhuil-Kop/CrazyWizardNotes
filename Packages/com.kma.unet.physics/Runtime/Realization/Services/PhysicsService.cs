@@ -31,16 +31,18 @@ namespace UNet.Physics.Realization
             }
 
             return ActorsCollectionService.GetAll()
-                .Where(x => CheckSpacePointCondition(conditions, x.As<ISpacePoint>()))
+                .Where(x => CheckSpacePointCondition(conditions, x.As<IHasSpacePoint>()))
                 .ToArray();
         }
 
-        private bool CheckSpacePointCondition(PhysicsConditionParams conditions, ISpacePoint point)
+        private bool CheckSpacePointCondition(PhysicsConditionParams conditions, IHasSpacePoint obj)
         {
-            if (point == null)
+            if (obj == null)
             {
                 return false;
             }
+
+            var point = obj.SpacePoint;
 
             if (conditions.ShapeType == PhysicsShapeType.Square)
             {
