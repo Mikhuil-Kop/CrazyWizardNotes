@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace CrazyWizardNotes.Main.Wrappers
 {
-    internal class ParticleWrapper : TypedWrapperBase
+    public class ParticleWrapper : TypedWrapperBase
     {
-        public override IEnumerable<Type> GetWrappedTypes()
+        protected override IEnumerable<Type> GetWrappedTypes()
         {
             return new Type[]
             {

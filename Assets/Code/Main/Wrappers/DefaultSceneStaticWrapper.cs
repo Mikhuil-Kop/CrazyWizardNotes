@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace CrazyWizardNotes.Main.Wrappers
 {
-    public class DefaultSceneStaticWrapper : TypedWrapperBase, IOptionsWrapper
+    public class DefaultSceneStaticWrapper : TypedWrapperBase
     {
         public Camera Camera;
 
-        public object[] GetOptions()
+        protected override IEnumerable<object> GetObjects()
         {
             return new object[]
             {
@@ -18,7 +18,7 @@ namespace CrazyWizardNotes.Main.Wrappers
             };
         }
 
-        public override IEnumerable<Type> GetWrappedTypes()
+        protected override IEnumerable<Type> GetWrappedTypes()
         {
             return new Type[]
             {

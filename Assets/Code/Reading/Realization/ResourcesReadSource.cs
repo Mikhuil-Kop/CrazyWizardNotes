@@ -21,7 +21,6 @@ namespace CrazyWizardNotes.Reading.Realization
             if (ResourceText == null)
             {
                 var resource = ResourcesService.Load<ReadTextResource>(ResourceName);
-
                 ResourceText = Convert(resource);
             }
 

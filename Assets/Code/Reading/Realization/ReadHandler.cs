@@ -1,4 +1,5 @@
 ﻿using CrazyWizardNotes.Reading.Abstractions;
+using System.Linq;
 
 namespace CrazyWizardNotes.Reading.Realization
 {
@@ -6,7 +7,7 @@ namespace CrazyWizardNotes.Reading.Realization
     {
         public string GetKnownText(ReadText text)
         {
-            throw new System.NotImplementedException();
+            return string.Join("\n", text.Items.Select(x => x.Text));
         }
     }
 }

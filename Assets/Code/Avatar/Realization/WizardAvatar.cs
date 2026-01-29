@@ -55,7 +55,7 @@ namespace CrazyWizardNotes.Avatar.Realization
 
                     if (text != null)
                     {
-                        SoundService.MakeSound(SoundSource, text, 1f);
+                        SoundService.MakeSound(SoundSource, ReadHandler.GetKnownText(text), 1f);
                     }
                 }
             }

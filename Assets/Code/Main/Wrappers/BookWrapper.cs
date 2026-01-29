@@ -5,12 +5,22 @@ namespace CrazyWizardNotes.Main.Wrappers
 {
     public class BookWrapper : TypedWrapperBase
     {
-        public override IEnumerable<Type> GetWrappedTypes()
+        public string BookName;
+
+        protected override IEnumerable<Type> GetWrappedTypes()
         {
             return new[]
             {
                 typeof(UNet.Physics.Realization.PhysicalObject),
                 typeof(Reading.Realization.ResourcesReadSource),
+            };
+        }
+
+        protected override IDictionary<string, object> GetKeyedObjects()
+        {
+            return new Dictionary<string, object>
+            {
+                { "BookName", BookName }
             };
         }
     }

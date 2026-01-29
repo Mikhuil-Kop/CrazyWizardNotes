@@ -163,21 +163,12 @@ namespace UNet.Core.Realization
                 .Select(x => x as object)
                 .ToList();
 
-            var optionsWrappers = components.As<IOptionsWrapper>().ToList();
             var componentsWrappers = components.As<IComponentsWrapper>().ToList();
-            var origins = components.Where(x => x is not IOptionsWrapper && x is not IComponentsWrapper).ToList();
+            var origins = components.Where(x => x is not IComponentsWrapper).ToList();
 
             foreach (var origin in origins)
             {
                 SceneServiceProvider.Add(origin);
-            }
-
-            foreach (var optionsWrapper in optionsWrappers)
-            {
-                foreach (var option in optionsWrapper.GetOptions())
-                {
-                    SceneServiceProvider.Add(option);
-                }
             }
 
             SceneComponents = origins.Concat(componentsWrappers.SelectMany(x => x.GetComponents(SceneServiceProvider))).ToList();

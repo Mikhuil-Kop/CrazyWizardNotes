@@ -5,7 +5,7 @@ namespace CrazyWizardNotes.Main.Wrappers
 {
     public class WizardWrapper : TypedWrapperBase
     {
-        public override IEnumerable<Type> GetWrappedTypes()
+        protected override IEnumerable<Type> GetWrappedTypes()
         {
             return new[]
             {
