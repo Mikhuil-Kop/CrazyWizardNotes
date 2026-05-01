@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using UNet.Core.Abstractions;
+using TMPro;
 using UnityEngine;
 
 namespace CrazyWizardNotes.Main.Wrappers
@@ -8,12 +8,14 @@ namespace CrazyWizardNotes.Main.Wrappers
     public class DefaultSceneStaticWrapper : TypedWrapperBase
     {
         public Camera Camera;
+        public TextMeshProUGUI ActiveLog;
 
         protected override IEnumerable<object> GetObjects()
         {
             return new object[]
             {
                 Camera,
+                ActiveLog,
                 new UNet.Physics.Realization.RootTransformContainer(),
             };
         }
@@ -32,6 +34,7 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(UNet.Core.Realization.SceneManagerService),
                 typeof(UNet.Core.Realization.SchedulerService),
                 typeof(UNet.Core.Realization.DebugLogger),
+                typeof(UNet.Core.Realization.ResourcesService),
 
                 typeof(UNet.Inputs.Realization.CameraInputService),
 
@@ -42,6 +45,8 @@ namespace CrazyWizardNotes.Main.Wrappers
 
                 typeof(Magic.Realization.SpellBendService),
                 typeof(Magic.Realization.SpellParticleService),
+
+                typeof(UI.Realization.ActiveLogger)
             };
         }
     }

@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UNet.Common;
 using UNet.Core.Abstractions;
-using UnityEditor.VersionControl;
 using UnityEngine;
-using ILogger = UNet.Core.Abstractions.ILogger;
 
 namespace UNet.Core.Realization
 {
@@ -65,6 +63,8 @@ namespace UNet.Core.Realization
 
             var componentsWrappers = components.As<IComponentsWrapper>().ToList();
             var origins = components.Where(x => x is not IComponentsWrapper).ToList();
+
+            provider.Add(this);
 
             foreach (var origin in origins)
             {

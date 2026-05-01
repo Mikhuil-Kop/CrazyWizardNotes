@@ -1,6 +1,7 @@
 ﻿using CrazyWizardNotes.Magic.Realization;
 using System;
 using System.Collections.Generic;
+using Particles = CrazyWizardNotes.Magic.Realization.Particles;
 
 namespace CrazyWizardNotes.Main.Wrappers
 {
@@ -14,7 +15,19 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(UNet.Sound.Realization.SoundReceiver),
                 typeof(UNet.Sound.Realization.SoundSource),
 
-                typeof(SpellParticle)
+                typeof(CustomSpellParticle),
+                typeof(CustomParticleBehaviourSelector)
+            };
+        }
+
+        protected override IDictionary<string, Type> GetKeyedWrappedTypes()
+        {
+            return new Dictionary<string, Type>()
+            {
+                { "Fireball", typeof(Particles.FireballBehaviour) },
+                { "GravityPush", typeof(Particles.GravityPushBehaviour) },
+                { "FireStorm", typeof(Particles.FireStormBehaviour) },
+                { "Crash", typeof(Particles.CrashBehaviour) }
             };
         }
     }

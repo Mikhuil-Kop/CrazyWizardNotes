@@ -29,7 +29,21 @@ namespace UNet
 			}
         }
 
-		public Vector2D Normalized
+        public float MagnitudeSqrt
+        {
+            readonly get
+            {
+                return X * X + Y * Y;
+            }
+            set
+            {
+                var scale = value / MagnitudeSqrt;
+                X *= scale;
+                Y *= scale;
+            }
+        }
+
+        public Vector2D Normalized
 		{
             readonly get
 			{

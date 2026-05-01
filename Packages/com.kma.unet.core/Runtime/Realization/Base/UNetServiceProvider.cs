@@ -108,6 +108,11 @@ namespace UNet.Core.Realization
                     throw new ArgumentNullException("serviceType");
                 }
 
+                if (serviceType.IsAssignableFrom(typeof(IUServiceProvider)))
+                {
+                    return this;
+                }
+
                 var existingService = CreatedServices.FirstOrDefault(x => (x.Key == key || key == null) && serviceType.IsAssignableFrom(x.Service.GetType()));
 
                 if (existingService != null)

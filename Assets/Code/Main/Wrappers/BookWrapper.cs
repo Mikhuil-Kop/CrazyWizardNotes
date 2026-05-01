@@ -20,7 +20,7 @@ namespace CrazyWizardNotes.Main.Wrappers
         {
             return new Dictionary<string, object>
             {
-                { "BookName", BookName }
+                { "ReadResourceName", $"Books/{BookName}" }
             };
         }
     }

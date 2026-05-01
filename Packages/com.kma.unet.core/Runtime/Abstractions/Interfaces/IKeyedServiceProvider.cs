@@ -20,17 +20,17 @@ namespace UNet.Core.Abstractions
     {
         #region GetService
 
-        public static T GetService<T>(this IUServiceProvider serviceProvider) where T : class
+        public static T GetService<T>(this IKeyedServiceProvider serviceProvider) where T : class
         {
             return serviceProvider.GetService(typeof(T)) as T;
         }
 
-        public static T GetRequiredService<T>(this IUServiceProvider serviceProvider) where T : class
+        public static T GetRequiredService<T>(this IKeyedServiceProvider serviceProvider) where T : class
         {
             return serviceProvider.GetService(typeof(T)) as T ?? throw new Exception($"Could not find service of type {typeof(T)}.");
         }
 
-        public static object GetRequiredService(this IUServiceProvider serviceProvider, Type type)
+        public static object GetRequiredService(this IKeyedServiceProvider serviceProvider, Type type)
         {
             return serviceProvider.GetService(type) ?? throw new Exception($"Could not find service of type {type}.");
         }
@@ -46,7 +46,7 @@ namespace UNet.Core.Abstractions
         /// <param name="serviceProvider">Провайдер сервисов.</param>
         /// <param name="key">Ключ сервиса.</param>
         /// <returns>Экземпляр сервиса или null, если не найден.</returns>
-        public static T GetKeyedService<T>(this IUServiceProvider serviceProvider, string key)
+        public static T GetKeyedService<T>(this IKeyedServiceProvider serviceProvider, string key)
             where T : class
         {
             return serviceProvider.GetKeyedService(typeof(T), key) as T;
@@ -62,7 +62,7 @@ namespace UNet.Core.Abstractions
         /// <exception cref="InvalidOperationException">
         /// Сервис типа T с указанным ключом не найден.
         /// </exception>
-        public static T GetKeyedRequiredService<T>(this IUServiceProvider serviceProvider, string key)
+        public static T GetKeyedRequiredService<T>(this IKeyedServiceProvider serviceProvider, string key)
             where T : class
         {
             return serviceProvider.GetKeyedService(typeof(T), key) as T
@@ -79,7 +79,7 @@ namespace UNet.Core.Abstractions
         /// <exception cref="InvalidOperationException">
         /// Сервис указанного типа с указанным ключом не найден.
         /// </exception>
-        public static object GetKeyedRequiredService(this IUServiceProvider serviceProvider, Type type, string key)
+        public static object GetKeyedRequiredService(this IKeyedServiceProvider serviceProvider, Type type, string key)
         {
             return serviceProvider.GetKeyedService(type, key)
                 ?? throw new InvalidOperationException($"Could not find service of type {type} with key '{key}'.");
