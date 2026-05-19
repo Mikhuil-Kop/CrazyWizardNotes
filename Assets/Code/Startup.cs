@@ -1,4 +1,5 @@
 ﻿using UNet.Core.Abstractions;
+using UNet.Core.Realization;
 
 namespace Assets.Code
 {
@@ -51,6 +52,11 @@ namespace Assets.Code
                 x.Logger.LogInfo($"Актор {x.Actor} инициализирован.");
             });
             */
+
+            context.SceneBuilder.RunPerScene(x =>
+            {
+                x.ServiceProvider.Add<DebugLogger>();
+            });
 
             context.ActorBuilder.RunPerActor(x =>
             {

@@ -124,17 +124,17 @@ namespace UNet.Core.Realization
 
                 if (setting == null)
                 {
-                    throw new KeyNotFoundException($"No registred service for \"{serviceType.Name}\" and key \"{key}\".");
+                    throw new KeyNotFoundException($"No registred service for \"{serviceType.FullName}\" and key \"{key}\".");
                 }
 
                 // Можно оптимизировать поиск
                 if (setting.ServiceScopeType == Scope)
                 {
-                    Logger.Log($"Creating service of type \"{serviceType.Name}\" with key \"{key}\".");
+                    Logger.Log($"Creating service of type \"{serviceType.FullName}\" with key \"{key}\".");
 
                     var service = setting.Factory.Invoke(this);
 
-                    Logger.Log($"Created service of type \"{serviceType.Name}\" with key \"{key}\". ({service.GetType()})");
+                    Logger.Log($"Created service of type \"{serviceType.FullName}\" with key \"{key}\". ({service.GetType()})");
 
                     CreatedServices.Push(new CreatedService()
                     {
@@ -146,7 +146,7 @@ namespace UNet.Core.Realization
                 }
                 else if (setting.ServiceScopeType > Scope)
                 {
-                    throw new KeyNotFoundException($"No registred service for \"{serviceType.Name}\" and key \"{key}\". \"{setting.ServiceScopeType}\" > \"{Scope}\".");
+                    throw new KeyNotFoundException($"No registred service for \"{serviceType.FullName}\" and key \"{key}\". \"{setting.ServiceScopeType}\" > \"{Scope}\".");
                 }
                 else
                 {
@@ -157,7 +157,7 @@ namespace UNet.Core.Realization
             }
             catch (StackOverflowException)
             {
-                throw new Exception($"Не удалось получить {serviceType} из-за циклической зависимости.");
+                throw new Exception($"Не удалось получить {serviceType.FullName} из-за циклической зависимости.");
             }
         }
 

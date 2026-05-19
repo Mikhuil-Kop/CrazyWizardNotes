@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Collections;
-using static LinqExtension;
+using System.Linq;
 
 public static class LinqExtension
 {
@@ -117,7 +115,19 @@ public static class LinqExtension
     {
         return enumerable.Select(x => x as V).Where(x => x != null);
     }
-    
+
+    public static IEnumerable<T> Concat<T>(this IEnumerable<T> enumerable, T value)
+    {
+        if (value == null)
+        {
+            return enumerable;
+        }
+        else
+        {
+            return enumerable.Concat(new[] { value });
+        }
+    }
+
     public static IEnumerable<T> ToRecursion<T>(this T root, Func<T, T> selector)
     {
         var now = root;
@@ -127,6 +137,50 @@ public static class LinqExtension
             yield return now;
 
             now = selector.Invoke(now);
+        }
+    }
+
+    public static IEnumerable<T> ToRecursionUnique<T>(this T root, Func<T, IEnumerable<T>> selector, IEqualityComparer<T> comparer = null)
+    {
+        if (root == null) throw new ArgumentNullException(nameof(root));
+        if (selector == null) throw new ArgumentNullException(nameof(selector));
+
+        return ToRecursionUnique(new[] { root }, selector, comparer);
+    }
+
+    public static IEnumerable<T> ToRecursionUnique<T>(this IEnumerable<T> roots, Func<T, IEnumerable<T>> selector, IEqualityComparer<T> comparer = null)
+    {
+        if (roots == null) throw new ArgumentNullException(nameof(roots));
+        if (selector == null) throw new ArgumentNullException(nameof(selector));
+
+        var visited = new HashSet<T>(comparer);
+        var queue = new Queue<T>();
+
+        foreach (var root in roots)
+        {
+            if (visited.Add(root))
+            {
+                queue.Enqueue(root);
+                yield return root;
+            }
+        }
+
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+            var children = selector(current);
+
+            if (children != null)
+            {
+                foreach (var child in children)
+                {
+                    if (visited.Add(child))
+                    {
+                        queue.Enqueue(child);
+                        yield return child;
+                    }
+                }
+            }
         }
     }
 

@@ -15,6 +15,11 @@ namespace UNet.Physics.Abstractions
 
     public static class PhysicsServiceExtensions
     {
+        public static Vector2D GetPosition(this IPhysicsService service, IHasSpacePoint point, ISpaceContainer container)
+        {
+            return service.GetPosition(point.SpacePoint, container);
+        }
+
         public static Vector2D GetDistance(this IPhysicsService service, IHasSpacePoint point1, IHasSpacePoint point2)
         {
             return service.GetDistance(point1.SpacePoint, point2.SpacePoint);

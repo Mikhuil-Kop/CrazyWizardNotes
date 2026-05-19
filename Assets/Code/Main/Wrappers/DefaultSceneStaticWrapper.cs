@@ -45,6 +45,7 @@ namespace CrazyWizardNotes.Main.Wrappers
 
                 typeof(Magic.Realization.SpellBendService),
                 typeof(Magic.Realization.SpellParticleService),
+                typeof(Electricity.Realization.PhysicsElectricService),
 
                 typeof(UI.Realization.ActiveLogger)
             };

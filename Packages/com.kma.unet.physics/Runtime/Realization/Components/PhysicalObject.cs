@@ -11,13 +11,15 @@ namespace UNet.Physics.Realization
         #region Поля
 
         private IPhysicsService PhysicsService { get; }
+        private IActor Actor { get; }
         private Transform Transform { get; }
         private Rigidbody2D Rigidbody { get; }
         private LinkedList<IActor> TouchingActors { get; set; }
 
-        public PhysicalObject(IPhysicsService physicsService, Transform transform, Rigidbody2D physicsBody2D)
+        public PhysicalObject(IPhysicsService physicsService, IActor actor, Transform transform, Rigidbody2D physicsBody2D)
         {
             PhysicsService = physicsService;
+            Actor = actor;
             Transform = transform;
             Rigidbody = physicsBody2D;
 
@@ -92,13 +94,12 @@ namespace UNet.Physics.Realization
                 TouchingActors.AddFirst(actor);
             }
 
-            foreach (var actor in actors)
+            OnTouch?.Invoke(new OnTouchEventArgs()
             {
-                OnTouch?.Invoke(new OnTouchEventArgs()
-                {
-                    Subject = actor
-                });
-            }
+                InvokeActor = Actor,
+                Touched = actors,
+                Touches = TouchingActors,
+            });
         }
 
         protected virtual void OnTriggerEnter2D(Collider2D c)
@@ -110,13 +111,12 @@ namespace UNet.Physics.Realization
                 TouchingActors.AddFirst(actor);
             }
 
-            foreach (var actor in actors)
+            OnTouch?.Invoke(new OnTouchEventArgs()
             {
-                OnTouch?.Invoke(new OnTouchEventArgs()
-                {
-                    Subject = actor
-                });
-            }
+                InvokeActor = Actor,
+                Touched = actors,
+                Touches = TouchingActors
+            });
         }
 
         protected virtual void OnCollisionExit2D(Collision2D c)

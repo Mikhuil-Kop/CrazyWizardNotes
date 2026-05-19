@@ -24,12 +24,12 @@ namespace UNet.Physics.Realization
             gameObject.transform.position = spawnPoint.Position;
             actor.InsertContext(onCreate);
 
-            //var hasSpacePoint = actor.As<IHasSpacePoint>();
+            var hasSpacePoint = actor.As<IHasSpacePoint>();
 
-            //if (hasSpacePoint != null)
-            //{
-            //    hasSpacePoint.SpacePoint = spawnPoint;
-            //}
+            if (hasSpacePoint != null)
+            {
+                hasSpacePoint.SpacePoint = spawnPoint;
+            }
         }
 
         public void SpawnActor(string actorId, Action<IActorCreateContext> onCreate = null)
