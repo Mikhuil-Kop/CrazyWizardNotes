@@ -116,7 +116,7 @@ public static class LinqExtension
         return enumerable.Select(x => x as V).Where(x => x != null);
     }
 
-    public static IEnumerable<T> Concat<T>(this IEnumerable<T> enumerable, T value)
+    public static IEnumerable<T> ConcatS<T>(this IEnumerable<T> enumerable, T value)
     {
         if (value == null)
         {

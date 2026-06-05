@@ -16,15 +16,15 @@ namespace CrazyWizardNotes.Electricity.Realization
         public event ElectricDischargeHandler OnElectricDischarge;
 
 
-        public ElectricConductor(IElectricService electricService, ITouches touches, SpriteRenderer spriteRenderer)
+        public ElectricConductor(IElectricService electricService, ITouches touches, SpriteRenderer spriteRenderer, [FromKey("charge")] float charge, [FromKey("capacity")] float capacity)
         {
             ElectricService = electricService;
             SpriteRenderer = spriteRenderer;
 
-            ElectricCharge = 0;
-            ElectricCapacity = 10;
+            ElectricCharge = charge;
+            ElectricCapacity = capacity;
 
-            SetCharge(Random.Range(-10f, 10f));
+            SetCharge(charge);
 
             touches.OnTouch += OnTouch;
         }
@@ -34,7 +34,7 @@ namespace CrazyWizardNotes.Electricity.Realization
             var chargeDelta = ElectricCharge - chargeValue;
 
             ElectricCharge = chargeValue;
-            SpriteRenderer.color = Color.Lerp(Color.red, Color.blue, (ElectricCharge + 10) / 20);
+            SpriteRenderer.color = Color.Lerp(Color.red, Color.blue, (ElectricCharge + 10f) / 20f);
             Debug.Log($"Electric Charge: ({GetHashCode()}: {ElectricCharge})");
 
             OnElectricDischarge?.Invoke(chargeDelta);
@@ -42,7 +42,7 @@ namespace CrazyWizardNotes.Electricity.Realization
 
         private void OnTouch(OnTouchEventArgs x)
         {
-            var actors = x.Touches.Concat(x.InvokeActor).ActorsAs<IElectricConductor>();
+            var actors = x.Touches.ConcatS(x.InvokeActor).ActorsAs<IElectricConductor>();
             ElectricService.RedistributeCharge(actors);
         }
     }
