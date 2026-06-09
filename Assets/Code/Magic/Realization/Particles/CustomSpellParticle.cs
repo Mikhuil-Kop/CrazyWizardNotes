@@ -25,7 +25,7 @@ namespace CrazyWizardNotes.Magic.Realization
         private Transform Transform { get; }
         private Turbulence Turbulence { get; }
         private HashSet<string> SpellWords { get; }
-        private ISpacePoint BendingTargetPoint { get; set; }
+        private SpacePoint BendingTargetPoint { get; set; }
         private bool WasBended { get; set; }
         private bool IsBending { get; set; }
         private bool RequiresUpdate { get; set; }

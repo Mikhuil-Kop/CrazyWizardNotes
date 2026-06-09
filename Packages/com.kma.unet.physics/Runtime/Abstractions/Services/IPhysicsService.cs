@@ -7,9 +7,9 @@ namespace UNet.Physics.Abstractions
     public interface IPhysicsService
     {
         IEnumerable<IActor> GetActors(PhysicsConditionParams conditions);
-        ISpacePoint GetDefaultSpacePoint(Vector2D vector2D);
-        Vector2D GetPosition(ISpacePoint point, ISpaceContainer container);
-        Vector2D GetDistance(ISpacePoint point1, ISpacePoint point2);
+        SpacePoint GetDefaultSpacePoint(Vector2D vector2D);
+        Vector2D GetPosition(SpacePoint point, ISpaceContainer container);
+        Vector2D GetDistance(SpacePoint point1, SpacePoint point2);
         void AddForce(PhysicsForceParams forceParams);
     }
 
@@ -25,12 +25,12 @@ namespace UNet.Physics.Abstractions
             return service.GetDistance(point1.SpacePoint, point2.SpacePoint);
         }
 
-        public static Vector2D GetDistance(this IPhysicsService service, ISpacePoint point1, IHasSpacePoint point2)
+        public static Vector2D GetDistance(this IPhysicsService service, SpacePoint point1, IHasSpacePoint point2)
         {
             return service.GetDistance(point1, point2.SpacePoint);
         }
 
-        public static Vector2D GetDistance(this IPhysicsService service, IHasSpacePoint point1, ISpacePoint point2)
+        public static Vector2D GetDistance(this IPhysicsService service, IHasSpacePoint point1, SpacePoint point2)
         {
             return service.GetDistance(point1.SpacePoint, point2);
         }

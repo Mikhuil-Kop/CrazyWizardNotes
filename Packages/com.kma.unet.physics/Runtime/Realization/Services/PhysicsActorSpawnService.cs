@@ -12,7 +12,7 @@ namespace UNet.Physics.Realization
         private IPhysicsService PhysicsService { get; set; }
         private Transform ActorsRootTransform { get; set; }
 
-        public void SpawnActor(string actorId, ISpacePoint spawnPoint, Action<IActorCreateContext> onCreate = null)
+        public void SpawnActor(string actorId, SpacePoint spawnPoint, Action<IActorCreateContext> onCreate = null)
         {
             Exceptions.CheckArgumentNull(actorId, nameof(actorId));
             Exceptions.CheckArgumentNull(spawnPoint, nameof(spawnPoint));

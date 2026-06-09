@@ -19,7 +19,7 @@ namespace UNet.Core.Realization
             FixedJobs = new LinkedList<JobItem>();
         }
 
-        public void Register(AsyncJobParams job)
+        public IRegistredJob Register(AsyncJobParams job)
         {
             var tasks = new object[] { job.AsyncTask, job.NormalTask, job.FixedTask };
             var tasksCount = tasks.Count(x => x != null);
@@ -45,7 +45,7 @@ namespace UNet.Core.Realization
             {
                 FixedJobs.AddLast(jobItem);
             }
-            else if(job.AsyncTask != null)
+            else if (job.AsyncTask != null)
             {
                 AsyncJobs.AddLast(jobItem);
             }
@@ -53,6 +53,8 @@ namespace UNet.Core.Realization
             {
                 NormalJobs.AddLast(jobItem);
             }
+
+            return new RegistredJob { JobItem = jobItem };
         }
 
         public void OnUpdate(float deltaTime)
@@ -151,6 +153,22 @@ namespace UNet.Core.Realization
             public AsyncJobParams JobParams { get; set; }
             public float RemainingTime { get; set; }
             public int? RemainingCount { get; set; }
+            public bool Canceled { get; set; }
+        }
+
+        private class RegistredJob : IRegistredJob
+        {
+            public JobItem JobItem { get; set; }
+
+            public void Cancel()
+            {
+                JobItem.Canceled = true;
+            }
+
+            public void Dispose()
+            {
+                JobItem.Canceled = true;
+            }
         }
     }
 }

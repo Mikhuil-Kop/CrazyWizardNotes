@@ -24,7 +24,7 @@ namespace CrazyWizardNotes.Magic.Realization
             SpellCatchRadius = 2f;
         }
 
-        public void StartBend(ISpellBending owner, object key, ISpacePoint point)
+        public void StartBend(ISpellBending owner, object key, SpacePoint point)
         {
             Logger.LogInfo("StartBend - Begin.");
 
@@ -33,14 +33,7 @@ namespace CrazyWizardNotes.Magic.Realization
                 throw new ArgumentNullException(nameof(owner));
             }
 
-            if (point == null)
-            {
-                throw new ArgumentNullException(nameof(point));
-            }
-
             EndBend(owner, key);
-
-            point = point.CopySpacePoint(); // Защита от перезаписи вне функции
 
             var spells = PhysicsService.GetActors(new PhysicsConditionParams()
             {
@@ -71,7 +64,7 @@ namespace CrazyWizardNotes.Magic.Realization
             Logger.LogInfo("StartBend - End.");
         }
 
-        public void UpdateBend(ISpellBending owner, object key, ISpacePoint point)
+        public void UpdateBend(ISpellBending owner, object key, SpacePoint point)
         {
             Logger.LogInfo("UpdateBend - Begin.");
 
@@ -168,8 +161,8 @@ namespace CrazyWizardNotes.Magic.Realization
         {
             public ISpellBendable SpellBendable { get; set; }
             public ISpellBending SpellBending { get; set; }
-            public ISpacePoint StartBendingPosition { get; set; }
-            public ISpacePoint TargetBendingPosition { get; set; }
+            public SpacePoint StartBendingPosition { get; set; }
+            public SpacePoint TargetBendingPosition { get; set; }
         }
     }
 }

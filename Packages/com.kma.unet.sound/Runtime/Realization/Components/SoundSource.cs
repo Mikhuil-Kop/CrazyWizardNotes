@@ -6,7 +6,7 @@ namespace UNet.Sound.Realization
     public class SoundSource : ISoundSource
     {
         private IHasSpacePoint HasSpacePoint { get; }
-        public ISpacePoint SoundSourcePosition => HasSpacePoint?.SpacePoint;
+        public SpacePoint SoundSourcePosition => HasSpacePoint.SpacePoint;
         public bool SoundSourceActive => true;
 
         public SoundSource(IHasSpacePoint hasSpacePoint)

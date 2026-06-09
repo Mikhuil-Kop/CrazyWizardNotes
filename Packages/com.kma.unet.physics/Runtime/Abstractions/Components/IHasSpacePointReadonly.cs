@@ -2,6 +2,6 @@
 {
     public interface IHasSpacePointReadonly
     {
-        ISpacePoint SpacePoint { get; }
+        SpacePoint SpacePoint { get; }
     }
 }

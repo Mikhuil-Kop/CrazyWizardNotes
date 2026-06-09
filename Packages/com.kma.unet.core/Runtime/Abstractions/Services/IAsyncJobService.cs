@@ -12,14 +12,14 @@ namespace UNet.Core.Abstractions
         /// Регистрировать асинхронную задачу, которая будет повторяться через каждый заданный промежуток времени.
         /// </summary>
         /// <param name="job"></param>
-        void Register(AsyncJobParams job);
+        IRegistredJob Register(AsyncJobParams job);
     }
 
     public static class AsyncJobServiceExtensions
     {
-        public static void Register(this IAsyncJobService asyncJobService, Func<Task> func, float repeatTime, int? repeatCount = null, AsyncJobWaitType waitType = AsyncJobWaitType.None)
+        public static IRegistredJob Register(this IAsyncJobService asyncJobService, Func<Task> func, float repeatTime, int? repeatCount = null, AsyncJobWaitType waitType = AsyncJobWaitType.None)
         {
-            asyncJobService.Register(new AsyncJobParams
+            return asyncJobService.Register(new AsyncJobParams
             {
                 AsyncTask = func,
                 InitialDelay = 0,
@@ -29,9 +29,9 @@ namespace UNet.Core.Abstractions
             });
         }
 
-        public static void Register(this IAsyncJobService asyncJobService, Action func, float repeatTime, int? repeatCount = null, AsyncJobWaitType waitType = AsyncJobWaitType.None)
+        public static IRegistredJob Register(this IAsyncJobService asyncJobService, Action func, float repeatTime, int? repeatCount = null, AsyncJobWaitType waitType = AsyncJobWaitType.None)
         {
-            asyncJobService.Register(new AsyncJobParams
+            return asyncJobService.Register(new AsyncJobParams
             {
                 NormalTask = func,
                 InitialDelay = 0,
@@ -41,9 +41,9 @@ namespace UNet.Core.Abstractions
             });
         }
 
-        public static void RegisterFixed(this IAsyncJobService asyncJobService, Action func, float repeatTime, int? repeatCount = null, AsyncJobWaitType waitType = AsyncJobWaitType.None)
+        public static IRegistredJob RegisterFixed(this IAsyncJobService asyncJobService, Action func, float repeatTime, int? repeatCount = null, AsyncJobWaitType waitType = AsyncJobWaitType.None)
         {
-            asyncJobService.Register(new AsyncJobParams
+            return asyncJobService.Register(new AsyncJobParams
             {
                 FixedTask = func,
                 InitialDelay = 0,
@@ -53,9 +53,9 @@ namespace UNet.Core.Abstractions
             });
         }
 
-        public static void ExecuteDelayed(this IAsyncJobService asyncJobService, Func<Task> func, float delayTime, int repeatCount = 1)
+        public static IRegistredJob ExecuteDelayed(this IAsyncJobService asyncJobService, Func<Task> func, float delayTime, int repeatCount = 1)
         {
-            asyncJobService.Register(new AsyncJobParams
+            return asyncJobService.Register(new AsyncJobParams
             {
                 AsyncTask = func,
                 InitialDelay = delayTime,
@@ -65,9 +65,9 @@ namespace UNet.Core.Abstractions
             });
         }
 
-        public static void ExecuteDelayed(this IAsyncJobService asyncJobService, Action func, float delayTime, int repeatCount = 1)
+        public static IRegistredJob ExecuteDelayed(this IAsyncJobService asyncJobService, Action func, float delayTime, int repeatCount = 1)
         {
-            asyncJobService.Register(new AsyncJobParams
+            return asyncJobService.Register(new AsyncJobParams
             {
                 NormalTask = func,
                 InitialDelay = delayTime,

@@ -6,7 +6,7 @@ namespace UNet.Sound.Realization
     public class SoundReceiver : ISoundReceiver
     {
         private IHasSpacePoint HasSpacePoint { get; }
-        public ISpacePoint SoundRecieverPosition => HasSpacePoint?.SpacePoint;
+        public SpacePoint SoundRecieverPosition => HasSpacePoint.SpacePoint;
         public bool SoundRecieverActive => true;
 
         public event OnSoundRecievedEventHandler OnSoundRecieved;

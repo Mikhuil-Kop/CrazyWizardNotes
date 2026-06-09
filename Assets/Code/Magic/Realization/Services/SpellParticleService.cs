@@ -34,7 +34,7 @@ namespace CrazyWizardNotes.Magic.Realization
             }
         }
 
-        private void CreateParticle(string spellWord, ISpacePoint point)
+        private void CreateParticle(string spellWord, SpacePoint point)
         {
             SpawnService.SpawnActor("Magic/Particle", point, x =>
             {

@@ -5,7 +5,7 @@ namespace UNet.Sound.Abstractions
     public interface ISoundReceiver
     {
         bool SoundRecieverActive { get; }
-        ISpacePoint SoundRecieverPosition { get; }
+        SpacePoint SoundRecieverPosition { get; }
         void RecieveSound(ISoundSource source, string sound, float volume);
         event OnSoundRecievedEventHandler OnSoundRecieved;
     }

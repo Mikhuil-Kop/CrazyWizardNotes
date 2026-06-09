@@ -5,6 +5,6 @@ namespace UNet.Physics.Abstractions
 {
     public interface IPhysicsActorSpawnService : IActorsSpawnService
     {
-        void SpawnActor(string actorId, ISpacePoint spawnPoint, Action<IActorCreateContext> onCreate = null);
+        void SpawnActor(string actorId, SpacePoint spawnPoint, Action<IActorCreateContext> onCreate = null);
     }
 }

@@ -6,6 +6,6 @@ namespace CrazyWizardNotes.Magic.Abstractions
 
     public class SpellBendUpdateEventArgs
     {
-        public ISpacePoint TargetPoint { get; set; }
+        public SpacePoint TargetPoint { get; set; }
     }
 }

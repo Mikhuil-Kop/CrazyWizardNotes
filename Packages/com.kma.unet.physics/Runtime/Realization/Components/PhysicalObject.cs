@@ -36,8 +36,8 @@ namespace UNet.Physics.Realization
         public Vector2D ForceSummary => Rigidbody.totalForce;
         public Vector2D SpeedSummary => Rigidbody.linearVelocity;
 
-        public ISpaceObject SpaceObject { get => GetSpace(); set => SetSpace(value); }
-        public ISpacePoint SpacePoint { get => GetSpace(); set => SetSpace(value); }
+        public SpaceObject SpaceObject { get => GetSpaceObject(); set => SetSpaceObject(value); }
+        public SpacePoint SpacePoint { get => GetSpacePoint(); set => SetSpacePoint(value); }
 
         IEnumerable<IActor> ITouches.TouchingActors => TouchingActors;
 
@@ -47,11 +47,22 @@ namespace UNet.Physics.Realization
         public void ApplyImpulse(Vector2D force) => Rigidbody.AddForce(force, ForceMode2D.Impulse);
         public void Move(Vector2D delta) => Rigidbody.MovePosition(Transform.position + (Vector3)delta);
 
-        private ISpaceObject GetSpace()
+        private SpacePoint GetSpacePoint()
         {
             ParentSpace ??= PhysicsService.GetDefaultSpacePoint(Vector2D.Zero).ParentSpace;
 
-            return new VectorSpaceObject()
+            return new SpacePoint()
+            {
+                ParentSpace = ParentSpace,
+                Position = Transform.position,
+            };
+        }
+
+        private SpaceObject GetSpaceObject()
+        {
+            ParentSpace ??= PhysicsService.GetDefaultSpacePoint(Vector2D.Zero).ParentSpace;
+
+            return new SpaceObject()
             {
                 ParentSpace = ParentSpace,
                 Position = Transform.position,
@@ -60,17 +71,16 @@ namespace UNet.Physics.Realization
             };
         }
 
-        private void SetSpace(ISpacePoint point)
+        private void SetSpacePoint(SpacePoint point)
         {
             ParentSpace = point.ParentSpace;
             Rigidbody.position = point.Position;
+        }
 
-            if (point is not ISpaceObject)
-            {
-                return;
-            }
-
-            var obj = point as ISpaceObject;
+        private void SetSpaceObject(SpaceObject obj)
+        {
+            ParentSpace = obj.ParentSpace;
+            Rigidbody.position = obj.Position;
 
             Transform.localScale = new Vector3(obj.Size.X, obj.Size.Y, 1);
             Transform.eulerAngles = new Vector3(0, 0, obj.Rotation);
@@ -142,14 +152,6 @@ namespace UNet.Physics.Realization
         #endregion
 
         #region Внутренние классы
-
-        private class VectorSpaceObject : ISpaceObject
-        {
-            public ISpaceContainer ParentSpace { get; set; }
-            public Vector2D Position { get; set; }
-            public Vector2D Size { get; set; }
-            public float Rotation { get; set; }
-        }
 
         public class CollisionTriggerProxy : MonoBehaviour
         {

@@ -68,7 +68,7 @@ namespace UNet.Physics.Realization
             }
         }
 
-        public Vector2D GetDistance(ISpacePoint point1, ISpacePoint point2)
+        public Vector2D GetDistance(SpacePoint point1, SpacePoint point2)
         {
             if (point1 == null)
             {
@@ -87,7 +87,7 @@ namespace UNet.Physics.Realization
             return pos1 - pos2;
         }
 
-        public Vector2D GetPosition(ISpacePoint point, ISpaceContainer targetSpace)
+        public Vector2D GetPosition(SpacePoint point, ISpaceContainer targetSpace)
         {
             if (point == null)
             {
@@ -117,7 +117,7 @@ namespace UNet.Physics.Realization
             }
 
             var objects = ActorsCollectionService.GetAll()
-                .Select(x => new { SpacePoint = x.As<ISpacePoint>(), Physical = x.As<IPhysical>() })
+                .Select(x => new { SpacePoint = x.As<SpacePoint>(), Physical = x.As<IPhysical>() })
                 .Where(x => x.SpacePoint != null && x.Physical != null);
 
             foreach (var obj in objects)
@@ -136,7 +136,7 @@ namespace UNet.Physics.Realization
             }
         }
 
-        private ISpaceContainer GetCommonSpace(ISpacePoint point1, ISpacePoint point2)
+        private ISpaceContainer GetCommonSpace(SpacePoint point1, SpacePoint point2)
         {
             var spaces1 = point1.ParentSpace.ToRecursion(x => x.ParentSpace).Reverse();
             var spaces2 = point2.ParentSpace.ToRecursion(x => x.ParentSpace).Reverse();
@@ -147,7 +147,7 @@ namespace UNet.Physics.Realization
         }
 
         [Obsolete("Функция вызывает вопросы по смыслу.")]
-        public ISpacePoint GetDefaultSpacePoint(Vector2D vector2D)
+        public SpacePoint GetDefaultSpacePoint(Vector2D vector2D)
         {
             return PhysicsTools.GetSpacePoint(RootSpaceContainer, vector2D);
         }
