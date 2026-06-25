@@ -1,9 +1,12 @@
+using System;
+
 namespace CrazyWizardNotes.Creatures.Realization
 {
+    [Serializable]
     public class EatableCaloriesInfo
     {
-        public float CaloriesMax { get; private set; }
-        public float CaloriesLeft { get; private set; }
-        public float EatingSpeed { get; private set; }
+        public float CaloriesMax { get; set; }
+        public float CaloriesLeft { get; set; }
+        public float EatingSpeed { get; set; }
     }
 }

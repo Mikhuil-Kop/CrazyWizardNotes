@@ -23,13 +23,16 @@ namespace UNet.Physics.Realization
 
             gameObject.transform.position = spawnPoint.Position;
             actor.InsertContext(onCreate);
-
-            var hasSpacePoint = actor.As<IHasSpacePoint>();
-
-            if (hasSpacePoint != null)
+            // TODO: ФИГНЯ, ПОПРАВИТЬ
+            actor.InsertContext(x =>
             {
-                hasSpacePoint.SpacePoint = spawnPoint;
-            }
+                var hasSpacePoint = actor.As<IHasSpacePoint>();
+
+                if (hasSpacePoint != null)
+                {
+                    hasSpacePoint.SpacePoint = spawnPoint;
+                }
+            });
         }
 
         public void SpawnActor(string actorId, Action<IActorCreateContext> onCreate = null)

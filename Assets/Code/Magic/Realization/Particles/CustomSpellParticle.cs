@@ -73,7 +73,6 @@ namespace CrazyWizardNotes.Magic.Realization
 
         public void OnEndBend(SpellBendEndEventArgs args)
         {
-            BendingTargetPoint = null;
             IsBending = false;
         }
 

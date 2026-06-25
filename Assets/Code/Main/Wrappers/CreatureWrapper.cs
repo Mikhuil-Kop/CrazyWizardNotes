@@ -5,8 +5,6 @@ namespace CrazyWizardNotes.Main.Wrappers
 {
     public class CreatureWrapper : TypedWrapperBase
     {
-        public string BookName;
-
         protected override IEnumerable<Type> GetWrappedTypes()
         {
             return new[]

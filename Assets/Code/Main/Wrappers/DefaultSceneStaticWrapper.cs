@@ -47,7 +47,10 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(Magic.Realization.SpellParticleService),
                 typeof(Electricity.Realization.PhysicsElectricService),
 
-                typeof(UI.Realization.ActiveLogger)
+                typeof(UI.Realization.ActiveLogger),
+
+                typeof(Creatures.Realization.NavigationService),
+                typeof(Creatures.Realization.FoodTestSpawner)
             };
         }
     }

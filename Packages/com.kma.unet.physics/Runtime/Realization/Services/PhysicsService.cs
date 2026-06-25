@@ -70,16 +70,6 @@ namespace UNet.Physics.Realization
 
         public Vector2D GetDistance(SpacePoint point1, SpacePoint point2)
         {
-            if (point1 == null)
-            {
-                throw new ArgumentNullException(nameof(point1));
-            }
-
-            if (point2 == null)
-            {
-                throw new ArgumentNullException(nameof(point2));
-            }
-
             var targetSpace = GetCommonSpace(point1, point2);
             var pos1 = GetPosition(point1, targetSpace);
             var pos2 = GetPosition(point2, targetSpace);
@@ -89,11 +79,6 @@ namespace UNet.Physics.Realization
 
         public Vector2D GetPosition(SpacePoint point, ISpaceContainer targetSpace)
         {
-            if (point == null)
-            {
-                throw new ArgumentNullException(nameof(point));
-            }
-
             if (targetSpace == null)
             {
                 throw new ArgumentNullException(nameof(targetSpace));
@@ -117,12 +102,12 @@ namespace UNet.Physics.Realization
             }
 
             var objects = ActorsCollectionService.GetAll()
-                .Select(x => new { SpacePoint = x.As<SpacePoint>(), Physical = x.As<IPhysical>() })
-                .Where(x => x.SpacePoint != null && x.Physical != null);
+                .Select(x => new { HasSpacePoint = x.As<IHasSpacePoint>(), Physical = x.As<IPhysical>() })
+                .Where(x => x.HasSpacePoint != null && x.Physical != null);
 
             foreach (var obj in objects)
             {
-                var position = obj.SpacePoint.Position;
+                var position = obj.HasSpacePoint.SpacePoint.Position;
                 var force = forceParams.ForceSelector(position);
 
                 if (forceParams.PhysicsForceType == PhysicsForceType.Force)
@@ -149,7 +134,7 @@ namespace UNet.Physics.Realization
         [Obsolete("Функция вызывает вопросы по смыслу.")]
         public SpacePoint GetDefaultSpacePoint(Vector2D vector2D)
         {
-            return PhysicsTools.GetSpacePoint(RootSpaceContainer, vector2D);
+            return new SpacePoint(RootSpaceContainer, vector2D);
         }
     }
 }

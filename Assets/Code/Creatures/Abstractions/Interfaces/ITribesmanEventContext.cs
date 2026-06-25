@@ -67,4 +67,10 @@ namespace CrazyWizardNotes.Creatures.Abstractions
 
         public float EatThis(ICanEat digester, float deltaTime);
     }
+
+    public interface IClaimable
+    {
+        public bool TryClaim(string group, out IDisposable disposable);
+        public bool IsClaimed(string group);
+    }
 }
