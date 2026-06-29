@@ -3,6 +3,9 @@ using UNet.Physics.Abstractions;
 
 namespace CrazyWizardNotes.Creatures.Abstractions
 {
+    /// <summary>
+    /// Интерфейс, определяющий существо в игре. Не включает в себя разум и поведение этого существа.
+    /// </summary>
     public interface ICreature
     {
 
@@ -53,9 +56,9 @@ namespace CrazyWizardNotes.Creatures.Abstractions
 
     public interface ICanEat
     {
-        public float CaloriesToSaturation { get; }
-        public float CaloriesAccumulated { get; }
-        public float EatingMultiplier { get; }
+        public float CaloriesToSaturation { get; set; }
+        public float CaloriesAccumulated { get; set; }
+        public float EatingMultiplier { get; set; }
         public void Eat(IEatable eatable, float deltaTime);
     }
 

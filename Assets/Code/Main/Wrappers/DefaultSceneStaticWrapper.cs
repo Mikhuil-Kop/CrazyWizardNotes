@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Code.Creatures.Realization.Services;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -49,7 +50,7 @@ namespace CrazyWizardNotes.Main.Wrappers
 
                 typeof(UI.Realization.ActiveLogger),
 
-                typeof(Creatures.Realization.NavigationService),
+                typeof(NavigationService),
                 typeof(Creatures.Realization.FoodTestSpawner)
             };
         }

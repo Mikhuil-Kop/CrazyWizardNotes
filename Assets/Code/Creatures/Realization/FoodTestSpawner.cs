@@ -21,7 +21,7 @@ namespace CrazyWizardNotes.Creatures.Realization
         {
             AsyncJobService.Register(() =>
             {
-                PhysicsActorSpawnService.SpawnActor("Nature/Food", PhysicsService.GetDefaultSpacePoint(new UNet.Vector2D(Random.Range(-10f, 10f), Random.Range(-10f, 10f))));
+                PhysicsActorSpawnService.SpawnActor("Nature/Food", PhysicsService.GetDefaultSpacePoint(new UNet.Vector2D(Random.Range(-6f, 6f), Random.Range(-3, 3f))));
             }, 3);
         }
     }

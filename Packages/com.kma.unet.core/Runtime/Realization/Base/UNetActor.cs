@@ -21,7 +21,7 @@ namespace UNet.Core.Realization
         #region ѕол€
 
         public IUServiceProvider ServiceProvider { get; private set; } // TODO: закрыть
-        public List<object> Components { get; private set; } // TODO: закрыть
+        public List<object> Components { get; private set; } = new(); // TODO: закрыть
         public Queue<Action<IActorCreateContext>> ActorActions { get; } = new Queue<Action<IActorCreateContext>>(); // TODO: закрыть
         public Queue<Action<IActorDestroyContext>> DestroyActions { get; } = new Queue<Action<IActorDestroyContext>>(); // TODO: закрыть
         public IReadonlyTags Tags { get; set; }
@@ -42,7 +42,7 @@ namespace UNet.Core.Realization
 
         public void InsertContext(params Action<IActorCreateContext>[] context)
         {
-            foreach (var action in context)
+            foreach (var action in context.Where(x => x != null))
             {
                 ActorActions.Enqueue(action);
             }

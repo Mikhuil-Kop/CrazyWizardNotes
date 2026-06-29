@@ -5,17 +5,18 @@ namespace CrazyWizardNotes.Main.Wrappers
 {
     public class FoodWrapper : TypedWrapperBase
     {
-        public float Calories = 100f;
+        public float Calories = 1000f;
 
         protected override IEnumerable<object> GetObjects()
         {
+            Calories = 400f;
             return new[]
             {
                 new Creatures.Realization.EatableCaloriesInfo()
                 {
                     CaloriesMax = Calories,
                     CaloriesLeft = Calories,
-                    EatingSpeed = 40f
+                    EatingSpeed = 400f
                 }
             };
         }
