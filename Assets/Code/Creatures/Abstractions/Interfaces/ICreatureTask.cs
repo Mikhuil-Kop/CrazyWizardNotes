@@ -1,3 +1,5 @@
+using System;
+
 namespace CrazyWizardNotes.Creatures.Abstractions
 {
     /// <summary>
@@ -5,8 +7,11 @@ namespace CrazyWizardNotes.Creatures.Abstractions
     /// </summary>
     public interface ICreatureTask
     {
+        public bool IsCompleted { get; }
+        public void OnTaskStart();
         public void OnTaskRareUpdate();
         public void OnTaskUpdate(float deltaTime);
         public void OnTaskFixedUpdate(float deltaTime);
+        public void OnTaskEnd();
     }
 }

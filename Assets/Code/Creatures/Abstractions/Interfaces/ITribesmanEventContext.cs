@@ -10,7 +10,7 @@ namespace CrazyWizardNotes.Creatures.Abstractions
     {
 
     }
-    
+
     public interface ICanWalk
     {
         public void WalkTo(SpacePoint spacePoint);
@@ -51,11 +51,13 @@ namespace CrazyWizardNotes.Creatures.Abstractions
         Angry = 4,
         Feared = 5,
         Surprised = 6,
-        Disgusted = 7
+        Disgusted = 7,
+        Aroused = 8
     }
 
     public interface ICanEat
     {
+        public bool EatingIsFull { get; }
         public float CaloriesToSaturation { get; set; }
         public float CaloriesAccumulated { get; set; }
         public float EatingMultiplier { get; set; }
@@ -73,7 +75,7 @@ namespace CrazyWizardNotes.Creatures.Abstractions
 
     public interface IClaimable
     {
-        public bool TryClaim(string group, out IDisposable disposable);
-        public bool IsClaimed(string group);
+        public bool TryClaim(string group, object owner, out IDisposable disposable);
+        public bool IsClaimed(string group, object owner);
     }
 }

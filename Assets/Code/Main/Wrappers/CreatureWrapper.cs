@@ -10,7 +10,9 @@ namespace CrazyWizardNotes.Main.Wrappers
             return new[]
             {
                 typeof(UNet.Physics.Realization.PhysicalObject),
-                typeof(Creatures.Realization.BehaviorCreature),
+                typeof(Creatures.Realization.Creature),
+                typeof(Creatures.Realization.CreatureBehaviorHandler),
+                typeof(Creatures.Realization.TribemanCreatureBehavior),
             };
         }
     }

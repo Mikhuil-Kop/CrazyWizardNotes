@@ -13,45 +13,77 @@ namespace UNet.Physics.Abstractions
 
     public static class PhysicalExtensions
     {
-        /// <summary>
-        /// Применяет импульс к объекту, но с ограничением максимальной скорости.
-        /// </summary>
-        /// <param name="physical">Физический объект</param>
-        /// <param name="impulse">Прикладываемый импульс</param>
-        /// <param name="maxSpeed">Максимально допустимая скорость после применения импульса</param>
         [Obsolete("Сгенерированно ИИ.")]
-        public static void ApplyImpulseWithLimit(this IPhysical physical, Vector2D impulse, float maxSpeed)
+        public static void ApplyBreak(this IPhysical physical, float force, float deltaTime)
         {
-            if (physical == null)
-                throw new ArgumentNullException(nameof(physical));
-
-            if (maxSpeed <= 0)
-                throw new ArgumentException("Максимальная скорость должна быть больше нуля", nameof(maxSpeed));
-
-            // Сохраняем текущую скорость
-            var currentSpeed = physical.SpeedSummary;
-
-            // Вычисляем новую скорость без ограничения
-            var newSpeed = currentSpeed + (impulse / physical.Mass);
-
-            // Проверяем, не превышает ли новая скорость лимит
-            var newSpeedMagnitude = newSpeed.Magnitude;
-
-            if (newSpeedMagnitude > maxSpeed)
+            if(force <= 0f || deltaTime <= 0f)
             {
-                // Ограничиваем скорость, сохраняя направление
-                var limitedSpeed = newSpeed.Normalized * maxSpeed;
+                return;
+            }
 
-                // Пересчитываем импульс, который нужен для достижения ограниченной скорости
-                var limitedImpulse = (limitedSpeed - currentSpeed) * physical.Mass;
+            var speedSq = physical.SpeedSummary.MagnitudeSqrt;
 
-                // Применяем ограниченный импульс
-                physical.ApplyImpulse(limitedImpulse);
+            if (speedSq < 0.0001f)
+            {
+                return;
+            }
+
+            if (force * deltaTime >= Math.Sqrt(speedSq) * physical.Mass)
+            {
+                // Точная остановка ровно в 0
+                var stopImpulse = -physical.SpeedSummary * physical.Mass;
+                physical.ApplyImpulse(stopImpulse);
             }
             else
             {
-                // Импульс в пределах лимита - применяем как есть
-                physical.ApplyImpulse(impulse);
+                // Обычное торможение
+                var brakingForce = -physical.SpeedSummary.Normalized * force;
+                physical.ApplyForce(brakingForce);
+            }
+        }
+
+        /// <summary>
+        /// Применяет импульс к объекту, но с ограничением максимальной скорости.
+        /// </summary>
+        /// <param name="physical">Физический объект.</param>
+        /// <param name="destination">Куда направлено движение. Ненормализованный вектор. Если объект достигает цели, он резко тормозит.</param>
+        /// <param name="force">Сила, с которой движется объект.</param>
+        /// <param name="maxSpeed">Максимально допустимая скорость после применения импульса.</param>
+        /// <param name="deltaTime">Время между кадрами.</param>
+        [Obsolete("Сгенерированно ИИ.")]
+        public static void ApplyWalk(this IPhysical physical, Vector2D destination, float force, float maxSpeed)
+        {
+            if (force <= 0f || maxSpeed <= 0f)
+            {
+                return;
+            }
+
+            var currentVelocity = physical.SpeedSummary;
+            var toDestination = destination; // уже ненормализованный
+
+            // Если объект уже очень близко к цели — резко тормозим
+            if (toDestination.MagnitudeSqrt < 0.01f)
+            {
+                var stopImpulse = -currentVelocity * physical.Mass;
+                physical.ApplyImpulse(stopImpulse);
+                return;
+            }
+
+            var direction = toDestination.Normalized;
+
+            // Применяем силу в нужном направлении
+            var walkForce = direction * force;
+            physical.ApplyForce(walkForce);
+
+            // Ограничение максимальной скорости (если превысили — корректируем)
+            var currentSpeed = (float)Math.Sqrt(currentVelocity.MagnitudeSqrt);
+            if (currentSpeed > maxSpeed)
+            {
+                // Снижаем скорость до maxSpeed, сохраняя направление
+                var limitedVelocity = direction * maxSpeed;
+                var velocityCorrection = limitedVelocity - currentVelocity;
+                var correctionImpulse = velocityCorrection * physical.Mass;
+                physical.ApplyImpulse(correctionImpulse);
             }
         }
     }

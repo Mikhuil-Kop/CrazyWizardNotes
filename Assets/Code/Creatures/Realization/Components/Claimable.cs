@@ -1,80 +1,57 @@
 using CrazyWizardNotes.Creatures.Abstractions;
 using System;
-using System.Collections.Concurrent;
-using System.Threading;
+using System.Collections.Generic;
 
 namespace CrazyWizardNotes.Creatures.Realization
 {
-    public class SimpleClaimable : IClaimable, IDisposable
+    public class SimpleClaimable : IClaimable
     {
-        private ConcurrentDictionary<string, SemaphoreSlim> Semaphores { get; }
-        private int MaxClaimCount { get; }
-        private bool Disposed { get; set; }
+        private Dictionary<string, object> ClaimGroups { get; }
 
-        //public SimpleClaimable(int maxClaimCount)
         public SimpleClaimable()
         {
-            var maxClaimCount = 1; // TODO: ПОПРАВИТЬ.
-            if (maxClaimCount < 1) throw new ArgumentOutOfRangeException(nameof(maxClaimCount));
-
-            Semaphores = new();
-            MaxClaimCount = maxClaimCount;
-            Disposed = false;
+            ClaimGroups = new();
         }
 
-        public bool IsClaimed(string group)
+        public bool IsClaimed(string group, object owner)
         {
             if (group == null) throw new ArgumentNullException(nameof(group));
 
-            return Semaphores.TryGetValue(group, out var semaphore) && semaphore.CurrentCount == 0;
+            return ClaimGroups.TryGetValue(group, out var claim) && claim != owner;
         }
 
-        public bool TryClaim(string group, out IDisposable disposable)
+        public bool TryClaim(string group, object owner, out IDisposable disposable)
         {
             if (group == null) throw new ArgumentNullException(nameof(group));
 
-            var semaphore = Semaphores.GetOrAdd(group, _ => new SemaphoreSlim(MaxClaimCount, MaxClaimCount));
-
-            if (semaphore.Wait(0))
+            if(ClaimGroups.TryGetValue(group, out var claim) && claim != owner)
             {
+                disposable = null;
+
+                return false;
+            }
+            else
+            {
+                ClaimGroups[group] = owner;
+
                 disposable = new ClaimToken
                 {
-                    Owner = this,
-                    Semaphore = semaphore,
+                    Claimable = this,
                     Group = group
                 };
 
                 return true;
             }
-            else
-            {
-                disposable = null;
-                return false;
-            }
         }
 
         private void UnclaimToken(ClaimToken group)
         {
-            group.Semaphore.Release();
-        }
-
-        public void Dispose()
-        {
-            if (Disposed) return;
-            Disposed = true;
-
-            foreach (var semaphore in Semaphores.Values)
-            {
-                semaphore.Dispose();
-            }
-
-            Semaphores.Clear();
+            ClaimGroups.Remove(group.Group);
         }
 
         private class ClaimToken : IDisposable
         {
-            public SimpleClaimable Owner { get; set; }
-            public SemaphoreSlim Semaphore { get; set; }
+            public SimpleClaimable Claimable { get; set; }
             public string Group { get; set; }
             private bool Disposed { get; set; }
 
@@ -85,7 +62,7 @@ namespace CrazyWizardNotes.Creatures.Realization
                     return;
                 }
 
-                Owner.UnclaimToken(this);
+                Claimable.UnclaimToken(this);
 
                 Disposed = true;
             }
