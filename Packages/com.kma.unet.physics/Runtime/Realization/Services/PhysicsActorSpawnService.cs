@@ -9,6 +9,12 @@ namespace UNet.Physics.Realization
 {
     public class PhysicsActorSpawnService : IPhysicsActorSpawnService
     {
+        public PhysicsActorSpawnService(IPhysicsService physicsService, Transform actorsRootTransform)
+        {
+            PhysicsService = physicsService;
+            ActorsRootTransform = actorsRootTransform;
+        }
+
         private IPhysicsService PhysicsService { get; set; }
         private Transform ActorsRootTransform { get; set; }
 

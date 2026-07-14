@@ -9,6 +9,7 @@ namespace CrazyWizardNotes.Main.Wrappers
     {
         public Camera Camera;
         public TextMeshProUGUI ActiveLog;
+        public Transform FieldRootToSpawn;
 
         protected override IEnumerable<object> GetObjects()
         {
@@ -16,6 +17,7 @@ namespace CrazyWizardNotes.Main.Wrappers
             {
                 Camera,
                 ActiveLog,
+                FieldRootToSpawn,
                 new UNet.Physics.Realization.RootTransformContainer(),
             };
         }
@@ -50,7 +52,8 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(UI.Realization.ActiveLogger),
 
                 typeof(Creatures.Realization.NavigationService),
-                typeof(Creatures.Realization.FoodTestSpawner)
+                typeof(Creatures.Realization.FoodTestSpawner),
+                typeof(Nature.Realization.SimpleTerrainService)
             };
         }
     }
