@@ -62,9 +62,10 @@ namespace UNet.Core.Realization
                 .ToList();
 
             var componentsWrappers = components.As<IComponentsWrapper>().ToList();
-            var origins = components.Where(x => x is not IComponentsWrapper).ToList();
+            var origins = components.AsNot<IComponentsWrapper>().ToList();
 
             provider.Add(this);
+            provider.Add(gameObject);
 
             foreach (var origin in origins)
             {

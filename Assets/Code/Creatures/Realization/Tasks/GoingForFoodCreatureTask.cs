@@ -15,6 +15,7 @@ namespace CrazyWizardNotes.Creatures.Realization
         private IEatable TargetEatable { get; }
         private IHasSpacePoint TargetPosition { get; }
         private IClaimable TargetClaimable { get; }
+        private IDestroyable TargetDestroyable { get; }
 
         private IDisposable TargetClaim;
 
@@ -33,6 +34,7 @@ namespace CrazyWizardNotes.Creatures.Realization
             TargetEatable = target.As<IEatable>();
             TargetPosition = target.As<IHasSpacePoint>();
             TargetClaimable = target.As<IClaimable>();
+            TargetDestroyable = target.As<IDestroyable>();
 
             PhysicsService = serviceProvider.GetService<IPhysicsService>();
 
@@ -57,6 +59,12 @@ namespace CrazyWizardNotes.Creatures.Realization
                 return;
             }
 
+            if (TargetDestroyable?.IsDestroyed == true)
+            {
+                IsCompleted = true;
+                return;
+            }
+
             if (PhysicsService.GetDistance(CreaturePosition, TargetPosition).Magnitude < 0.5f)
             {
                 CreatureCanEat.Eat(TargetEatable, deltaTime);
@@ -77,6 +85,12 @@ namespace CrazyWizardNotes.Creatures.Realization
         {
             if (CreatureCanWalk == null || TargetPosition == null)
             {
+                return;
+            }
+
+            if (TargetDestroyable?.IsDestroyed == true)
+            {
+                IsCompleted = true;
                 return;
             }
 

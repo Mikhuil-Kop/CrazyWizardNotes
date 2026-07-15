@@ -25,6 +25,7 @@ namespace CrazyWizardNotes.Main.Wrappers
         {
             return new[]
             {
+                typeof(UNet.Core.Realization.Destroyable),
                 typeof(UNet.Physics.Realization.PhysicalObject),
                 typeof(Creatures.Realization.SimpleClaimable),
                 typeof(Creatures.Realization.FoodTest),

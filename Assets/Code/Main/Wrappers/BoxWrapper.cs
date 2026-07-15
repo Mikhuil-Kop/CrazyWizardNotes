@@ -9,6 +9,7 @@ namespace CrazyWizardNotes.Main.Wrappers
         {
             return new[]
             {
+                typeof(UNet.Core.Realization.Destroyable),
                 typeof(UNet.Physics.Realization.PhysicalObject),
             };
         }

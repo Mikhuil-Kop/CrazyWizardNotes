@@ -42,7 +42,7 @@ namespace CrazyWizardNotes.Electricity.Realization
 
         private void OnTouch(OnTouchEventArgs x)
         {
-            var actors = x.Touches.ConcatS(x.InvokeActor).ActorsAs<IElectricConductor>();
+            var actors = x.Touches.ConcatAdd(x.InvokeActor).ActorsAs<IElectricConductor>();
             ElectricService.RedistributeCharge(actors);
         }
     }

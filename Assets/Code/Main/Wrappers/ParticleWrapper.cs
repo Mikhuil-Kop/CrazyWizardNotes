@@ -11,6 +11,7 @@ namespace CrazyWizardNotes.Main.Wrappers
         {
             return new Type[]
             {
+                typeof(UNet.Core.Realization.Destroyable),
                 typeof(UNet.Physics.Realization.PhysicalObject),
                 typeof(UNet.Sound.Realization.SoundReceiver),
                 typeof(UNet.Sound.Realization.SoundSource),

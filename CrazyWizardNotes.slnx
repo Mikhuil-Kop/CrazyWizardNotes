@@ -1,4 +1,5 @@
-<Solution>
+﻿<Solution>
+  <Project Path="kma.unet.ui.csproj" />
   <Project Path="kma.unet.common.csproj" />
   <Project Path="kma.unet.liquids.csproj" />
   <Project Path="kma.unet.core.csproj" />
@@ -9,5 +10,4 @@
   <Project Path="kma.unet.sound.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="kma.unet.calculations.csproj" />
-  <Project Path="kma.unet.ui.csproj" />
 </Solution>

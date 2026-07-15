@@ -8,16 +8,23 @@ namespace CrazyWizardNotes.Main.Wrappers
     public class DefaultSceneStaticWrapper : TypedWrapperBase
     {
         public Camera Camera;
+        public Canvas Canvas;
         public TextMeshProUGUI ActiveLog;
         public Transform FieldRootToSpawn;
+
+        public UNet.UI.Realization.TooltipUIMonoBehaviour TooltipUIMonoBehaviour;
+        public UNet.UI.Realization.TooltipCanvasMonoBehaviour TooltipCanvasMonoBehaviour;
 
         protected override IEnumerable<object> GetObjects()
         {
             return new object[]
             {
                 Camera,
+                Canvas,
                 ActiveLog,
                 FieldRootToSpawn,
+                TooltipUIMonoBehaviour,
+                TooltipCanvasMonoBehaviour,
                 new UNet.Physics.Realization.RootTransformContainer(),
             };
         }
@@ -45,8 +52,12 @@ namespace CrazyWizardNotes.Main.Wrappers
 
                 typeof(UNet.Sound.Realization.SoundService),
 
-                typeof(Magic.Realization.SpellBendService),
-                typeof(Magic.Realization.SpellParticleService),
+                typeof(UNet.UI.Realization.LocalizationService),
+                typeof(UNet.UI.Realization.TooltipService),
+
+                //typeof(Magic.Realization.SpellBarService),
+                //typeof(Magic.Realization.SpellBendService),
+                //typeof(Magic.Realization.SpellParticleService),
                 typeof(Electricity.Realization.PhysicsElectricService),
 
                 typeof(UI.Realization.ActiveLogger),

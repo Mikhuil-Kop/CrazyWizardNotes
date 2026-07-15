@@ -128,7 +128,7 @@ namespace UNet.Core.Realization
 
             ProcessStartup(context);
 
-            CoreServiceProvider = serviceBuilder.Build();
+            CoreServiceProvider = serviceBuilder.Build();// TODO: фигня какая-то
             ApplicationServiceProvider = CoreServiceProvider.BeginScope(ServiceScopeType.Application);
 
             ApplicationActions = appBuilder.GetActions();
