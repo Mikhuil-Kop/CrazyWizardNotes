@@ -3,8 +3,6 @@ using UNet.Core.Abstractions;
 using UNet.UI.Abstractions;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Localization;
-using UnityEngine.Localization.SmartFormat.PersistentVariables;
 
 namespace UNet.UI.Realization
 {
@@ -12,9 +10,11 @@ namespace UNet.UI.Realization
     {
         private TooltipUIMonoBehaviour Tooltip { get; }
         private TooltipCanvasMonoBehaviour Canvas { get; }
+        private ILocalizationService LocalizationService { get; }
 
-        public TooltipService(TooltipUIMonoBehaviour tooltip, TooltipCanvasMonoBehaviour canvas)
+        public TooltipService(ILocalizationService localizationService, TooltipUIMonoBehaviour tooltip, TooltipCanvasMonoBehaviour canvas)
         {
+            LocalizationService = localizationService;
             Tooltip = tooltip;
             Canvas = canvas;
         }
@@ -53,8 +53,8 @@ namespace UNet.UI.Realization
 
             if (tooltipInfo != null)
             {
-                Tooltip.Title.text = GetLocalizedString(tooltipInfo.Title);
-                Tooltip.Description.text = GetLocalizedString(tooltipInfo.Description);
+                Tooltip.Title.text = LocalizationService.GetLocalizedString(tooltipInfo.Title);
+                Tooltip.Description.text = LocalizationService.GetLocalizedString(tooltipInfo.Description);
 
                 Tooltip.gameObject.SetActive(true);
             }
@@ -63,58 +63,6 @@ namespace UNet.UI.Realization
         public void OnPointerExit(PointerEventData eventData)
         {
             Tooltip.gameObject.SetActive(false);
-        }
-
-        [Obsolete("Перенести и обощить")]
-        private static string GetLocalizedString(TextString text)
-        {
-            if (!text.Localized)
-            {
-                return text.Text;
-            }
-
-            var str = new LocalizedString(text.Group ?? "default", text.Text);
-
-            foreach (var param in text.Params)
-            {
-                var key = param.Key;
-                var value = param.Value;
-
-                switch (value)
-                {
-                    case string s:
-                        str.Add(key, new StringVariable { Value = s });
-                        break;
-                    case int i:
-                        str.Add(key, new IntVariable { Value = i });
-                        break;
-                    case float f:
-                        str.Add(key, new FloatVariable { Value = f });
-                        break;
-                    case bool b:
-                        str.Add(key, new BoolVariable { Value = b });
-                        break;
-                    case double d:
-                        str.Add(key, new DoubleVariable { Value = d });
-                        break;
-                    case long l:
-                        str.Add(key, new LongVariable { Value = l });
-                        break;
-                    default:
-                        str.Add(key, new StringVariable { Value = value?.ToString() ?? "" });
-                        break;
-                }
-            }
-
-            var result = str.GetLocalizedString();
-
-            if (result.StartsWith("No translation found"))
-            {
-                Debug.LogWarning("No translation found for text: " + text.Text);
-                return "!!!@" + text.Text;
-            }
-
-            return result;
         }
     }
 }

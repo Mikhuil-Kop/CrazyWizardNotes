@@ -15,28 +15,28 @@ namespace CrazyWizardNotes.Magic.Realization
 
         private IInputService InputService { get; }
         private RectTransform RectTransform { get; }
-        private Dictionary<string, SpellBarItem> Spells { get; } = new Dictionary<string, SpellBarItem>();
+        private Dictionary<string, SpellBarServiceItem> Spells { get; } = new Dictionary<string, SpellBarServiceItem>();
 
         #endregion
 
         #region Перечисление
 
         public byte Count => (byte)Spells.Count;
-        public ISpellBarItem this[string spellName] => Spells[spellName];
-        public IEnumerator<KeyValuePair<string, ISpellBarItem>> GetEnumerator() => Spells.Select(x => new KeyValuePair<string, ISpellBarItem>(x.Key, x.Value)).GetEnumerator();
+        public ISpellBarServiceItem this[string spellName] => Spells[spellName];
+        public IEnumerator<KeyValuePair<string, ISpellBarServiceItem>> GetEnumerator() => Spells.Select(x => new KeyValuePair<string, ISpellBarServiceItem>(x.Key, x.Value)).GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion
 
         #region Функционал
 
-        public ISpellBarItem AddSpell(string spellName)
+        public ISpellBarServiceItem AddSpell(string spellName)
         {
             var currentSpell = Spells[spellName];
 
             if (currentSpell == null)
             {
-                currentSpell = Spells[spellName] = new SpellBarItem(this, RectTransform);
+                currentSpell = Spells[spellName] = new SpellBarServiceItem(this, RectTransform);
 
                 currentSpell.SpellName = spellName;
                 currentSpell.SpellDescription = spellName;
@@ -61,7 +61,7 @@ namespace CrazyWizardNotes.Magic.Realization
 
         #region Элементы
 
-        public class SpellBarItem : ISpellBarItem
+        private class SpellBarServiceItem : ISpellBarServiceItem
         {
             private SpellBarService SpellBarService { get; }
             private RectTransform SpellRectTransform { get; }
@@ -75,7 +75,7 @@ namespace CrazyWizardNotes.Magic.Realization
             private string _spellHotkey;
             private bool _isEnabled;
 
-            public SpellBarItem(SpellBarService spellBarService, RectTransform spellRectTransform)
+            public SpellBarServiceItem(SpellBarService spellBarService, RectTransform spellRectTransform)
             {
                 SpellBarService = spellBarService;
                 SpellRectTransform = spellRectTransform;
