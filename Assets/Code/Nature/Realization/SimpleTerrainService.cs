@@ -30,6 +30,11 @@ namespace CrazyWizardNotes.Nature.Realization
             "Nature/Grass_3",
             "Nature/Grass_4",
             "Nature/Grass_5",
+
+            "Nature/Tree_1",
+            "Nature/Tree_2",
+            "Nature/Tree_3",
+            "Nature/Tree_4",
         };
 
         public void OnStart()

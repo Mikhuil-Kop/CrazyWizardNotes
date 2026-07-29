@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace UNet.Physics.Realization
 {
-    public class PhysicalObject : IPhysical, IHasSpaceObject, ITouches, IMovable, IHandlesStart
+    public class PhysicalObject : IPhysical, IHasSpaceObject, ITouches, IMovable, IHandlesStart, IHandlesUpdate
     {
         #region Поля
 
@@ -65,6 +65,7 @@ namespace UNet.Physics.Realization
             return new SpaceObject()
             {
                 ParentSpace = ParentSpace,
+
                 Position = Transform.position,
                 Size = Transform.localScale,
                 Rotation = Transform.eulerAngles.z
@@ -80,8 +81,8 @@ namespace UNet.Physics.Realization
         private void SetSpaceObject(SpaceObject obj)
         {
             ParentSpace = obj.ParentSpace;
-            Rigidbody.position = obj.Position;
 
+            Transform.position = obj.Position;
             Transform.localScale = new Vector3(obj.Size.X, obj.Size.Y, 1);
             Transform.eulerAngles = new Vector3(0, 0, obj.Rotation);
         }
@@ -147,6 +148,12 @@ namespace UNet.Physics.Realization
             {
                 TouchingActors.Remove(actor);
             }
+        }
+
+        [Obsolete("Постоянное выполнение. Нужно поправить.")]
+        public void OnUpdate(float deltaTime)
+        {
+            Transform.position = new Vector3(Transform.position.x, Transform.position.y, 0.1f * Transform.position.y);
         }
 
         #endregion

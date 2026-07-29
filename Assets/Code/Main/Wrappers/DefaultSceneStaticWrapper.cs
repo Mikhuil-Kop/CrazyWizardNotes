@@ -14,6 +14,8 @@ namespace CrazyWizardNotes.Main.Wrappers
 
         public UNet.UI.Realization.TooltipUIMonoBehaviour TooltipUIMonoBehaviour;
         public UNet.UI.Realization.TooltipCanvasMonoBehaviour TooltipCanvasMonoBehaviour;
+        [SerializeField]
+        public UI.Realization.ActionsBarServiceConfig ActionBarServiceConfig;
 
         protected override IEnumerable<object> GetObjects()
         {
@@ -25,6 +27,7 @@ namespace CrazyWizardNotes.Main.Wrappers
                 FieldRootToSpawn,
                 TooltipUIMonoBehaviour,
                 TooltipCanvasMonoBehaviour,
+                ActionBarServiceConfig,
                 new UNet.Physics.Realization.RootTransformContainer(),
             };
         }
@@ -33,7 +36,8 @@ namespace CrazyWizardNotes.Main.Wrappers
         {
             return new Type[]
             {
-                typeof(UNet.Core.Realization.ActorsSpawnService),
+                typeof(Assets.Code.Canvas),
+
                 typeof(UNet.Core.Realization.ActorsCollectionService),
                 typeof(UNet.Core.Realization.AsyncExecutionService),
                 typeof(UNet.Core.Realization.AsyncJobService),
@@ -53,14 +57,15 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(UNet.Sound.Realization.SoundService),
 
                 typeof(UNet.UI.Realization.LocalizationService),
-                typeof(UNet.UI.Realization.TooltipService),
+                //typeof(UNet.UI.Realization.TooltipService), // Работает, но надо включить позже
 
-                //typeof(Magic.Realization.SpellBarService),
-                //typeof(Magic.Realization.SpellBendService),
-                //typeof(Magic.Realization.SpellParticleService),
+                typeof(Magic.Realization.SpellBendService),
+                typeof(Magic.Realization.SpellParticleService),
+                typeof(Magic.Realization.SpellWizardService),
                 typeof(Electricity.Realization.PhysicsElectricService),
 
                 typeof(UI.Realization.ActiveLogger),
+                typeof(UI.Realization.ActionBarService),
 
                 typeof(Creatures.Realization.NavigationService),
                 typeof(Creatures.Realization.FoodTestSpawner),

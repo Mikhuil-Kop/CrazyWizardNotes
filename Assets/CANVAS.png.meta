@@ -166,6 +166,72 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: CANVAS_2
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 1809
+        width: 92
+        height: 195
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66083558f2aca5d4793c490376849daf
+      internalID: -735560139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CANVAS_3
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 1815
+        width: 96
+        height: 219
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19b3a926c474a064293f5c63e82fc063
+      internalID: 689117965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CANVAS_4
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 1824
+        width: 91
+        height: 186
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d73eadd0a970db348b9df421c5fa1511
+      internalID: 1551140111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -184,6 +250,9 @@ TextureImporter:
     nameFileIdTable:
       CANVAS_0: -1346006092
       CANVAS_1: 624799633
+      CANVAS_2: -735560139
+      CANVAS_3: 689117965
+      CANVAS_4: 1551140111
       Flasks_0: 623897280
       Flasks_1: -2083278981
   mipmapLimitGroupName: 

@@ -48,8 +48,8 @@ namespace UNet.UI.Realization
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            var targetActor = eventData.pointerEnter.GetComponent<IActor>();
-            var tooltipInfo = targetActor?.As<IHasTooltipInfo>()?.GetTooltipInfo();
+            var target = eventData.pointerEnter.GetComponent<IActor>()?.As<IHasTooltipInfo>() ?? eventData.pointerEnter.GetComponent<IHasTooltipInfo>();
+            var tooltipInfo = target?.GetTooltipInfo();
 
             if (tooltipInfo != null)
             {
@@ -57,6 +57,7 @@ namespace UNet.UI.Realization
                 Tooltip.Description.text = LocalizationService.GetLocalizedString(tooltipInfo.Description);
 
                 Tooltip.gameObject.SetActive(true);
+                return;
             }
         }
 

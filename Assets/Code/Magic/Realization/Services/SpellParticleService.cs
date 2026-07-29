@@ -1,6 +1,7 @@
 ﻿using CrazyWizardNotes.Magic.Abstractions;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using UNet.Core.Abstractions;
 using UNet.Physics.Abstractions;
 using UNet.Sound.Abstractions;
 
@@ -30,16 +31,30 @@ namespace CrazyWizardNotes.Magic.Realization
 
             foreach (var s in spellWords)
             {
-                CreateParticle(s, args.Source.SoundSourcePosition);
+                SpawnParticle(s, args.Source.SoundSourcePosition);
             }
         }
 
-        private void CreateParticle(string spellWord, SpacePoint point)
+        public ISpellParticle SpawnParticle(string particleName, SpacePoint point, float lifetime = -1)
         {
-            SpawnService.SpawnActor("Magic/Particle", point, x =>
+            var spellType = GetSpellParticleType(particleName);
+
+            var actor = SpawnService.SpawnActor("Magic/Particle", point, x =>
             {
-                x.ServiceProvider.Add("SpellWord", spellWord);
+                x.ServiceProvider.Add(typeof(ISpellParticle), null, spellType);
             });
+
+            return actor.As<ISpellParticle>();
+        }
+
+        private static Dictionary<string, Type> SpellTypes { get; } = new()
+        {
+            { "", null }
+        };
+
+        private static Type GetSpellParticleType(string particleName)
+        {
+            return SpellTypes[particleName];
         }
     }
 }

@@ -17,7 +17,6 @@ namespace CrazyWizardNotes.Magic.Realization
     public class CustomSpellParticle : ISpellParticle, ISpellBendable, IHandlesFixedUpdate, IHandlesUpdate, IVanishable
     {
         private IActiveLogger Logger { get; }
-        private IBehaviourSelector BehaviourSelector { get; }
         private IPhysicsService PhysicsService { get; }
         private IHasSpacePoint SpacePoint { get; }
         private IPhysical Physical { get; }
@@ -33,10 +32,9 @@ namespace CrazyWizardNotes.Magic.Realization
         private CustomParticleBehaviourBase Behaviour { get; set; }
         private Vector2D LastVelocity { get; set; }
 
-        public CustomSpellParticle(IActor actor, IActiveLogger logger, IBehaviourSelector selector, IPhysicsService physicsService, IHasSpacePoint spacePoint, IPhysical physical, ITouches touches, Transform transform, [FromKey("SpellWord")] string spellWord)
+        public CustomSpellParticle(IActor actor, IActiveLogger logger, IPhysicsService physicsService, IHasSpacePoint spacePoint, IPhysical physical, ITouches touches, Transform transform, [FromKey("SpellWord")] string spellWord)
         {
             Logger = logger;
-            BehaviourSelector = selector;
             PhysicsService = physicsService;
             SpacePoint = spacePoint;
             Physical = physical;
@@ -105,9 +103,9 @@ namespace CrazyWizardNotes.Magic.Realization
             {
                 RequiresUpdate = false;
 
-                var newBehaviour = BehaviourSelector.GetBehaviour(SpellWords);
+                //var newBehaviour = BehaviourSelector.GetBehaviour(SpellWords);
 
-                Behaviour = newBehaviour;
+                Behaviour = null;
                 StateContext.BehaviourTime = 0f;
             }
 

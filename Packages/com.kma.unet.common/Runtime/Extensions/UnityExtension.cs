@@ -39,4 +39,22 @@ public static class UnityExtension
     {
         return new Vector2(a.x * b.x, a.y * b.y);
     }
+
+    public static T GetComponentRequired<T>(this GameObject gameObject) where T : class
+    {
+        if (gameObject == null)
+        {
+            throw new ArgumentNullException(nameof(gameObject), "GameObject is null");
+        }
+
+        var component = gameObject.GetComponent<T>();
+
+        if (component == null)
+        {
+            throw new MissingComponentException(
+                $"Required component '{typeof(T).Name}' not found on GameObject '{gameObject.name}'");
+        }
+
+        return component;
+    }
 }

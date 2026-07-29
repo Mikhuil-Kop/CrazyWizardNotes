@@ -18,7 +18,7 @@ namespace UNet.Physics.Realization
         private IPhysicsService PhysicsService { get; set; }
         private Transform ActorsRootTransform { get; set; }
 
-        public void SpawnActor(string actorId, SpacePoint spawnPoint, Action<IActorCreateContext> onCreate = null)
+        public IActor SpawnActor(string actorId, SpacePoint spawnPoint, Action<IActorCreateContext> onCreate = null)
         {
             Exceptions.CheckArgumentNull(actorId, nameof(actorId));
             Exceptions.CheckArgumentNull(spawnPoint, nameof(spawnPoint));
@@ -39,11 +39,13 @@ namespace UNet.Physics.Realization
                     hasSpacePoint.SpacePoint = spawnPoint;
                 }
             });
+
+            return actor;
         }
 
-        public void SpawnActor(string actorId, Action<IActorCreateContext> onCreate = null)
+        public IActor SpawnActor(string actorId, Action<IActorCreateContext> onCreate = null)
         {
-            SpawnActor(actorId, PhysicsService.GetDefaultSpacePoint(Vector2D.Zero), onCreate);
+            return SpawnActor(actorId, PhysicsService.GetDefaultSpacePoint(Vector2D.Zero), onCreate);
         }
 
         private class ActorCreateContext : IActorCreateContext

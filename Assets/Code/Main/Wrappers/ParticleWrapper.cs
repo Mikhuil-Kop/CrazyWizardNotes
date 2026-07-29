@@ -17,7 +17,6 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(UNet.Sound.Realization.SoundSource),
 
                 typeof(CustomSpellParticle),
-                typeof(CustomParticleBehaviourSelector)
             };
         }
 

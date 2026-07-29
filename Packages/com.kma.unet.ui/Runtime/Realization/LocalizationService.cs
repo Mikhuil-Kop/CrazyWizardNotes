@@ -8,6 +8,7 @@ namespace UNet.UI.Realization
     public class LocalizationService : ILocalizationService
     {
         public ILogger Logger { get; set; }
+
         public string GetLocalizedString(TextString text)
         {
             if (!text.Localized)
