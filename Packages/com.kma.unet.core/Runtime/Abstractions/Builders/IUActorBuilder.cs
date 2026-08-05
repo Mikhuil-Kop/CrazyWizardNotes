@@ -5,9 +5,15 @@ namespace UNet.Core.Abstractions
 {
     public interface IUActorBuilder
     {
-        void RunPerActor(Action<IActorCreateContext> func);
-        void RunPerActorDestroy(Action<IActorDestroyContext> func);
+        void RunPerActorCreate(Action<IActorCreateContext> func);
+        void RunPerActorCreated(Action<IActorCreatedContext> func);
+        void RunPerActorDestroyed(Action<IActorDestroyedContext> func);
+
         [Obsolete]
-        void RunPerActor(Func<IActorCreateContext, Task> func);
+        void RunPerActorCreate(Func<IActorCreateContext, Task> func);
+        [Obsolete]
+        void RunPerActorCreated(Func<IActorCreatedContext, Task> func);
+        [Obsolete]
+        void RunPerActorDestroyed(Func<IActorDestroyedContext, Task> func);
     }
 }

@@ -12,9 +12,10 @@ namespace CrazyWizardNotes.Main.Wrappers
         public TextMeshProUGUI ActiveLog;
         public Transform FieldRootToSpawn;
 
+        public UNet.Core.Realization.ActorSpawnServiceConfig ActorSpawnServiceConfig;
         public UNet.UI.Realization.TooltipUIMonoBehaviour TooltipUIMonoBehaviour;
         public UNet.UI.Realization.TooltipCanvasMonoBehaviour TooltipCanvasMonoBehaviour;
-        [SerializeField]
+
         public UI.Realization.ActionsBarServiceConfig ActionBarServiceConfig;
 
         protected override IEnumerable<object> GetObjects()
@@ -25,6 +26,7 @@ namespace CrazyWizardNotes.Main.Wrappers
                 Canvas,
                 ActiveLog,
                 FieldRootToSpawn,
+                ActorSpawnServiceConfig,
                 TooltipUIMonoBehaviour,
                 TooltipCanvasMonoBehaviour,
                 ActionBarServiceConfig,
@@ -45,9 +47,9 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(UNet.Core.Realization.DebugGizmosService),
                 typeof(UNet.Core.Realization.EventsService),
                 typeof(UNet.Core.Realization.SceneManagerService),
-                typeof(UNet.Core.Realization.SchedulerService),
                 typeof(UNet.Core.Realization.DebugLogger),
                 typeof(UNet.Core.Realization.ResourcesService),
+                typeof(UNet.Core.Realization.ActorsSpawnService),
 
                 typeof(UNet.Inputs.Realization.CameraInputService),
 
@@ -61,6 +63,7 @@ namespace CrazyWizardNotes.Main.Wrappers
 
                 typeof(Magic.Realization.SpellBendService),
                 typeof(Magic.Realization.SpellParticleService),
+                typeof(Magic.Realization.SpellParticleFromSoundService),
                 typeof(Magic.Realization.SpellWizardService),
                 typeof(Electricity.Realization.PhysicsElectricService),
 

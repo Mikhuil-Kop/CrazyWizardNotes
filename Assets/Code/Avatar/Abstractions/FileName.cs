@@ -1,3 +1,0 @@
-﻿namespace CrazyWizardNotes.Avatar.Abstractions
-{
-}

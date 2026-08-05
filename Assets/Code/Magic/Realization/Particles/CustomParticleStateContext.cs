@@ -1,7 +1,7 @@
 ﻿using UNet;
 using UNet.Core.Abstractions;
 
-namespace CrazyWizardNotes.Magic.Realization.Particles
+namespace CrazyWizardNotes.Magic.Realization
 {
     public class CustomParticleStateContext
     {

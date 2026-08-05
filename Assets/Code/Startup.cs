@@ -58,13 +58,13 @@ namespace Assets.Code
                 x.ServiceProvider.Add<DebugLogger>();
             });
 
-            context.ActorBuilder.RunPerActor(x =>
+            context.ActorBuilder.RunPerActorCreated(x =>
             {
                 var s = x.ServiceProvider.GetService<IActorsCollectionService>();
                 s.AddActor(x.Actor);
             });
 
-            context.ActorBuilder.RunPerActorDestroy(x =>
+            context.ActorBuilder.RunPerActorDestroyed(x =>
             {
                 var s = x.ServiceProvider.GetService<IActorsCollectionService>();
                 s.RemoveActor(x.Actor);

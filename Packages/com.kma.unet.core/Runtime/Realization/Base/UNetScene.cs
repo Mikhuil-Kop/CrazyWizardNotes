@@ -12,7 +12,7 @@ namespace UNet.Core.Realization
     /// Базовый класс в UNet. Должен быть размещен в каждой сцене.
     /// </summary>
     //[ExecuteInEditMode]
-    public class UNetScene : SingletonBehavior<UNetScene>, IScene
+    public sealed class UNetScene : SingletonBehavior<UNetScene>, IScene
     {
         #region Данные приложения
 
@@ -23,9 +23,12 @@ namespace UNet.Core.Realization
         private static Func<IApplicationCreateContext, Task>[] ApplicationAsyncActions { get; set; }
         private static Action<ISceneCreateContext>[] SceneActions { get; set; }
         private static Func<ISceneCreateContext, Task>[] SceneAsyncActions { get; set; }
-        private static Action<IActorCreateContext>[] ActorActions { get; set; }
-        private static Func<IActorCreateContext, Task>[] ActorAsyncActions { get; set; }
-        private static Action<IActorDestroyContext>[] ActorActionsDestroy { get; set; }
+        private static Action<IActorCreateContext>[] ActorCreateActions { get; set; }
+        private static Func<IActorCreateContext, Task>[] ActorCreateAsyncActions { get; set; }
+        private static Action<IActorCreatedContext>[] ActorCreatedActions { get; set; }
+        private static Func<IActorCreatedContext, Task>[] ActorCreatedAsyncActions { get; set; }
+        private static Action<IActorDestroyedContext>[] ActorDestroyedActions { get; set; }
+        private static Func<IActorDestroyedContext, Task>[] ActorDestroyedAsyncActions { get; set; }
 
         #endregion
 
@@ -62,7 +65,7 @@ namespace UNet.Core.Realization
             }
         }
 
-        protected virtual void Start()
+        private void Start()
         {
             foreach (var component in SceneComponents.As<IHandlesStart>())
             {
@@ -70,7 +73,7 @@ namespace UNet.Core.Realization
             }
         }
 
-        protected virtual void Update()
+        private void Update()
         {
             foreach (var component in SceneComponents.As<IHandlesUpdate>())
             {
@@ -78,7 +81,7 @@ namespace UNet.Core.Realization
             }
         }
 
-        protected virtual void LateUpdate()
+        private void LateUpdate()
         {
             foreach (var component in SceneComponents.As<IHandlesLateUpdate>())
             {
@@ -86,7 +89,7 @@ namespace UNet.Core.Realization
             }
         }
 
-        protected virtual void FixedUpdate()
+        private void FixedUpdate()
         {
             foreach (var component in SceneComponents.As<IHandlesFixedUpdate>())
             {
@@ -96,6 +99,8 @@ namespace UNet.Core.Realization
 
         protected override void OnDestroy()
         {
+            base.OnDestroy();
+
             foreach (var component in SceneComponents.As<IHandlesDestroy>())
             {
                 component.OnDestroy();
@@ -133,11 +138,16 @@ namespace UNet.Core.Realization
 
             ApplicationActions = appBuilder.GetActions();
             ApplicationAsyncActions = appBuilder.GetAsyncActions();
+
             SceneActions = sceneBuilder.GetActions();
             SceneAsyncActions = sceneBuilder.GetAsyncActions();
-            ActorActions = actorBuilder.GetActions();
-            ActorAsyncActions = actorBuilder.GetAsyncActions();
-            ActorActionsDestroy = actorBuilder.GetDestroyActions();
+
+            ActorCreateActions = actorBuilder.GetActions();
+            ActorCreateAsyncActions = actorBuilder.GetAsyncActions();
+            ActorCreatedActions = actorBuilder.GetCreatedActions();
+            ActorCreatedAsyncActions = actorBuilder.GetAsyncCreatedActions();
+            ActorDestroyedActions = actorBuilder.GetDestroyActions();
+            ActorDestroyedAsyncActions = actorBuilder.GetAsyncDestroyActions();
 
             var appContext = new UNetApplicationCreateContext
             {
@@ -157,21 +167,34 @@ namespace UNet.Core.Realization
 
             // ComponentsInitialization
 
+            var serviceProvider = SceneServiceProvider;
             var components = gameObject
-                .GetComponentsInChildren<Component>()
+                .GetComponents<Component>()
                 .Where(x => x != this)
                 .Select(x => x as object)
                 .ToList();
 
+            var servicesWrappers = components.As<IServicesWrapper>().ToList();
             var componentsWrappers = components.As<IComponentsWrapper>().ToList();
-            var origins = components.Where(x => x is not IComponentsWrapper).ToList();
+            var origins = components.Where(x => x is not IServicesWrapper && x is not IComponentsWrapper).ToList();
+
+            serviceProvider.Add(this);
+            serviceProvider.Add(gameObject);
 
             foreach (var origin in origins)
             {
-                SceneServiceProvider.Add(origin);
+                serviceProvider.Add(origin);
             }
 
-            SceneComponents = origins.Concat(componentsWrappers.SelectMany(x => x.GetComponents(SceneServiceProvider))).ToList();
+            foreach (var serviceWrapper in servicesWrappers)
+            {
+                serviceWrapper.AddServices(serviceProvider);
+            }
+
+            SceneComponents = origins
+                .Concat(componentsWrappers.SelectMany(x => x.GetComponents(serviceProvider)))
+                .Distinct()
+                .ToList();
 
             // Actions Execution
 
@@ -188,39 +211,67 @@ namespace UNet.Core.Realization
             }
         }
 
-        internal void InitializeActor(UNetActor actor, IUServiceProvider provider)
+        internal void InitializeActorCreate(UNetActor actor, IUServiceProvider provider, IActorComponentsProvider components)
         {
             var actorContext = new UNetActorCreateContext
             {
                 ServiceProvider = provider,
+                ComponentsProvider = components,
                 Logger = provider.GetService<Abstractions.ILogger>(),
+                ActorTags = actor.Tags,
                 Scene = this,
-                Actor = actor,
             };
 
-            foreach (var asyncAction in actor.ActorActions)
+            foreach (var asyncAction in actor.ActorCreateActions)
             {
-                asyncAction.Invoke(actorContext);
+                asyncAction?.Invoke(actorContext);
             }
 
-            foreach (var asyncAction in ActorActions)
+            foreach (var asyncAction in ActorCreateActions)
             {
-                asyncAction.Invoke(actorContext);
+                asyncAction?.Invoke(actorContext);
             }
         }
 
-        internal void DestroyActor(UNetActor actor, IUServiceProvider provider)
+        internal void InitializeActorCreated(UNetActor actor, IUServiceProvider provider)
         {
-            var actorContext = new UNetActorDestroyContext
+            var actorContext = new UNetActorCreatedContext
+            {
+                ServiceProvider = provider,
+                Logger = provider.GetService<Abstractions.ILogger>(),
+                Scene = this,
+                Actor = actor
+            };
+
+            foreach (var asyncAction in actor.ActorCreatedActions)
+            {
+                asyncAction?.Invoke(actorContext);
+            }
+
+            foreach (var asyncAction in ActorCreatedActions)
+            {
+                asyncAction?.Invoke(actorContext);
+            }
+        }
+
+        internal void InitializeActorDestroyed(UNetActor actor, IUServiceProvider provider)
+        {
+            var actorContext = new UNetActorDestroyedContext
             {
                 ServiceProvider = provider,
                 Logger = provider.GetService<Abstractions.ILogger>(),
                 Scene = this,
                 Actor = actor,
             };
-            foreach (var action in ActorActionsDestroy)
+
+            foreach (var action in actor.ActorDestroyedActions)
             {
-                action.Invoke(actorContext);
+                action?.Invoke(actorContext);
+            }
+
+            foreach (var action in ActorDestroyedActions)
+            {
+                action?.Invoke(actorContext);
             }
         }
 

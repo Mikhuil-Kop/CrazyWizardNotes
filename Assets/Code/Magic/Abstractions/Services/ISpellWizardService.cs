@@ -1,4 +1,4 @@
-﻿namespace Assets.Code.Magic.Abstractions.Services
+﻿namespace CrazyWizardNotes.Magic.Abstractions
 {
     /// <summary>
     /// Основной сервис, управляющий магией и прочими под-сервисами.

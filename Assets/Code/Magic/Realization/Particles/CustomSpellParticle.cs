@@ -1,5 +1,4 @@
 ﻿using CrazyWizardNotes.Magic.Abstractions;
-using CrazyWizardNotes.Magic.Realization.Particles;
 using CrazyWizardNotes.UI.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -32,7 +31,7 @@ namespace CrazyWizardNotes.Magic.Realization
         private CustomParticleBehaviourBase Behaviour { get; set; }
         private Vector2D LastVelocity { get; set; }
 
-        public CustomSpellParticle(IActor actor, IActiveLogger logger, IPhysicsService physicsService, IHasSpacePoint spacePoint, IPhysical physical, ITouches touches, Transform transform, [FromKey("SpellWord")] string spellWord)
+        public CustomSpellParticle(IActor actor, IActiveLogger logger, IPhysicsService physicsService, IHasSpacePoint spacePoint, IPhysical physical, ITouches touches, Transform transform, CustomParticleBehaviourBase behaviour/*, [FromKey("SpellWord")] string spellWord*/)
         {
             Logger = logger;
             PhysicsService = physicsService;
@@ -42,10 +41,11 @@ namespace CrazyWizardNotes.Magic.Realization
             Transform = transform;
 
             RequiresUpdate = true;
+            Behaviour = behaviour;
 
             Turbulence = new Turbulence();
 
-            SpellWords = new HashSet<string> { spellWord };
+            SpellWords = new HashSet<string> { "None" };
 
             StateContext = new CustomParticleStateContext()
             {
@@ -87,7 +87,7 @@ namespace CrazyWizardNotes.Magic.Realization
                 Physical.ApplyForce(force3);
                 Physical.ApplyForce(-Physical.SpeedSummary * damp * 20f);
 
-                MergeParticles(Touches.TouchingActors.ActorsAs<CustomSpellParticle>().ToArray());
+                //MergeParticles(Touches.TouchingActors.ActorsAs<CustomSpellParticle>().ToArray());
             }
             
             if(!WasBended)
@@ -105,7 +105,6 @@ namespace CrazyWizardNotes.Magic.Realization
 
                 //var newBehaviour = BehaviourSelector.GetBehaviour(SpellWords);
 
-                Behaviour = null;
                 StateContext.BehaviourTime = 0f;
             }
 
@@ -138,20 +137,6 @@ namespace CrazyWizardNotes.Magic.Realization
 
             StateContext.VelocityEnergy = Math.Max(0f, StateContext.VelocityEnergy + curVelocity.Magnitude * StateContext.VelocityEnergyMult * StateContext.DeltaTime * 0.5f - StateContext.VelocityEnergyFade * StateContext.DeltaTime * 20f);
             StateContext.TorsionEnergy = Math.Max(0f, StateContext.TorsionEnergy + torsion * StateContext.TorsionEnergyMult * StateContext.DeltaTime * 5f - StateContext.TorsionEnergyFade * StateContext.DeltaTime * 20f);
-
-            // Logging
-            var hash = GetHashCode();
-            //Logger.LogActive(3f, $"{hash}: StateContext.DeltaTime", StateContext.DeltaTime.ToString("F2"));
-            Logger.LogActive(3f, $"{hash}: StateContext.ParticleLifeTime", StateContext.ParticleLifeTime.ToString("F2"));
-            Logger.LogActive(3f, $"{hash}: StateContext.BehaviourTime", StateContext.BehaviourTime.ToString("F2"));
-            //Logger.LogActive(3f, $"{hash}: StateContext.Velocity", StateContext.Velocity.ToString());
-            Logger.LogActive(3f, $"{hash}: StateContext.VelocityEnergy", StateContext.VelocityEnergy.ToString("F2"));
-            //Logger.LogActive(3f, $"{hash}: StateContext.VelocityEnergyMult", StateContext.VelocityEnergyMult.ToString("F2"));
-            //Logger.LogActive(3f, $"{hash}: StateContext.VelocityEnergyFade", StateContext.VelocityEnergyFade.ToString("F2"));
-            Logger.LogActive(3f, $"{hash}: StateContext.TorsionEnergy", StateContext.TorsionEnergy.ToString("F2"));
-            //Logger.LogActive(3f, $"{hash}: StateContext.TorsionEnergyMult", StateContext.TorsionEnergyMult.ToString("F2"));
-            //Logger.LogActive(3f, $"{hash}: StateContext.TorsionEnergyFade", StateContext.TorsionEnergyFade.ToString("F2"));
-            Logger.LogActive(3f, $"{hash}: Behaviour", Behaviour.GetType().Name);
         }
 
         private static float GetTorsion(float deltaTime, Vector2D curVelocity, Vector2D lastVelocity)
@@ -192,7 +177,7 @@ namespace CrazyWizardNotes.Magic.Realization
             {
                 foreach (var spellWord in particle.SpellWords)
                 {
-                SpellWords.Add(spellWord);
+                    SpellWords.Add(spellWord);
                 }
 
                 particle.Vanish();

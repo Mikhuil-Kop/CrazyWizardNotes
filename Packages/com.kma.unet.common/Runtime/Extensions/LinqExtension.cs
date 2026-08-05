@@ -121,16 +121,6 @@ public static class LinqExtension
         return enumerable.Select(x => x as V).Where(x => x != null);
     }
 
-    public static IEnumerable<object> AsNot<V>(this IEnumerable<object> enumerable) where V : class
-    {
-        return enumerable.Where(x => x is not V);
-    }
-
-    public static IEnumerable<T> AsNot<T, V>(this IEnumerable<T> enumerable) where T : class where V : class
-    {
-        return enumerable.Where(x => x is not V);
-    }
-
     public static IEnumerable<T> ConcatAdd<T>(this IEnumerable<T> enumerable, T value)
     {
         if (value == null)

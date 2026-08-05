@@ -16,5 +16,16 @@
             ParentSpace = spaceObject.ParentSpace;
             Position = spaceObject.Position;
         }
+
+        public static SpacePoint operator +(SpacePoint a) => new(a.ParentSpace, a.Position);
+        public static SpacePoint operator -(SpacePoint a) => new(a.ParentSpace, a.Position);
+        public static SpacePoint operator +(SpacePoint a, Vector2D b) => new(a.ParentSpace, a.Position + b);
+        public static SpacePoint operator -(SpacePoint a, Vector2D b) => new(a.ParentSpace, a.Position - b);
+        public static SpacePoint operator *(SpacePoint a, Vector2D b) => new(a.ParentSpace, a.Position * b);
+        public static SpacePoint operator /(SpacePoint a, Vector2D b) => new(a.ParentSpace, a.Position / b);
+        public static SpacePoint operator *(SpacePoint a, float b) => new(a.ParentSpace, a.Position * b);
+        public static SpacePoint operator /(SpacePoint a, float b) => new(a.ParentSpace, a.Position / b);
+        public static SpacePoint operator *(float b, SpacePoint a) => new(a.ParentSpace, a.Position * b);
+        public static SpacePoint operator /(float b, SpacePoint a) => new(a.ParentSpace, a.Position / b);
     }
 }

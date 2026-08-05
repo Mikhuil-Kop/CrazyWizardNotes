@@ -10,7 +10,7 @@ namespace UNet.Core.Realization
     /// <summary>
     /// Базовый класс в UNet. Должен быть размещен на каждом игровом объекте.
     /// </summary>
-    public class UNetActor : MonoBehaviour, IActor
+    public sealed class UNetActor : MonoBehaviour, IActor, ISpawnableActor
     {
         #region Поля Unity
 
@@ -22,8 +22,11 @@ namespace UNet.Core.Realization
 
         public IUServiceProvider ServiceProvider { get; private set; } // TODO: закрыть
         public List<object> Components { get; private set; } = new(); // TODO: закрыть
-        public Queue<Action<IActorCreateContext>> ActorActions { get; } = new Queue<Action<IActorCreateContext>>(); // TODO: закрыть
-        public Queue<Action<IActorDestroyContext>> DestroyActions { get; } = new Queue<Action<IActorDestroyContext>>(); // TODO: закрыть
+        internal Queue<Action<IActorCreateContext>> ActorCreateActions { get; } = new Queue<Action<IActorCreateContext>>(); // TODO: закрыть
+        internal Queue<Action<IActorCreatedContext>> ActorCreatedActions { get; } = new Queue<Action<IActorCreatedContext>>(); // TODO: закрыть
+        internal Queue<Action<IActorDestroyedContext>> ActorDestroyedActions { get; } = new Queue<Action<IActorDestroyedContext>>(); // TODO: закрыть
+        private bool Initialized { get; set; }
+
         public IReadonlyTags Tags { get; set; }
 
         #endregion
@@ -40,20 +43,45 @@ namespace UNet.Core.Realization
             return Components.FirstOrDefault(x => x is T) as T;
         }
 
-        public void InsertContext(params Action<IActorCreateContext>[] context)
+        public void AddOnCreateAction(params Action<IActorCreateContext>[] context)
         {
             foreach (var action in context.Where(x => x != null))
             {
-                ActorActions.Enqueue(action);
+                ActorCreateActions.Enqueue(action);
             }
         }
 
-        private void Initialize()
+        public void AddOnCreatedAction(params Action<IActorCreatedContext>[] context)
         {
+            foreach (var action in context.Where(x => x != null))
+            {
+                ActorCreatedActions.Enqueue(action);
+            }
+        }
+
+        public void AddOnDestroyAction(params Action<IActorDestroyedContext>[] context)
+        {
+            foreach (var action in context.Where(x => x != null))
+            {
+                ActorDestroyedActions.Enqueue(action);
+            }
+        }
+
+        public void Initialize()
+        {
+            if (Initialized)
+            {
+                return;
+            }
+
+            Initialized = true;
             Tags = new Tags(tags);
 
             var scene = UNetScene.Instance;
-            var provider = scene.GetServiceProvider().BeginScope(ServiceScopeType.Actor);
+            var serviceProvider = scene.GetServiceProvider().BeginScope(ServiceScopeType.Actor);
+            var componentsProvider = new ActorComponentsProvider();
+
+            scene.InitializeActorCreate(this, serviceProvider, componentsProvider);
 
             var components = gameObject
                 .GetComponents<Component>()
@@ -61,21 +89,37 @@ namespace UNet.Core.Realization
                 .Select(x => x as object)
                 .ToList();
 
+            var servicesWrappers = components.As<IServicesWrapper>().ToList();
             var componentsWrappers = components.As<IComponentsWrapper>().ToList();
-            var origins = components.AsNot<IComponentsWrapper>().ToList();
+            var origins = components.Where(x => x is not IServicesWrapper && x is not IComponentsWrapper).ToList();
 
-            provider.Add(this);
-            provider.Add(gameObject);
+            serviceProvider.Add(this);
+            serviceProvider.Add(gameObject);
 
             foreach (var origin in origins)
             {
-                provider.Add(origin);
+                serviceProvider.Add(origin);
             }
 
-            scene.InitializeActor(this, provider);
+            foreach (var serviceWrapper in servicesWrappers)
+            {
+                serviceWrapper.AddServices(serviceProvider);
+            }
 
-            ServiceProvider = provider;
-            Components = origins.Concat(componentsWrappers.SelectMany(x => x.GetComponents(provider))).ToList();
+            ServiceProvider = serviceProvider;
+            Components = origins
+                .Concat(componentsWrappers.SelectMany(x => x.GetComponents(serviceProvider)))
+                .Concat(componentsProvider.Components.Select(x => x.Invoke(serviceProvider)))
+                .Distinct()
+                .ToList();
+
+            scene.InitializeActorCreated(this, serviceProvider);
+        }
+
+        private void Deinitialize()
+        {
+            var scene = UNetScene.Instance;
+            scene.InitializeActorDestroyed(this, ServiceProvider);
         }
 
         private void Dispose()
@@ -87,7 +131,7 @@ namespace UNet.Core.Realization
 
         #region События
 
-        protected virtual void Start()
+        private void Start()
         {
             Initialize();
 
@@ -102,7 +146,7 @@ namespace UNet.Core.Realization
             }
         }
 
-        protected virtual void Update()
+        private void Update()
         {
             foreach (var component in Components.As<IHandlesUpdate>())
             {
@@ -110,7 +154,7 @@ namespace UNet.Core.Realization
             }
         }
 
-        protected virtual void LateUpdate()
+        private void LateUpdate()
         {
             foreach (var component in Components.As<IHandlesLateUpdate>())
             {
@@ -118,7 +162,7 @@ namespace UNet.Core.Realization
             }
         }
 
-        protected virtual void FixedUpdate()
+        private void FixedUpdate()
         {
             foreach (var component in Components.As<IHandlesFixedUpdate>())
             {
@@ -126,16 +170,14 @@ namespace UNet.Core.Realization
             }
         }
 
-        protected virtual void OnDestroy()
+        private void OnDestroy()
         {
             foreach (var component in Components.As<IHandlesDestroy>())
             {
                 component.OnDestroy();
             }
 
-            var scene = UNetScene.Instance;
-            scene.DestroyActor(this, ServiceProvider);
-
+            Deinitialize();
             Dispose();
         }
 

@@ -1,10 +1,13 @@
-﻿namespace UNet.Core.Abstractions
+﻿using UNet.Common;
+
+namespace UNet.Core.Abstractions
 {
     public interface IActorCreateContext
     {
-        IUServiceProvider ServiceProvider { get; }
-        ILogger Logger { get; }
         IScene Scene { get; }
-        IActor Actor { get; }
+        ILogger Logger { get; }
+        IReadonlyTags ActorTags { get; }
+        IUServiceProvider ServiceProvider { get; }
+        IActorComponentsProvider ComponentsProvider { get; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UNet.Physics.Abstractions;
+﻿using UNet.Core.Abstractions;
+using UNet.Physics.Abstractions;
 
 namespace CrazyWizardNotes.Magic.Abstractions
 {
@@ -7,6 +8,6 @@ namespace CrazyWizardNotes.Magic.Abstractions
     /// </summary>
     public interface ISpellParticleService
     {
-        public ISpellParticle SpawnParticle(string particleName, SpacePoint point, float lifetime = -1);
+        public IActor SpawnParticle(string particleName, SpacePoint point, float lifetime = -1);
     }
 }

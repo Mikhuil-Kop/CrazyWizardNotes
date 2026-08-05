@@ -232,6 +232,50 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: CANVAS_5
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 1936
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e88b5d2af0b8c944f93d0871ab937828
+      internalID: 1627111944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CANVAS_6
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 1903
+        width: 64
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5c382f8336d80c45b014cdf52869361
+      internalID: -1109955811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -253,6 +297,8 @@ TextureImporter:
       CANVAS_2: -735560139
       CANVAS_3: 689117965
       CANVAS_4: 1551140111
+      CANVAS_5: 1627111944
+      CANVAS_6: -1109955811
       Flasks_0: 623897280
       Flasks_1: -2083278981
   mipmapLimitGroupName: 

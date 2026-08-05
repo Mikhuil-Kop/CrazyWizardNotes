@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace CrazyWizardNotes.Main.Wrappers
 {
-    public abstract class TypedWrapperBase : MonoBehaviour, IComponentsWrapper
+    public abstract class TypedWrapperBase : MonoBehaviour, IComponentsWrapper, IServicesWrapper
     {
-        public object[] GetComponents(IUServiceProvider serviceProvider)
+        public void AddServices(IUServiceProvider serviceProvider)
         {
             var objects = GetObjects();
             var types = GetWrappedTypes();
@@ -36,6 +36,14 @@ namespace CrazyWizardNotes.Main.Wrappers
             }
 
             serviceProvider.Add(typeof(IComponentsWrapper), null, GetType());
+        }
+
+        public object[] GetComponents(IUServiceProvider serviceProvider)
+        {
+            var objects = GetObjects();
+            var types = GetWrappedTypes();
+            var keyedObjects = GetKeyedObjects();
+            var keyedTypes = GetKeyedWrappedTypes();
 
             var objectsComponents = objects.Select(x => x);
             var typesComponents = types.Select(x => serviceProvider.GetRequiredService(x));

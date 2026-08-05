@@ -4,6 +4,6 @@ namespace UNet.Core.Abstractions
 {
     public interface IActorsSpawnService
     {
-        IActor SpawnActor(string actorId, Action<IActorCreateContext> onCreate = null);
+        IActor SpawnActor(string actorId, Action<IActorCreateContext> onCreate = null, Action<IActorCreatedContext> onCreated = null);
     }
 }

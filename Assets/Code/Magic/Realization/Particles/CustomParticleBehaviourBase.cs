@@ -1,4 +1,4 @@
-﻿namespace CrazyWizardNotes.Magic.Realization.Particles
+﻿namespace CrazyWizardNotes.Magic.Realization
 {
     public abstract class CustomParticleBehaviourBase
     {

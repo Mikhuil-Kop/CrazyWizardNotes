@@ -10,7 +10,6 @@ namespace UNet.Core.Abstractions
         IReadonlyTags Tags { get; }
         bool Is<T>() where T : class;
         T As<T>() where T : class;
-        void InsertContext(params Action<IActorCreateContext>[] context);
     }
 
     public static class ActorsExtensions

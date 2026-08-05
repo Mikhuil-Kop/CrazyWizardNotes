@@ -29,7 +29,7 @@ namespace UNet.Common
             //    throw new Exception("Singleton может существовать только 1 экземпляре!");
             //}
 
-            Instance = null;
+            //Instance = null;
         }
 
         protected C Locate<C>()

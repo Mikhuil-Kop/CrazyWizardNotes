@@ -1,60 +1,70 @@
 ﻿using CrazyWizardNotes.Magic.Abstractions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using UNet.Core.Abstractions;
 using UNet.Physics.Abstractions;
-using UNet.Sound.Abstractions;
 
 namespace CrazyWizardNotes.Magic.Realization
 {
     public class SpellParticleService : ISpellParticleService
     {
         private IPhysicsActorSpawnService SpawnService { get; }
-        private IPhysicsService PhysicsService { get; }
-        private ISoundService SoundService { get; }
-
-        public SpellParticleService(IPhysicsService physicsService, ISoundService soundService, IPhysicsActorSpawnService physicsActorSpawnService)
-        {
-            SpawnService = physicsActorSpawnService;
-            PhysicsService = physicsService;
-            SoundService = soundService;
-
-            SoundService.OnSoundRecieved += SoundService_OnSoundRecieved;
-        }
-
-        private void SoundService_OnSoundRecieved(OnSoundRecievedEventArgs args)
-        {
-            var regex = new System.Text.RegularExpressions.Regex(@"#{(?'SpellWord'.*?)}");
-
-            var matches = regex.Matches(args.Sound);
-            var spellWords = matches.Select(match => match.Groups["SpellWord"].Value).ToList();
-
-            foreach (var s in spellWords)
-            {
-                SpawnParticle(s, args.Source.SoundSourcePosition);
-            }
-        }
-
-        public ISpellParticle SpawnParticle(string particleName, SpacePoint point, float lifetime = -1)
-        {
-            var spellType = GetSpellParticleType(particleName);
-
-            var actor = SpawnService.SpawnActor("Magic/Particle", point, x =>
-            {
-                x.ServiceProvider.Add(typeof(ISpellParticle), null, spellType);
-            });
-
-            return actor.As<ISpellParticle>();
-        }
-
         private static Dictionary<string, Type> SpellTypes { get; } = new()
         {
-            { "", null }
+            //{ "Fireball", typeof(FireballParticle) }
         };
 
-        private static Type GetSpellParticleType(string particleName)
+        public SpellParticleService(IPhysicsActorSpawnService physicsActorSpawnService)
         {
-            return SpellTypes[particleName];
+            SpawnService = physicsActorSpawnService;
+
+            foreach (var spellType in SpellTypes.Values)
+            {
+                if (spellType.IsAssignableFrom(typeof(ISpellParticle)))
+                {
+                    throw new Exception($"SpellTypes must contain only ISpellParticles. {spellType} is not.");
+                }
+            }
         }
+        public IActor SpawnParticle(string particleName, SpacePoint point, float lifetime = -1)
+        {
+            if (particleName == null)
+            {
+                throw new ArgumentNullException(nameof(particleName));
+            }
+
+            var actor = SpawnService.SpawnActor("Magic/Particles/" + particleName, point);
+
+            if (actor.IsNot<ISpellParticle>())
+            {
+                throw new Exception("Actor must contains ISpellParticleComponent.");
+            }
+
+            return actor;
+        }
+
+        //public IActor SpawnParticle(string particleName, SpacePoint point, float lifetime = -1)
+        //{
+        //    if (particleName == null)
+        //    {
+        //        throw new ArgumentNullException(nameof(particleName));
+        //    }
+
+        //    var spellType = SpellTypes.GetValueOrDefault(particleName)
+        //        ?? throw new ArgumentException($"{particleName} is not registered.", nameof(particleName));
+
+        //    var actor = SpawnService.SpawnActor("Magic/Particle", point, x =>
+        //    {
+        //        x.ServiceProvider.Add(typeof(ISpellParticle), null, spellType);
+        //        x.ComponentsProvider.AddComponent<ISpellParticle>();
+        //    });
+
+        //    if (actor.IsNot<ISpellParticle>())
+        //    {
+        //        throw new Exception("Actor must contains ISpellParticleComponent.");
+        //    }
+
+        //    return actor;
+        //}
     }
 }
