@@ -44,8 +44,6 @@ namespace CrazyWizardNotes.Magic.Realization
 
         public void OnUpdate(float deltaTime)
         {
-            return;
-
             if (MoveAction.WasPressedThisFrame())
             {
                 UnityEngine.Debug.Log("--Move + " + MoveAction.ReadValue<Vector2>());

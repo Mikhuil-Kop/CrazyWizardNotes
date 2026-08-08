@@ -72,7 +72,7 @@ namespace CrazyWizardNotes.Main.Wrappers
 
                 typeof(Creatures.Realization.NavigationService),
                 typeof(Creatures.Realization.FoodTestSpawner),
-                typeof(Nature.Realization.SimpleTerrainService)
+                //typeof(Nature.Realization.SimpleTerrainService)
             };
         }
     }

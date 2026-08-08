@@ -75,22 +75,6 @@ MonoBehaviour:
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: SmokeVelocity
-    path: SmokeVelocity
-    tooltip: 
-    space: -1
-    spaceable: 0
-    sheetType: m_Vector2f
-    realType: Vector2
-    defaultValue:
-      m_Type:
-        m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.10000000149011612,"y":0.20000000298023225}'
-    min: -Infinity
-    max: Infinity
-    enumValues: []
-    descendantCount: 0
   - name: SmokeSize
     path: SmokeSize
     tooltip: 
@@ -119,6 +103,22 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"r":0.0,"g":0.0,"b":0.0,"a":0.0}'
+    min: -Infinity
+    max: Infinity
+    enumValues: []
+    descendantCount: 0
+  - name: SmokeVelocity
+    path: SmokeVelocity
+    tooltip: 
+    space: -1
+    spaceable: 0
+    sheetType: m_Vector2f
+    realType: Vector2
+    defaultValue:
+      m_Type:
+        m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      m_SerializableObject: '{"x":0.10000000149011612,"y":0.20000000298023225}'
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -217,22 +217,6 @@ MonoBehaviour:
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: SparkVelocity
-    path: SparkVelocity
-    tooltip: 
-    space: -1
-    spaceable: 0
-    sheetType: m_Vector2f
-    realType: Vector2
-    defaultValue:
-      m_Type:
-        m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":0.10000000149011612,"y":0.20000000298023225}'
-    min: -Infinity
-    max: Infinity
-    enumValues: []
-    descendantCount: 0
   - name: SparkColor
     path: SparkColor
     tooltip: 
@@ -245,6 +229,22 @@ MonoBehaviour:
         m_SerializableType: UnityEngine.Color, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
       m_SerializableObject: '{"r":1.0,"g":0.0,"b":0.0,"a":0.0}'
+    min: -Infinity
+    max: Infinity
+    enumValues: []
+    descendantCount: 0
+  - name: SparkVelocity
+    path: SparkVelocity
+    tooltip: 
+    space: -1
+    spaceable: 0
+    sheetType: m_Vector2f
+    realType: Vector2
+    defaultValue:
+      m_Type:
+        m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+      m_SerializableObject: '{"x":0.10000000149011612,"y":0.20000000298023225}'
     min: -Infinity
     max: Infinity
     enumValues: []
@@ -297,7 +297,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614974}
   m_ExposedName: SmokeColor
   m_Exposed: 1
-  m_Order: 2
+  m_Order: 1
   m_Category: Smoke
   m_Min:
     m_Type:
@@ -505,7 +505,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615359}
   m_ExposedName: SmokeSize
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 0
   m_Category: Smoke
   m_Min:
     m_Type:
@@ -577,7 +577,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615361}
   m_ExposedName: SmokeVelocity
   m_Exposed: 1
-  m_Order: 0
+  m_Order: 2
   m_Category: Smoke
   m_Min:
     m_Type:
@@ -717,7 +717,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615520}
   m_ExposedName: SparkSize
   m_Exposed: 1
-  m_Order: 0
+  m_Order: 3
   m_Category: Spark
   m_Min:
     m_Type:
@@ -789,7 +789,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615522}
   m_ExposedName: SparkColor
   m_Exposed: 1
-  m_Order: 2
+  m_Order: 4
   m_Category: Spark
   m_Min:
     m_Type:
@@ -997,7 +997,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615528}
   m_ExposedName: SparkVelocity
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 5
   m_Category: Spark
   m_Min:
     m_Type:
@@ -1858,7 +1858,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615673}
   m_ExposedName: LightColor
   m_Exposed: 1
-  m_Order: 0
+  m_Order: 6
   m_Category: Light
   m_Min:
     m_Type:
@@ -2066,7 +2066,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615679}
   m_ExposedName: LightSize
   m_Exposed: 1
-  m_Order: 1
+  m_Order: 7
   m_Category: Light
   m_Min:
     m_Type:
@@ -2138,7 +2138,7 @@ MonoBehaviour:
   - {fileID: 8926484042661615681}
   m_ExposedName: LightVelocity
   m_Exposed: 1
-  m_Order: 2
+  m_Order: 8
   m_Category: Light
   m_Min:
     m_Type:

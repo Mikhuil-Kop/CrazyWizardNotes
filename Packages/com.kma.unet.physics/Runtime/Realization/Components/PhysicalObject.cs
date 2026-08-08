@@ -153,7 +153,7 @@ namespace UNet.Physics.Realization
         [Obsolete("Постоянное выполнение. Нужно поправить.")]
         public void OnUpdate(float deltaTime)
         {
-            Transform.position = new Vector3(Transform.position.x, Transform.position.y, 0.1f * Transform.position.y);
+            Transform.position = new Vector3(Transform.position.x, Transform.position.y, 0.5f * Transform.position.y);
         }
 
         #endregion

@@ -31,6 +31,8 @@ namespace CrazyWizardNotes.Magic.Realization
         private CustomParticleBehaviourBase Behaviour { get; set; }
         private Vector2D LastVelocity { get; set; }
 
+        private float LifeTime { get; set; }
+
         public CustomSpellParticle(IActor actor, IActiveLogger logger, IPhysicsService physicsService, IHasSpacePoint spacePoint, IPhysical physical, ITouches touches, Transform transform, CustomParticleBehaviourBase behaviour/*, [FromKey("SpellWord")] string spellWord*/)
         {
             Logger = logger;
@@ -55,6 +57,8 @@ namespace CrazyWizardNotes.Magic.Realization
                 TorsionEnergyMult = 1,
                 TorsionEnergyFade = 1
             };
+
+            LifeTime = 10f;
         }
 
         public void OnStartBend(SpellBendStartEventArgs args)
@@ -62,6 +66,8 @@ namespace CrazyWizardNotes.Magic.Realization
             BendingTargetPoint = args.StartPoint;
             IsBending = true;
             WasBended = true;
+
+            LifeTime = 10f; // Reset lifetime when bending starts
         }
 
         public void OnUpdateBend(SpellBendUpdateEventArgs args)
@@ -72,6 +78,8 @@ namespace CrazyWizardNotes.Magic.Realization
         public void OnEndBend(SpellBendEndEventArgs args)
         {
             IsBending = false;
+
+            LifeTime = 10f; // Reset lifetime when bending ends
         }
 
         public void OnFixedUpdate(float fixedDeltaTime)
@@ -107,6 +115,18 @@ namespace CrazyWizardNotes.Magic.Realization
 
                 StateContext.BehaviourTime = 0f;
             }
+
+            if (!IsBending)
+            {
+                LifeTime -= deltaTime;
+
+                if (LifeTime <= 0)
+                {
+                    Vanish();
+                    return;
+                }
+            }
+
 
             UpdateState(deltaTime);
         }

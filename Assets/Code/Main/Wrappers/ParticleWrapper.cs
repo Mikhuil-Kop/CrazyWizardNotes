@@ -8,12 +8,14 @@ namespace CrazyWizardNotes.Main.Wrappers
     {
         public enum ParticleType : byte
         {
-            Fireball
+            Fireball,
+            BlackHole
         }
 
         public static Dictionary<ParticleType, Type> ParticleTypes = new()
         {
-            { ParticleType.Fireball, typeof(Particles.FireballBehavior) }
+            { ParticleType.Fireball, typeof(Particles.FireballBehavior) },
+            { ParticleType.BlackHole, typeof(Particles.BlackHoleBehavior) }
         };
 
         public ParticleType SelectedParticleType;
