@@ -42,7 +42,7 @@ namespace CrazyWizardNotes.Magic.Realization
                 ShapeCenter = point,
             });
 
-            var mainSpell = spells.ActorsAs<ISpellBendable>().FirstOrDefault();
+            var mainSpell = spells.ActorsAs<ISpellBendable>().FirstOrDefault(x => x.IsBendEnabled);
 
             if (mainSpell == null)
             {

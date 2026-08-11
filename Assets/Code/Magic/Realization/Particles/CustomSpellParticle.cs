@@ -1,216 +1,185 @@
 ﻿using CrazyWizardNotes.Magic.Abstractions;
-using CrazyWizardNotes.UI.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using UNet;
 using UNet.Common;
 using UNet.Core.Abstractions;
 using UNet.Physics.Abstractions;
 using GameObject = UnityEngine.GameObject;
 using Transform = UnityEngine.Transform;
-using Vectors = UnityEngine.Vector2;
 
 namespace CrazyWizardNotes.Magic.Realization
 {
     public class CustomSpellParticle : ISpellParticle, ISpellBendable, IHandlesFixedUpdate, IHandlesUpdate, IVanishable
     {
-        private IActiveLogger Logger { get; }
+        #region Поля
+
         private IPhysicsService PhysicsService { get; }
-        private IHasSpacePoint SpacePoint { get; }
+        private IActor Actor { get; }
         private IPhysical Physical { get; }
-        private ITouches Touches { get; }
+        private IHasSpacePoint HasSpacePoint { get; }
         private Transform Transform { get; }
         private Turbulence Turbulence { get; }
-        private HashSet<string> SpellWords { get; }
-        private SpacePoint BendingTargetPoint { get; set; }
-        private bool WasBended { get; set; }
-        private bool IsBending { get; set; }
-        private bool RequiresUpdate { get; set; }
-        private CustomParticleStateContext StateContext { get; set; }
-        private CustomParticleBehaviourBase Behaviour { get; set; }
-        private Vector2D LastVelocity { get; set; }
+        private CustomParticleBehaviourBase Behaviour { get; }
+        private CustomParticleBehaviorContext Context { get; }
 
-        private float LifeTime { get; set; }
-
-        public CustomSpellParticle(IActor actor, IActiveLogger logger, IPhysicsService physicsService, IHasSpacePoint spacePoint, IPhysical physical, ITouches touches, Transform transform, CustomParticleBehaviourBase behaviour/*, [FromKey("SpellWord")] string spellWord*/)
+        public CustomSpellParticle(IPhysicsService physicsService, IActor actor, IHasSpacePoint hasSpacePoint, IPhysical physical, Transform transform, CustomParticleBehaviourBase behaviour)
         {
-            Logger = logger;
             PhysicsService = physicsService;
-            SpacePoint = spacePoint;
+            
+            Actor = actor;
             Physical = physical;
-            Touches = touches;
+            HasSpacePoint = hasSpacePoint;
             Transform = transform;
-
-            RequiresUpdate = true;
             Behaviour = behaviour;
 
             Turbulence = new Turbulence();
 
-            SpellWords = new HashSet<string> { "None" };
-
-            StateContext = new CustomParticleStateContext()
+            Context = new CustomParticleBehaviorContext()
             {
-                Actor = actor,
-                VelocityEnergyMult = 1,
-                VelocityEnergyFade = 1,
-                TorsionEnergyMult = 1,
-                TorsionEnergyFade = 1
+                ParticleActor = Actor,
+
+                DeltaTime = 1f,
+                BendForceMult = 1f,
+                IsBendEnabled = true,
+
+                State = new CustomParticleBehaviorState()
+                {
+                    IsBending = false,
+                    StartBendCount = 0,
+                    EndBendCount = 0,
+                    BendingTargetPoint = null,
+
+                    SumExistsTime = 0f,
+                    CurBendTime = 0f,
+                    SumBendTime = 0f,
+                    CurFreeTime = 0f,
+                    SumFreeTime = 0f,
+                }
             };
 
-            LifeTime = 10f;
+            Context.State.Context = Context;
         }
+
+        #endregion
+
+        #region Функционал
+
+        public bool IsBendEnabled => Context.IsBendEnabled;
 
         public void OnStartBend(SpellBendStartEventArgs args)
         {
-            BendingTargetPoint = args.StartPoint;
-            IsBending = true;
-            WasBended = true;
+            Context.State.BendingTargetPoint = args.StartPoint;
+            Context.State.IsBending = true;
+            Context.State.StartBendCount++;
 
-            LifeTime = 10f; // Reset lifetime when bending starts
+            Context.State.CurBendTime = 0;
+            Context.State.CurFreeTime = 0;
+
+            Behaviour.OnBendStart(Context);
         }
 
         public void OnUpdateBend(SpellBendUpdateEventArgs args)
         {
-            BendingTargetPoint = args.TargetPoint;
+            Context.State.BendingTargetPoint = args.TargetPoint;
+            Context.State.IsBending = true;
+
+            Behaviour.OnBendUpdate(Context);
         }
 
         public void OnEndBend(SpellBendEndEventArgs args)
         {
-            IsBending = false;
+            Context.State.BendingTargetPoint = null;
+            Context.State.IsBending = false;
+            Context.State.EndBendCount++;
 
-            LifeTime = 10f; // Reset lifetime when bending ends
+            Context.State.CurBendTime = 0;
+            Context.State.CurFreeTime = 0;
+
+            Behaviour.OnBendEnd(Context);
         }
 
         public void OnFixedUpdate(float fixedDeltaTime)
         {
-            if (IsBending)
+            if (Context.State.IsBending && Context.State.BendingTargetPoint != null)
             {
-                var dist = PhysicsService.GetDistance(BendingTargetPoint, SpacePoint);
+                var dist = PhysicsService.GetDistance(Context.State.BendingTargetPoint.Value, HasSpacePoint);
                 var distM = dist.Magnitude;
                 //var damp = Math.Max(1 - distM * distM, 0.2f);
                 var damp = 0.5f;
                 var force3 = dist * distM * 30f;
 
-                Physical.ApplyForce(force3);
-                Physical.ApplyForce(-Physical.SpeedSummary * damp * 20f);
-
-                //MergeParticles(Touches.TouchingActors.ActorsAs<CustomSpellParticle>().ToArray());
+                Physical.ApplyForce(force3 * Context.BendForceMult);
+                Physical.ApplyForce(-Physical.SpeedSummary * (damp * 20f * Context.BendForceMult));
             }
             
-            if(!WasBended)
+            if(Context.State.StartBendCount <= 0)
             {
                 var turbulence = Turbulence.Tick(fixedDeltaTime);
                 Physical.ApplyForce(turbulence + Vector2D.Up * 0.1f);
             }
+
+            Behaviour.OnFixedUpdate(Context);
         }
 
         public void OnUpdate(float deltaTime)
         {
-            if (RequiresUpdate)
+            Context.State.SumExistsTime += deltaTime;
+
+            if (Context.State.IsBending)
             {
-                RequiresUpdate = false;
-
-                //var newBehaviour = BehaviourSelector.GetBehaviour(SpellWords);
-
-                StateContext.BehaviourTime = 0f;
+                Context.State.SumBendTime += deltaTime;
+                Context.State.CurBendTime += deltaTime;
+                Context.State.CurFreeTime = 0f;
+            }
+            else
+            {
+                Context.State.SumFreeTime += deltaTime;
+                Context.State.CurFreeTime += deltaTime;
+                Context.State.CurBendTime = 0f;
             }
 
-            if (!IsBending)
+            if (Context.State.SumExistsTime >= 60f)
             {
-                LifeTime -= deltaTime;
-
-                if (LifeTime <= 0)
-                {
-                    Vanish();
-                    return;
-                }
+                UnityEngine.Debug.LogWarning($"Particle {Transform.name} has existed for more than 60 seconds. Consider destroying it to avoid performance issues.");
             }
 
-
-            UpdateState(deltaTime);
-        }
-
-        private void UpdateState(float deltaTime)
-        {
-            var curVelocity = Physical.SpeedSummary;
-            var lastVelocity = LastVelocity;
-
-            LastVelocity = curVelocity;
-            
-            var torsion = GetTorsion(deltaTime, curVelocity, lastVelocity);
-
-            StateContext.DeltaTime = deltaTime;
-            StateContext.ParticleLifeTime += deltaTime;
-            StateContext.BehaviourTime += deltaTime;
-
-            StateContext.Velocity = Physical.SpeedSummary;
-
-            Behaviour.OnUpdate(StateContext);
-
-            // Recalc
-            
-            StateContext.VelocityEnergyMult = 1;
-            StateContext.VelocityEnergyFade = 1;
-            StateContext.TorsionEnergyMult = 1;
-            StateContext.TorsionEnergyFade = 1;
-
-            StateContext.VelocityEnergy = Math.Max(0f, StateContext.VelocityEnergy + curVelocity.Magnitude * StateContext.VelocityEnergyMult * StateContext.DeltaTime * 0.5f - StateContext.VelocityEnergyFade * StateContext.DeltaTime * 20f);
-            StateContext.TorsionEnergy = Math.Max(0f, StateContext.TorsionEnergy + torsion * StateContext.TorsionEnergyMult * StateContext.DeltaTime * 5f - StateContext.TorsionEnergyFade * StateContext.DeltaTime * 20f);
-        }
-
-        private static float GetTorsion(float deltaTime, Vector2D curVelocity, Vector2D lastVelocity)
-        {
-            const float torsionFactor = 0.2f;
-            const float minAngularSpeed = 15f;
-
-            if (lastVelocity.MagnitudeSqrt > 0.01f && curVelocity.MagnitudeSqrt > 0.01f)
-            {
-                var lastDir = lastVelocity.Normalized;
-                var currDir = curVelocity.Normalized;
-
-                var angleChangeDeg = Vectors.SignedAngle(lastDir, currDir);
-                var angularSpeedDegPerSec = angleChangeDeg / deltaTime;
-
-                var absAngularSpeed = Math.Abs(angularSpeedDegPerSec);
-
-                if (absAngularSpeed > minAngularSpeed)
-                {
-                    var add = absAngularSpeed * torsionFactor * deltaTime;
-                    return add;
-                }
-            }
-
-            return 0;
-        }
-
-        private void MergeParticles(params CustomSpellParticle[] particles)
-        {
-            var otherParticles = particles.Where(x => x != this).ToArray();
-
-            if (otherParticles.Length == 0)
-            {
-                return;
-            }
-
-            foreach (var particle in otherParticles)
-            {
-                foreach (var spellWord in particle.SpellWords)
-                {
-                    SpellWords.Add(spellWord);
-                }
-
-                particle.Vanish();
-            }
-
-            RequiresUpdate = true;
-
-            Logger.LogInfo($"Merged particles into one with words: {string.Join(", ", SpellWords.Select(x => x))}");
+            Behaviour.OnUpdate(Context);
         }
 
         public void Vanish()
         {
             GameObject.Destroy(Transform.gameObject);
         }
+
+        #endregion
+
+        #region Внутренние классы
+
+        private class CustomParticleBehaviorContext : ICustomParticleBehaviorContext
+        {
+            public IActor ParticleActor { get; internal set; }
+            public CustomParticleBehaviorState State { get; internal set; }
+            ICustomParticleBehaviorState ICustomParticleBehaviorContext.State => State;
+            public float DeltaTime { get; internal set; }
+            public float BendForceMult { get; set; }
+            public bool IsBendEnabled { get; set; }
+        }
+
+        private class CustomParticleBehaviorState : ICustomParticleBehaviorState
+        {
+            internal CustomParticleBehaviorContext Context { get; set; }
+
+            public bool IsBending { get; internal set; }
+            public int StartBendCount { get; internal set; }
+            public int EndBendCount { get; internal set; }
+            public SpacePoint? BendingTargetPoint { get; internal set; }
+
+            public float SumExistsTime { get; internal set; }
+            public float CurBendTime { get; internal set; }
+            public float SumBendTime { get; internal set; }
+            public float CurFreeTime { get; internal set; }
+            public float SumFreeTime { get; internal set; }
+        }
+
+        #endregion
     }
 }

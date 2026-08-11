@@ -67,6 +67,7 @@ namespace Assets.Code
 
             context.ActorBuilder.RunPerActorDestroyed(x =>
             {
+                x.Logger.LogInfo($"Актор {x.Actor} уничтожен.");
                 var s = x.ServiceProvider.GetService<IActorsCollectionService>();
                 s.RemoveActor(x.Actor);
             });

@@ -1,24 +1,21 @@
-﻿using UNet;
-using UNet.Core.Abstractions;
+﻿using UNet.Core.Abstractions;
 
 namespace CrazyWizardNotes.Magic.Realization
 {
-    public class CustomParticleStateContext
+    /// <summary>
+    /// Базовая информация о состоянии частицы. Поля в контексте можно менять для изменения поведения частицы.
+    /// </summary>
+    public interface ICustomParticleBehaviorContext
     {
-        public IActor Actor { get; set; }
+        public IActor ParticleActor { get; }
+        public ICustomParticleBehaviorState State { get; }
+        public float DeltaTime { get; }
 
-        public float DeltaTime { get; set; }
-        public float ParticleLifeTime { get; set; }
-        public float BehaviourTime { get; set; }
-
-        public Vector2D Velocity { get; set; }
-
-        public float VelocityEnergy { get; set; }
-        public float VelocityEnergyMult { get; set; }
-        public float VelocityEnergyFade { get; set; }
-
-        public float TorsionEnergy { get; set; }
-        public float TorsionEnergyMult { get; set; }
-        public float TorsionEnergyFade { get; set; }
+        /// <summary>
+        /// Эффективность, с которой.
+        /// </summary>
+        public float BendForceMult { get; set; }
+        
+        public bool IsBendEnabled { get; set; }
     }
 }
