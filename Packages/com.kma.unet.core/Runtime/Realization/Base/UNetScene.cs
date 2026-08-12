@@ -33,7 +33,7 @@ namespace UNet.Core.Realization
         #endregion
 
         #region Данные сцены
-
+        
         private IUServiceProvider SceneServiceProvider { get; set; }
         private List<object> SceneComponents { get; set; }
         public IReadonlyTags Tags { get; set; }

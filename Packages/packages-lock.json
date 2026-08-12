@@ -42,12 +42,6 @@
       "source": "embedded",
       "dependencies": {}
     },
-    "com.kma.unet.scenes": {
-      "version": "file:com.kma.unet.scenes",
-      "depth": 0,
-      "source": "embedded",
-      "dependencies": {}
-    },
     "com.kma.unet.sound": {
       "version": "file:com.kma.unet.sound",
       "depth": 0,

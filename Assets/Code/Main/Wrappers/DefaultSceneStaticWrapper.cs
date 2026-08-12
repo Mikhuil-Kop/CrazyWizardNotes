@@ -17,6 +17,11 @@ namespace CrazyWizardNotes.Main.Wrappers
         public UNet.UI.Realization.TooltipCanvasMonoBehaviour TooltipCanvasMonoBehaviour;
 
         public UI.Realization.ActionsBarServiceConfig ActionBarServiceConfig;
+        public Scenes.Realization.SceneLoadAnimatorConfig SceneLoadAnimatorConfig;
+
+        [Header("Эти данные используются, когда сцена была открыта через редактор, а не через SceneLoadService.")]
+        public Scenes.Realization.SceneResource TestSceneResource;
+        public Scenes.Abstractions.SceneRuntimeData TestRuntimeData;
 
         protected override IEnumerable<object> GetObjects()
         {
@@ -30,7 +35,17 @@ namespace CrazyWizardNotes.Main.Wrappers
                 TooltipUIMonoBehaviour,
                 TooltipCanvasMonoBehaviour,
                 ActionBarServiceConfig,
+                SceneLoadAnimatorConfig,
                 new UNet.Physics.Realization.RootTransformContainer(),
+            };
+        }
+
+        protected override IDictionary<string, object> GetKeyedObjects()
+        {
+            return new Dictionary<string, object>
+            {
+                { "TestRuntimeData", TestRuntimeData },
+                { "TestSceneResource", TestSceneResource },
             };
         }
 
@@ -46,10 +61,10 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(UNet.Core.Realization.CameraService),
                 typeof(UNet.Core.Realization.DebugGizmosService),
                 typeof(UNet.Core.Realization.EventsService),
-                typeof(UNet.Core.Realization.SceneManagerService),
                 typeof(UNet.Core.Realization.DebugLogger),
                 typeof(UNet.Core.Realization.ResourcesService),
                 typeof(UNet.Core.Realization.ActorsSpawnService),
+                typeof(UNet.Core.Realization.SceneLoadService),
 
                 typeof(UNet.Inputs.Realization.CameraInputService),
 
@@ -61,10 +76,14 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(UNet.UI.Realization.LocalizationService),
                 //typeof(UNet.UI.Realization.TooltipService), // Работает, но надо включить позже
 
+                typeof(Scenes.Realization.SceneLoadAnimator),
+                typeof(Scenes.Realization.SceneRulesService),
+
                 typeof(Magic.Realization.SpellBendService),
                 typeof(Magic.Realization.SpellParticleService),
                 typeof(Magic.Realization.SpellParticleFromSoundService),
                 typeof(Magic.Realization.SpellWizardService),
+
                 typeof(Electricity.Realization.PhysicsElectricService),
 
                 typeof(UI.Realization.ActiveLogger),
