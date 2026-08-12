@@ -38,6 +38,9 @@ namespace UNet.Core.Realization
         private List<object> SceneComponents { get; set; }
         public IReadonlyTags Tags { get; set; }
 
+        [Obsolete("Закрыть")]
+        public IEnumerable<object> Components => SceneComponents;
+
         #endregion
 
         #region Поля Unity

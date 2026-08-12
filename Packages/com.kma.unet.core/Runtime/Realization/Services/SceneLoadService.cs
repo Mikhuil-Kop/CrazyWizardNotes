@@ -110,7 +110,7 @@ namespace UNet.Core.Realization
             }
 
             Debug.Log("OnSceneLoaded");
-            foreach (var a in ActorsCollectionService.GetAll().ActorsAs<IHandlesSceneLoaded>())
+            foreach (var a in UNetScene.Instance.Components.As<IHandlesSceneLoaded>())
             {
                 a.OnSceneLoaded(CurrentSceneInfo, CurrentSceneData);
             }
@@ -123,7 +123,7 @@ namespace UNet.Core.Realization
                 var prevents = false;
 
                 Debug.Log("OnNextSceneLoading");
-                foreach (var a in ActorsCollectionService.GetAll().ActorsAs<IHandlesNextSceneLoading>())
+                foreach (var a in UNetScene.Instance.Components.As<IHandlesNextSceneLoading>())
                 {
                     var context = new SceneLoadingContext()
                     {
@@ -136,7 +136,7 @@ namespace UNet.Core.Realization
                     prevents |= context.PreventOpenNextScene;
                 }
 
-                if (CurrentProcess.Progress >= 0.95f && !prevents)
+                if (CurrentProcess.Progress >= 0.9f && !prevents)
                 {
                     Open(CurrentProcess);
                 }
@@ -146,7 +146,7 @@ namespace UNet.Core.Realization
         private void Open(UNetSceneLoadingProcess process)
         {
             Debug.Log("OnSceneUnloaded");
-            foreach (var a in ActorsCollectionService.GetAll().ActorsAs<IHandlesSceneUnloaded>())
+            foreach (var a in UNetScene.Instance.Components.As<IHandlesSceneUnloaded>())
             {
                 a.OnSceneUnloaded(CurrentProcess.LoadingSceneInfo, CurrentProcess.LoadingSceneData);
             }

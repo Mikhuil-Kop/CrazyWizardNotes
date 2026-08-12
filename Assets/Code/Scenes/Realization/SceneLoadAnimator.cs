@@ -28,7 +28,7 @@ namespace CrazyWizardNotes.Scenes.Realization
 
             Timer += UnityEngine.Time.deltaTime;
 
-            if (Timer <= 1f)
+            if (Timer <= 0.5f)
             {
                 context.PreventOpenNextScene = true;
             }
