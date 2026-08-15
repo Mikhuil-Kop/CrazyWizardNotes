@@ -7,5 +7,6 @@ namespace CrazyWizardNotes.Scenes.Abstractions
     public class SceneResourceData
     {
         public GameObject Field;
+        public TextAsset RuleType;
     }
 }

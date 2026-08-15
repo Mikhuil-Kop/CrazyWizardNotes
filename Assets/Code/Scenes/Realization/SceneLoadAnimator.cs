@@ -21,6 +21,7 @@ namespace CrazyWizardNotes.Scenes.Realization
             if (!Started)
             {
                 Started = true;
+                Config.Animator.gameObject.SetActive(true);
                 Config.Animator.Play("Loading_Fade");
             }
 

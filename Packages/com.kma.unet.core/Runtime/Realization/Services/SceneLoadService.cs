@@ -26,12 +26,12 @@ namespace UNet.Core.Realization
 
         private static StaticBuffer Buffer { get; set; }
 
-        public SceneLoadService(IActorsCollectionService actorsCollectionService, IResourcesService resourcesService, [FromKey("TestSceneResource")] ISceneResource testSceneResource)//, [FromKey("TestRuntimeData")] object testRuntimeData)
+        public SceneLoadService(IActorsCollectionService actorsCollectionService, IResourcesService resourcesService, SceneLoadServiceConfig config)
         {
             ActorsCollectionService = actorsCollectionService;
             ResourceService = resourcesService;
-            TestSceneResource = testSceneResource;
-            TestRuntimeData = null;
+            TestSceneResource = config.TestSceneResource;
+            TestRuntimeData = config.TestRuntimeData;
         }
 
         public ISceneLoadingProcess LoadScene(string nextSceneName, object nextSceneData)
@@ -42,6 +42,8 @@ namespace UNet.Core.Realization
             }
 
             var resource = ResourceService.Load<ISceneResource>("Scenes/" + nextSceneName);
+
+            Debug.Log("Load Scenes/" + nextSceneName + "-" + resource);
 
             var info = new UNetSceneInfo()
             {
@@ -186,6 +188,14 @@ namespace UNet.Core.Realization
             public UNetSceneData NextSceneData { get; set; }
             public UNetSceneInfo PrevSceneInfo { get; set; }
             public UNetSceneData PrevSceneData { get; set; }
+        }
+
+
+        [Obsolete]
+        public class SceneLoadServiceConfig
+        {
+            public ISceneResource TestSceneResource;
+            public object TestRuntimeData;
         }
 
         #endregion

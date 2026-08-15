@@ -8,14 +8,18 @@ namespace UNet.Core.Realization
     {
         public T Load<T>(string path) where T : class
         {
-            var loaded = Resources.Load<Object>(path.Replace('\\', '/')) as T;
+            Debug.Log("Loading " + path);
+
+            var loaded = Resources.Load<Object>(path.Replace('\\', '/'));
+
+            Debug.Log("Loading " + path + ": " + loaded);
 
             if (loaded is IResource<T> c)
             {
                 return c.Value;
             }
 
-            return loaded;
+            return loaded as T;
         }
 
         public Task<T> LoadAsync<T>(string path) where T : class

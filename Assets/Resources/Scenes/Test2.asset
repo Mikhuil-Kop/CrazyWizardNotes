@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Scenes.Realization.SceneResource
   SceneName: LevelBase
   SceneData:
-    Field: {fileID: 0}
+    Field: {fileID: 6900881242645081220, guid: 57b5b90195548dc4a8f73b56daecbe78, type: 3}
+    RuleType: {fileID: 11500000, guid: 6a6996b9afbddf84fab3e3d8e164fafb, type: 3}

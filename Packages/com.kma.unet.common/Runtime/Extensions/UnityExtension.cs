@@ -6,17 +6,22 @@ public static class UnityExtension
 {
     public static IEnumerable<Transform> GetChildren(this Transform transform)
     {
-        foreach (Transform t in transform)
+        //foreach (Transform t in transform)
+        //{
+        //    yield return t;
+        //}
+
+        for (int i = 0; i < transform.childCount; i++)
         {
-            yield return t;
+            yield return transform.GetChild(i);
         }
     }
 
     public static IEnumerable<RectTransform> GetChildren(this RectTransform transform)
     {
-        foreach (RectTransform t in transform)
+        for (int i = 0; i < transform.childCount; i++)
         {
-            yield return t;
+            yield return transform.GetChild(i) as RectTransform ?? throw new Exception($"RectTransform {transform} must only contain RectTransform children.");
         }
     }
 

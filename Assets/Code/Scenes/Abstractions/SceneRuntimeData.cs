@@ -5,6 +5,6 @@ namespace CrazyWizardNotes.Scenes.Abstractions
     [Serializable]
     public class SceneRuntimeData
     {
-        public int I;
+        public bool KeepField;
     }
 }

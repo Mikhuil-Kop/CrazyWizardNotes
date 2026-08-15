@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CrazyWizardNotes.Main.Wrappers
 {
-    public class DefaultSceneStaticWrapper : TypedWrapperBase
+    public class LevelBaseStaticWrapper : TypedWrapperBase
     {
         public Camera Camera;
         public Canvas Canvas;
@@ -37,6 +37,12 @@ namespace CrazyWizardNotes.Main.Wrappers
                 ActionBarServiceConfig,
                 SceneLoadAnimatorConfig,
                 new UNet.Physics.Realization.RootTransformContainer(),
+
+                new UNet.Core.Realization.SceneLoadService.SceneLoadServiceConfig()
+                {
+                    TestRuntimeData = TestRuntimeData,
+                    TestSceneResource = TestSceneResource,
+                }
             };
         }
 
