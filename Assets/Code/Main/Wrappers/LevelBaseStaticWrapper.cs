@@ -90,13 +90,13 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(Magic.Realization.SpellParticleFromSoundService),
                 typeof(Magic.Realization.SpellWizardService),
 
-                typeof(Electricity.Realization.PhysicsElectricService),
+                typeof(Elements.Realization.PhysicsElectricService),
 
                 typeof(UI.Realization.ActiveLogger),
                 typeof(UI.Realization.ActionBarService),
 
                 typeof(Creatures.Realization.NavigationService),
-                typeof(Creatures.Realization.FoodTestSpawner),
+                //typeof(Creatures.Realization.FoodTestSpawner),
                 //typeof(Nature.Realization.SimpleTerrainService)
             };
         }

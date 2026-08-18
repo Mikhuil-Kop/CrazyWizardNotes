@@ -9,6 +9,11 @@ namespace UNet.UI.Realization
     {
         public ILogger Logger { get; set; }
 
+        public LocalizationService(ILogger logger)
+        {
+            Logger = logger;
+        }
+
         public string GetLocalizedString(TextString text)
         {
             if (!text.Localized)

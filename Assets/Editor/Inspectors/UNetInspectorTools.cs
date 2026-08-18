@@ -54,5 +54,25 @@ namespace CrazyWizardNotes.Editor
         public static void LayoutEnum<T, E>(Expression<Func<T, string>> property) where T : class where E : Enum
         {
         }
+
+        public static bool Field(string name, bool value)
+        {
+            return EditorGUILayout.Toggle(name, value);
+        }
+
+        public static int Field(string name, int value)
+        {
+            return EditorGUILayout.IntField(name, value);
+        }
+
+        public static float Field(string name, float value)
+        {
+            return EditorGUILayout.FloatField(name, value);
+        }
+
+        public static string Field(string name, string value)
+        {
+            return EditorGUILayout.TextField(name, value);
+        }
     }
 }
