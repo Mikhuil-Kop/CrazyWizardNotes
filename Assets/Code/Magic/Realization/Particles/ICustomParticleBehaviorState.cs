@@ -1,5 +1,4 @@
-﻿using UNet;
-using UNet.Physics.Abstractions;
+﻿using UNet.Physics.Abstractions;
 
 namespace CrazyWizardNotes.Magic.Realization
 {
@@ -14,6 +13,16 @@ namespace CrazyWizardNotes.Magic.Realization
         /// Контролируется ли частица в данный момент.
         /// </summary>
         public bool IsBending { get; }
+
+        /// <summary>
+        /// Контролировалась ли частица хоть раз. (<see cref="StartBendCount"/> > 0)
+        /// </summary>
+        public bool WasBended { get; }
+
+        /// <summary>
+        /// Отпускалась ли частица хоть раз. (<see cref="EndBendCount"/> > 0)
+        /// </summary>
+        public bool WasReleased { get; }
 
         /// <summary>
         /// Сколько раз частицу начинали контролировать с момента её создания.

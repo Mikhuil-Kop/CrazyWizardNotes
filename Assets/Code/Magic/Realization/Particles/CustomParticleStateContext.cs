@@ -17,5 +17,7 @@ namespace CrazyWizardNotes.Magic.Realization
         public float BendForceMult { get; set; }
         
         public bool IsBendEnabled { get; set; }
+
+        public bool IsVanishRequested { get; set; }
     }
 }

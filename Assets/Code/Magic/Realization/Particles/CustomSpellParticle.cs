@@ -40,6 +40,7 @@ namespace CrazyWizardNotes.Magic.Realization
                 DeltaTime = 1f,
                 BendForceMult = 1f,
                 IsBendEnabled = true,
+                IsVanishRequested = false,
 
                 State = new CustomParticleBehaviorState()
                 {
@@ -143,11 +144,21 @@ namespace CrazyWizardNotes.Magic.Realization
             }
 
             Behaviour.OnUpdate(Context);
+
+            if (Context.IsVanishRequested)
+            {
+                Vanish();
+                UnityEngine.Debug.Log("Spell - Vanish");
+            }
         }
 
         public void Vanish()
         {
-            GameObject.Destroy(Transform.gameObject);
+            if (Transform != null)
+            {
+                UnityEngine.Debug.Log("Spell - Destroy");
+                GameObject.Destroy(Transform.gameObject);
+            }
         }
 
         #endregion
@@ -162,13 +173,15 @@ namespace CrazyWizardNotes.Magic.Realization
             public float DeltaTime { get; internal set; }
             public float BendForceMult { get; set; }
             public bool IsBendEnabled { get; set; }
+            public bool IsVanishRequested { get; set; }
         }
 
         private class CustomParticleBehaviorState : ICustomParticleBehaviorState
         {
             internal CustomParticleBehaviorContext Context { get; set; }
-
             public bool IsBending { get; internal set; }
+            public bool WasBended => StartBendCount > 0;
+            public bool WasReleased => EndBendCount > 0;
             public int StartBendCount { get; internal set; }
             public int EndBendCount { get; internal set; }
             public SpacePoint? BendingTargetPoint { get; internal set; }
