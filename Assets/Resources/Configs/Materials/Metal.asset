@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Metal
   m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Elements.Realization.MaterialConfigScriptable
   MaterialConfig:
-    ThermalCapacity: 450
+    ThermalCapacity: 0.45
     ThermalConductivity: 80
     ThermalEmissivity: 0.7
-    MoistureCapacity: 0.0
-    MoistureLimit: 0.0
+    MoistureCapacity: 0
+    MoistureLimit: 0
     AutoignitionTemperature: 1500
     FlashPointTemperature: 1400
-    Flammability: 0.0
-    ElectricCapacity: 5.0
+    Flammability: 0
+    ElectricCapacity: 5

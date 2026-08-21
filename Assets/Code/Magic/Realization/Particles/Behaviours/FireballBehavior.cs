@@ -123,12 +123,13 @@ namespace CrazyWizardNotes.Magic.Realization.Particles
 
                 if (actor.Component2 != null)
                 {
-                    actor.Component2.ThermalEnergy += 2000f * speedMult * distanceMult;
+                    actor.Component2.ThermalEnergy += 2f * speedMult * distanceMult;
                 }
 
                 if (actor.Component3 != null)
                 {
-                    actor.Component3.ApplySpark(speedMult * distanceMult);
+                    //actor.Component3.ApplySpark(speedMult * distanceMult);
+                    actor.Component3.StartBurning();
                 }
             }
         }

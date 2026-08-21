@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Phytomass
   m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Elements.Realization.MaterialConfigScriptable
   MaterialConfig:
-    ThermalCapacity: 3500
+    ThermalCapacity: 3.5
     ThermalConductivity: 0.2
     ThermalEmissivity: 0.95
-    MoistureCapacity: 4.0
+    MoistureCapacity: 4
     MoistureLimit: 0.85
     AutoignitionTemperature: 250
     FlashPointTemperature: 180

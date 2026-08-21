@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Wood
   m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Elements.Realization.MaterialConfigScriptable
   MaterialConfig:
-    ThermalCapacity: 1700
+    ThermalCapacity: 1.7
     ThermalConductivity: 0.15
     ThermalEmissivity: 0.9
     MoistureCapacity: 1.2
     MoistureLimit: 0.3
     AutoignitionTemperature: 300
-    FlashPointTemperature: 220
+    FlashPointTemperature: -10
     Flammability: 0.8
     ElectricCapacity: 0.05

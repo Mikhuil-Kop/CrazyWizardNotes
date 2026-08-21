@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Biomass
   m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Elements.Realization.MaterialConfigScriptable
   MaterialConfig:
-    ThermalCapacity: 3500
+    ThermalCapacity: 3.5
     ThermalConductivity: 0.5
     ThermalEmissivity: 0.97
     MoistureCapacity: 3.5
