@@ -8,6 +8,7 @@ namespace CrazyWizardNotes.Scenes.Realization
     public class SceneResource : ScriptableObject, ISceneResource
     {
         public string SceneName;
+        public string SceneTitle;
         public SceneResourceData SceneData;
 
         string ISceneResource.SceneName => SceneName;

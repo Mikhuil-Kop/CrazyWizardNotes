@@ -1,6 +1,5 @@
 ﻿namespace CrazyWizardNotes.Elements.Abstractions
 {
-
     public interface IElectricConductor
     {
         float ElectricCharge { get; set; }

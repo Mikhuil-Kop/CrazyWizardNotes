@@ -1,17 +1,20 @@
 ﻿using CrazyWizardNotes.Elements.Abstractions;
+using System;
 using UNet.Core.Abstractions;
 using UNet.Physics.Abstractions;
 
 namespace CrazyWizardNotes.Elements.Realization
 {
-    public class MonolithElementMaterial : IHasTemperature, IHasMoisture, IFlammable, IElectricConductor, IHandlesUpdate
+    public class MonolithElementMaterial : IHasTemperature, IHasMoisture, IFlammable, IElectricConductor, IHandlesUpdate, IDisposable
     {
         #region Поля
 
+        private IActorsSpawnService SpawnService { get; }
         private IElectricService ElectricService { get; }
         private IActor Actor { get; }
-        private IPhysical Physical { get; }
         private ITouches Touches { get; }
+        private IPhysical Physical { get; }
+        private IHasSpaceObject SpaceObject { get; }
         private MaterialConfig Config { get; }
 
         private bool _isBurning;
@@ -20,14 +23,16 @@ namespace CrazyWizardNotes.Elements.Realization
         private float _moisture;
         private float _moisturePercent;
         private float _electricCharge;
+        private IFlame _attachedFlame;
 
-        public MonolithElementMaterial(IElectricService electricService, IActor actor, IPhysical physical, ITouches touches, MaterialConfig config)
+        public MonolithElementMaterial(IActorsSpawnService spawnService, IElectricService electricService, IActor actor, ITouches touches, IPhysical physical, IHasSpaceObject spaceObject, MaterialConfig config)
         {
+            SpawnService = spawnService;
             ElectricService = electricService;
-
             Actor = actor;
-            Physical = physical;
             Touches = touches;
+            Physical = physical;
+            SpaceObject = spaceObject;
             Config = config;
 
             Touches.OnTouch += OnTouch;
@@ -135,18 +140,47 @@ namespace CrazyWizardNotes.Elements.Realization
 
         public void StartBurning()
         {
-            if (_isBurning) return;
+            if (_isBurning)
+            {
+                return;
+            }
+
             _isBurning = true;
+
+            if (_attachedFlame == null || !_attachedFlame.IsActive)
+            {
+                _attachedFlame = SpawnFlame();
+            }
+
             //OnIgnited?.Invoke(this, new IgnitedEventArgs());
-            UnityEngine.Debug.Log("StartBurning");
         }
 
         public void EndBurning()
         {
-            if (!_isBurning) return;
+            if (!_isBurning)
+            {
+                return;
+            }
+
             _isBurning = false;
+
+            if (_attachedFlame != null && _attachedFlame.IsActive)
+            {
+                _attachedFlame.Extinguish();
+            }
+
             //OnExtinguished?.Invoke(this, new ExtinguishedEventArgs());
-            UnityEngine.Debug.Log("EndBurning");
+        }
+
+        private IFlame SpawnFlame()
+        {
+            var flame = SpawnService.SpawnActor("Nature/Flame");
+            return flame.As<IFlame>();
+        }
+
+        public void Dispose()
+        {
+            _attachedFlame?.Extinguish();
         }
 
         #endregion Функции изменения
@@ -155,6 +189,16 @@ namespace CrazyWizardNotes.Elements.Realization
 
         public void OnUpdate(float deltaTime)
         {
+            if (_attachedFlame != null && !_attachedFlame.IsActive)
+            {
+                EndBurning();
+            }
+
+            if (_attachedFlame != null && _attachedFlame.IsActive)
+            {
+                _attachedFlame.SetPosition(SpaceObject.SpaceObject);
+            }
+
             // При высоких температурах вода исчезает.
             if (Temperature > 50 && Moisture > 10f)
             {

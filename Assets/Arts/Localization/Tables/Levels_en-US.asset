@@ -22,6 +22,14 @@ MonoBehaviour:
     m_Localized: Burn the house
     m_Metadata:
       m_Items: []
+  - m_Id: 2771192330051584
+    m_Localized: Burn the dummy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2778376115838976
+    m_Localized: BreakDummy
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

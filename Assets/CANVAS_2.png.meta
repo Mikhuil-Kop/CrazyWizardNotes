@@ -540,6 +540,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Square
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 2008
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec728e58f0faf1b4c85b2115cec2203f
+      internalID: -1645393799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -577,6 +599,7 @@ TextureImporter:
       CANVAS_2_9: 748770726
       Flasks_0: 623897280
       Flasks_1: -2083278981
+      Square: -1645393799
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

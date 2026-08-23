@@ -19,6 +19,14 @@ MonoBehaviour:
     m_Key: BurnHouse
     m_Metadata:
       m_Items: []
+  - m_Id: 2771192330051584
+    m_Key: BurnDummy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2778376115838976
+    m_Key: BreakDummy
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

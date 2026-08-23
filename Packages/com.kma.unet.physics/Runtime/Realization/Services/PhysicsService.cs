@@ -11,10 +11,11 @@ namespace UNet.Physics.Realization
         private IActorsCollectionService ActorsCollectionService { get; }
         private ISpaceContainer RootSpaceContainer { get; }
 
-        public PhysicsService(IActorsCollectionService subjectsCollectionService, ISpaceContainer rootSpaceContainer)
+        public PhysicsService(IActorsCollectionService subjectsCollectionService, IChunkSpaceActorFactory chunkActorFactory)
         {
             ActorsCollectionService = subjectsCollectionService;
-            RootSpaceContainer = rootSpaceContainer;
+
+            RootSpaceContainer = new DefaultRootSpaceContainer(chunkActorFactory, Vector2D.Zero, new Vector2D(1f, 1f));
         }
 
         // TODO: на проде брутфорс будет лагать. Пока пойдет.
@@ -136,5 +137,25 @@ namespace UNet.Physics.Realization
         {
             return new SpacePoint(RootSpaceContainer, vector2D);
         }
+
+        #region Внутренние классы
+
+        public class DefaultRootSpaceContainer : ISpaceContainer
+        {
+            public ISpaceContainer ParentSpace => null;
+            public ISpaceChunks SpaceChunks { get; }
+
+            public DefaultRootSpaceContainer(IChunkSpaceActorFactory factory, Vector2D worldOrigin, Vector2D chunkSize)
+            {
+                SpaceChunks = new SpaceChunks(this, factory, worldOrigin, chunkSize);
+            }
+
+            public Vector2D TranslateToParentSpace(Vector2D vector)
+            {
+                throw new Exception($"Unable to get parent space vector. {nameof(DefaultRootSpaceContainer)} don`t have {nameof(ParentSpace)}.");
+            }
+        }
+
+        #endregion Внутренние классы
     }
 }

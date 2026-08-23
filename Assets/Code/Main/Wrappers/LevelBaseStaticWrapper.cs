@@ -23,6 +23,8 @@ namespace CrazyWizardNotes.Main.Wrappers
         public Scenes.Realization.SceneResource TestSceneResource;
         public Scenes.Abstractions.SceneRuntimeData TestRuntimeData;
 
+        public Assets.Code.CanvasConfig CanvasConfig;
+
         protected override IEnumerable<object> GetObjects()
         {
             return new object[]
@@ -36,7 +38,7 @@ namespace CrazyWizardNotes.Main.Wrappers
                 TooltipCanvasMonoBehaviour,
                 ActionBarServiceConfig,
                 SceneLoadAnimatorConfig,
-                new UNet.Physics.Realization.RootTransformContainer(),
+                CanvasConfig,
 
                 new UNet.Core.Realization.SceneLoadService.SceneLoadServiceConfig()
                 {
@@ -60,6 +62,7 @@ namespace CrazyWizardNotes.Main.Wrappers
             return new Type[]
             {
                 typeof(Assets.Code.Canvas),
+                typeof(Assets.Code.F),
 
                 typeof(UNet.Core.Realization.ActorsCollectionService),
                 typeof(UNet.Core.Realization.AsyncExecutionService),

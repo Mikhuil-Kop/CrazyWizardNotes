@@ -302,72 +302,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
   m_BlendShapeWeights: []
---- !u!1001 &344435029
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 6053767209365637666}
-    m_Modifications:
-    - target: {fileID: -9139571341253426042, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2813765996428497495, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_Name
-      value: Tribe_SmallWoodHome_001
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
---- !u!4 &344435030 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-  m_PrefabInstance: {fileID: 344435029}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &399131219
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,68 +486,6 @@ Transform:
   - {fileID: 1120872710}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1055017854
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 6053767209365637666}
-    m_Modifications:
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2813765996428497495, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-      propertyPath: m_Name
-      value: Tribe_SmallWoodHome
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
---- !u!4 &1055017855 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 436245276810405364, guid: 8d6043658ceeba9409ec4255bee7942d, type: 3}
-  m_PrefabInstance: {fileID: 1055017854}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1106365941
 GameObject:
   m_ObjectHideFlags: 0
@@ -1189,15 +1061,8 @@ PrefabInstance:
       value: Field
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 2513942344826508396, guid: 15e95df0f34edf5498699591b2f37a31, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1135049712131598496, guid: 15e95df0f34edf5498699591b2f37a31, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1055017855}
-    - targetCorrespondingSourceObject: {fileID: 1135049712131598496, guid: 15e95df0f34edf5498699591b2f37a31, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 344435030}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4112907431142257499, guid: 15e95df0f34edf5498699591b2f37a31, type: 3}
       insertIndex: -1
@@ -1213,11 +1078,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: orthographic size
-      value: 6.5
+      value: 6.03125
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
-      value: 0
+      value: 0.0335277
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
@@ -1225,7 +1090,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
-      value: 1
+      value: 0.93294466
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
@@ -1553,20 +1418,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1956089063}
     - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
+      propertyPath: CanvasConfig.AS
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
       propertyPath: FieldRootToSpawn
       value: 
       objectReference: {fileID: 6053767209365637666}
     - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
       propertyPath: TestSceneResource
       value: 
-      objectReference: {fileID: 11400000, guid: 964e218c5139d8b44b43814b544e2aa3, type: 2}
+      objectReference: {fileID: 11400000, guid: 3b095387f766a7a47acab7e32674808b, type: 2}
     - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
       propertyPath: TooltipUIMonoBehaviour
       value: 
       objectReference: {fileID: 1490978276}
     - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
       propertyPath: TestRuntimeData.KeepField
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
       propertyPath: TooltipCanvasMonoBehaviour
