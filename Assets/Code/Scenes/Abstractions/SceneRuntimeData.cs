@@ -6,5 +6,7 @@ namespace CrazyWizardNotes.Scenes.Abstractions
     public class SceneRuntimeData
     {
         public bool KeepField;
+        public bool UseRules;
+        public bool LastSceneIsCompleted;
     }
 }

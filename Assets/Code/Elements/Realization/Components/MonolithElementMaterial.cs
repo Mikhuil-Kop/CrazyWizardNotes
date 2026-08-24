@@ -2,6 +2,7 @@
 using System;
 using UNet.Core.Abstractions;
 using UNet.Physics.Abstractions;
+using UnityEngine;
 
 namespace CrazyWizardNotes.Elements.Realization
 {
@@ -140,6 +141,7 @@ namespace CrazyWizardNotes.Elements.Realization
 
         public void StartBurning()
         {
+            Debug.Log("StartBurning");
             if (_isBurning)
             {
                 return;
@@ -157,6 +159,7 @@ namespace CrazyWizardNotes.Elements.Realization
 
         public void EndBurning()
         {
+            Debug.Log("EndBurning");
             if (!_isBurning)
             {
                 return;

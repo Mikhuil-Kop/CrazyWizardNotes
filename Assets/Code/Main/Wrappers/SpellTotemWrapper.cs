@@ -1,17 +1,27 @@
-﻿using System;
+﻿using CrazyWizardNotes.Magic.Abstractions;
+using System;
 using System.Collections.Generic;
 
 namespace CrazyWizardNotes.Main.Wrappers
 {
     public class SpellTotemWrapper : TypedWrapperBase
     {
-        public Buildings.Realization.SpellParticleTotemConfig TotemConfig;
+        public SpellParamsScriptable SpellToSpawn;
+        public float ActivationTimeGap = 3f;
+        public bool IsEnabled = false;
+        public bool IsActive = false;
 
         protected override IEnumerable<object> GetObjects()
         {
             return new[]
             {
-                TotemConfig
+                new Buildings.Realization.SpellParticleTotemConfig()
+                {
+                    SpellId = SpellToSpawn.DefaultSpellName,
+                    ActivationTimeGap = ActivationTimeGap,
+                    IsEnabled = IsEnabled,
+                    IsActive = IsActive,
+                }
             };
         }
 

@@ -1,19 +1,28 @@
 ﻿using CrazyWizardNotes.Scenes.Abstractions;
+using System;
 using System.Linq;
 using UNet.Core.Abstractions;
 using UnityEngine;
 
 namespace CrazyWizardNotes.Scenes.Realization
 {
-    public class SceneRulesService : IHandlesUpdate, IHandlesSceneLoaded
+    public class SceneRulesService : IHandlesSceneLoaded
     {
         private ISceneLoadService SceneLoadService { get; }
+        private IAsyncJobService AsyncJobService { get; }
+        private IUServiceProvider ServiceProvider { get; }
         private Transform Transform { get; }
+        private ISceneRule SceneRule { get; set; }
+        private bool RuleStarted { get; set; }
 
-        public SceneRulesService(ISceneLoadService sceneLoadService, Transform transform)
+        public SceneRulesService(ISceneLoadService sceneLoadService, IAsyncJobService asyncJobService, IUServiceProvider serviceProvider, Transform transform)
         {
             SceneLoadService = sceneLoadService;
+            AsyncJobService = asyncJobService;
+            ServiceProvider = serviceProvider;
             Transform = transform;
+
+            AsyncJobService.Register(OnTick, 1f);
         }
 
         public void OnSceneLoaded(ISceneInfo sceneInfo, ISceneData sceneData)
@@ -23,34 +32,92 @@ namespace CrazyWizardNotes.Scenes.Realization
 
             if (data2 == null || !data2.KeepField)
             {
-                foreach (var t in Transform.GetChildren().ToArray())
-                {
-                    GameObject.Destroy(t.gameObject);
-                }
+                SpawnSceneField(data1);
+            }
 
-                var field = GameObject.Instantiate(data1.Field, Transform);
-
-                foreach (var t in field.transform.GetChildren().ToArray())
-                {
-                    t.parent = Transform;
-                }
-
-                GameObject.Destroy(field);
+            if (data2 == null || data2.UseRules)
+            {
+                InitializeRules(data1);
             }
         }
 
-        // Test
-        public void OnUpdate(float deltaTime)
+        private void OnTick()
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (SceneRule != null)
             {
-                SceneLoadService.LoadScene("Test1", null);
+                if (!RuleStarted)
+                {
+                    RuleStarted = true;
+                    SceneRule.OnStart(ServiceProvider);
+                }
+
+                SceneRule.OnTick();
+
+                if (SceneRule.IsCompleted)
+                {
+                    FinishScene(true);
+                    return;
+                }
+
+                if (SceneRule.IsFailed)
+                {
+                    FinishScene(false);
+                    return;
+                }
+            }
+        }
+
+        private void FinishScene(bool isCompleted)
+        {
+            Debug.Log("FinishScene - " + isCompleted);
+            
+            SceneLoadService.LoadScene("Main/MainMenu", new SceneRuntimeData()
+            {
+                KeepField = false,
+                UseRules = true,
+                LastSceneIsCompleted = isCompleted
+            });
+        }
+
+        private void SpawnSceneField(SceneResourceData data1)
+        {
+            foreach (var t in Transform.GetChildren().ToArray())
+            {
+                GameObject.Destroy(t.gameObject);
             }
 
-            if (Input.GetKeyDown(KeyCode.E))
+            var field = GameObject.Instantiate(data1.Field, Transform);
+
+            foreach (var t in field.transform.GetChildren().ToArray())
             {
-                SceneLoadService.LoadScene("Test2", null);
+                t.parent = Transform;
             }
+
+            GameObject.Destroy(field);
+        }
+        
+        private void InitializeRules(SceneResourceData data1)
+        {
+            var name = $"CrazyWizardNotes.Scenes.Realization.{data1.RuleType.name}";
+            var type = ByName(name) ?? throw new Exception($"Cannot find type \"{name}\"");
+            var constructor = type.GetConstructors().FirstOrDefault() ?? throw new Exception($"Cannot find constructor for \"{type}\"");
+            var rule = constructor.Invoke(new object[0]) as ISceneRule ?? throw new Exception($"{type} is not a ISceneRule");
+
+            SceneRule = rule;
+        }
+
+        public static Type ByName(string name)
+        {
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies().Reverse())
+            {
+                var tt = assembly.GetType(name);
+                if (tt != null)
+                {
+                    return tt;
+                }
+            }
+
+            return null;
         }
     }
 }

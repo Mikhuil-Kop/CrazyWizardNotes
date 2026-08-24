@@ -6,8 +6,8 @@ namespace CrazyWizardNotes.Buildings.Realization
 {
     public class TotemBase : ITotem, IHandlesUpdate
     {
-        private IActor Actor { get; }
-        private ITotemVisualizer TotemVisualizer { get; }
+        protected IActor Actor { get; }
+        protected ITotemVisualizer TotemVisualizer { get; }
 
         private float _timer;
         private TimeSpan _activationTimeGap;

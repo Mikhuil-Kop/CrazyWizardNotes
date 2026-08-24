@@ -30,8 +30,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9099683751673802332}
-  - {fileID: 5218855054002216609}
-  - {fileID: 6920189051129502470}
+  - {fileID: 6291249759147022616}
+  - {fileID: 9163532290786761919}
   - {fileID: 8468561146096843004}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -49,6 +49,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1459015041545324800, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
       propertyPath: TotemConfig.IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801522237484657755, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
+      propertyPath: IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801522237484657755, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
+      propertyPath: IsEnabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3143735996733406995, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
@@ -91,6 +99,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3783815799418042538, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3783815799418042538, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8068373467956167745, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
       propertyPath: m_Name
       value: SpawnAnvilTotem_1
@@ -100,9 +116,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
---- !u!4 &6920189051129502470 stripped
+--- !u!4 &9163532290786761919 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3143735996733406995, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3783815799418042538, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
   m_PrefabInstance: {fileID: 5452091672596325397}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6664810864855151741
@@ -227,6 +243,14 @@ PrefabInstance:
       propertyPath: TotemConfig.IsEnabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2801522237484657755, guid: c9810867d86fdde42a4520ce1a391d68, type: 3}
+      propertyPath: IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801522237484657755, guid: c9810867d86fdde42a4520ce1a391d68, type: 3}
+      propertyPath: IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3143735996733406995, guid: c9810867d86fdde42a4520ce1a391d68, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5
@@ -267,6 +291,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3783815799418042538, guid: c9810867d86fdde42a4520ce1a391d68, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3783815799418042538, guid: c9810867d86fdde42a4520ce1a391d68, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8068373467956167745, guid: c9810867d86fdde42a4520ce1a391d68, type: 3}
       propertyPath: m_Name
       value: MagnetizeTotem_1
@@ -276,9 +308,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9810867d86fdde42a4520ce1a391d68, type: 3}
---- !u!4 &5218855054002216609 stripped
+--- !u!4 &6291249759147022616 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3143735996733406995, guid: c9810867d86fdde42a4520ce1a391d68, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3783815799418042538, guid: c9810867d86fdde42a4520ce1a391d68, type: 3}
   m_PrefabInstance: {fileID: 7191635347014082994}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8325895373809720584

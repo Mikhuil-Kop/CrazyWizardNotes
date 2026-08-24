@@ -1060,13 +1060,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Field
       objectReference: {fileID: 0}
+    - target: {fileID: 6843958207833029234, guid: 15e95df0f34edf5498699591b2f37a31, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6843958207833029234, guid: 15e95df0f34edf5498699591b2f37a31, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1919318952053326112, guid: 15e95df0f34edf5498699591b2f37a31, type: 3}
+    - {fileID: 3270224339253664639, guid: 15e95df0f34edf5498699591b2f37a31, type: 3}
+    - {fileID: 4112907431142257499, guid: 15e95df0f34edf5498699591b2f37a31, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4112907431142257499, guid: 15e95df0f34edf5498699591b2f37a31, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15e95df0f34edf5498699591b2f37a31, type: 3}
 --- !u!1001 &523926176990891434
 PrefabInstance:
@@ -1078,23 +1086,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: orthographic size
-      value: 6.03125
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
-      value: 0.0335277
+      value: 0.032822758
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
-      value: 0
+      value: 0.0012970169
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
-      value: 0.93294466
+      value: 0.9336251
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
-      value: 1
+      value: 0.99610895
       objectReference: {fileID: 0}
     - target: {fileID: 4415192430995338270, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_Name
@@ -1428,11 +1436,15 @@ PrefabInstance:
     - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
       propertyPath: TestSceneResource
       value: 
-      objectReference: {fileID: 11400000, guid: 3b095387f766a7a47acab7e32674808b, type: 2}
+      objectReference: {fileID: 11400000, guid: 024aad5e4dca451469269befbedc5212, type: 2}
     - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
       propertyPath: TooltipUIMonoBehaviour
       value: 
       objectReference: {fileID: 1490978276}
+    - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
+      propertyPath: TestRuntimeData.UseRules
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
       propertyPath: TestRuntimeData.KeepField
       value: 0

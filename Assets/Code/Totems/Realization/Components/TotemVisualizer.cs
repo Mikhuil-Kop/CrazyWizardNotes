@@ -14,10 +14,12 @@ namespace CrazyWizardNotes.Buildings.Realization
         private static readonly int ActivateRaiseHash = Animator.StringToHash("TotemActivateRaise");
         private static readonly int DeactivateHash = Animator.StringToHash("TotemDeactivate");
 
+        [Header("Components")]
         public Animator Animator;
         public SpriteRenderer CrystalSprite;
         public Light2D CrystalLight;
 
+        [Header("Base Values")]
         [Range(0f, 1f)]
         public float HueBase = 1f;
         [Range(0f, 2f)]
@@ -34,7 +36,6 @@ namespace CrazyWizardNotes.Buildings.Realization
         public float Value = 1f;
         [Range(0f, 2f)]
         public float Light = 1f;
-
 
         private MaterialPropertyBlock Properties;
         private int HueId;
