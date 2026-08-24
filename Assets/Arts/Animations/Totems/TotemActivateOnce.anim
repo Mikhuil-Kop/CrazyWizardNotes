@@ -48,7 +48,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Crystal
+    path: Body/Crystal
   m_ScaleCurves: []
   m_FloatCurves:
   - serializedVersion: 2
@@ -302,7 +302,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Crystal
+    path: Body/Crystal
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -341,7 +341,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Crystal
+    path: Body/Crystal
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -380,7 +380,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Crystal
+    path: Body/Crystal
     classID: 4
     script: {fileID: 0}
     flags: 0

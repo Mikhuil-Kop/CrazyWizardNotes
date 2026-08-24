@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6086060029415344357, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: Spell
+      value: 
+      objectReference: {fileID: 11400000, guid: df4d719448e5f69469518cbe533ab667, type: 2}
+    - target: {fileID: -6086060029415344357, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: SpellToSpawn
+      value: 
+      objectReference: {fileID: 11400000, guid: df4d719448e5f69469518cbe533ab667, type: 2}
     - target: {fileID: 419839608373887011, guid: da0b3708667435747a242a11dad0affc, type: 3}
       propertyPath: Hue
       value: 0.032
@@ -25,8 +33,16 @@ PrefabInstance:
       value: 0.894
       objectReference: {fileID: 0}
     - target: {fileID: 1826085906362995264, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: Spell
+      value: 
+      objectReference: {fileID: 11400000, guid: df4d719448e5f69469518cbe533ab667, type: 2}
+    - target: {fileID: 1826085906362995264, guid: da0b3708667435747a242a11dad0affc, type: 3}
       propertyPath: TotemConfig.SpellId
       value: Fireball
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941485410089060250, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: HueBase
+      value: 0.059
       objectReference: {fileID: 0}
     - target: {fileID: 2167008073428510641, guid: da0b3708667435747a242a11dad0affc, type: 3}
       propertyPath: m_Size.x
@@ -88,6 +104,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireballTotem
       objectReference: {fileID: 0}
+    - target: {fileID: 7969248411807746110, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_Color.g
+      value: 0.354
+      objectReference: {fileID: 0}
     - target: {fileID: 8194983842286669703, guid: da0b3708667435747a242a11dad0affc, type: 3}
       propertyPath: m_Color.b
       value: 0.200764
@@ -103,6 +123,10 @@ PrefabInstance:
     - target: {fileID: 8194983842286669703, guid: da0b3708667435747a242a11dad0affc, type: 3}
       propertyPath: m_FalloffIntensity
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057438945626593464, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_Name
+      value: FireballTotem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

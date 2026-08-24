@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1044904764475558203}
-  - {fileID: 5658770471656450195}
+  - {fileID: 5883362014372884266}
   - {fileID: 6170357116054997694}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -218,6 +218,14 @@ PrefabInstance:
       propertyPath: TotemConfig.IsEnabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2801522237484657755, guid: 5a2e600b9e9f6994f9a5abe2bd639d57, type: 3}
+      propertyPath: IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801522237484657755, guid: 5a2e600b9e9f6994f9a5abe2bd639d57, type: 3}
+      propertyPath: IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3143735996733406995, guid: 5a2e600b9e9f6994f9a5abe2bd639d57, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5
@@ -258,6 +266,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3783815799418042538, guid: 5a2e600b9e9f6994f9a5abe2bd639d57, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8068373467956167745, guid: 5a2e600b9e9f6994f9a5abe2bd639d57, type: 3}
       propertyPath: m_Name
       value: FireballTotem_1
@@ -267,8 +279,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a2e600b9e9f6994f9a5abe2bd639d57, type: 3}
---- !u!4 &5658770471656450195 stripped
+--- !u!4 &5883362014372884266 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3143735996733406995, guid: 5a2e600b9e9f6994f9a5abe2bd639d57, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3783815799418042538, guid: 5a2e600b9e9f6994f9a5abe2bd639d57, type: 3}
   m_PrefabInstance: {fileID: 7288854963594876800}
   m_PrefabAsset: {fileID: 0}

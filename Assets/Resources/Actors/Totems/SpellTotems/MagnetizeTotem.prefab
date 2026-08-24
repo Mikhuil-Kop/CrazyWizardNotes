@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6086060029415344357, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: Spell
+      value: 
+      objectReference: {fileID: 11400000, guid: 99883c9ae70c6aa4b8703fafb34e6255, type: 2}
+    - target: {fileID: -6086060029415344357, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: SpellToSpawn
+      value: 
+      objectReference: {fileID: 11400000, guid: 99883c9ae70c6aa4b8703fafb34e6255, type: 2}
     - target: {fileID: 419839608373887011, guid: da0b3708667435747a242a11dad0affc, type: 3}
       propertyPath: Hue
       value: 0.032
@@ -27,6 +35,18 @@ PrefabInstance:
     - target: {fileID: 1826085906362995264, guid: da0b3708667435747a242a11dad0affc, type: 3}
       propertyPath: TotemConfig.SpellId
       value: Magnetize
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941485410089060250, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: HueBase
+      value: 0.637
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941485410089060250, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: ValueBase
+      value: 0.819
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941485410089060250, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: SaturationBase
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 2125956878677561381, guid: da0b3708667435747a242a11dad0affc, type: 3}
       propertyPath: m_Sprite
@@ -92,6 +112,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: MagnetizeTotem
       objectReference: {fileID: 0}
+    - target: {fileID: 7969248411807746110, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969248411807746110, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_Color.g
+      value: 0.83354497
+      objectReference: {fileID: 0}
+    - target: {fileID: 7969248411807746110, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7975
+      objectReference: {fileID: 0}
     - target: {fileID: 8194983842286669703, guid: da0b3708667435747a242a11dad0affc, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -111,6 +143,10 @@ PrefabInstance:
     - target: {fileID: 8194983842286669703, guid: da0b3708667435747a242a11dad0affc, type: 3}
       propertyPath: m_FalloffIntensity
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9057438945626593464, guid: da0b3708667435747a242a11dad0affc, type: 3}
+      propertyPath: m_Name
+      value: MagnetizeTotem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CrazyWizardNotes.Magic.Abstractions;
+using System;
 using System.Collections.Generic;
 using Particles = CrazyWizardNotes.Magic.Realization.Particles;
 
@@ -14,6 +15,9 @@ namespace CrazyWizardNotes.Main.Wrappers
             SpawnAnvil
         }
 
+        public ParticleType SelectedParticleType;
+        public SpellParamsScriptable SpellParams;
+
         public static Dictionary<ParticleType, Type> ParticleTypes = new()
         {
             { ParticleType.Fireball, typeof(Particles.FireballBehavior) },
@@ -21,8 +25,6 @@ namespace CrazyWizardNotes.Main.Wrappers
             { ParticleType.Magnetize, typeof(Particles.MagnetizeBehavior) },
             { ParticleType.SpawnAnvil, typeof(Particles.SpawnAnvilBehavior) }
         };
-
-        public ParticleType SelectedParticleType;
 
         protected override IEnumerable<Type> GetWrappedTypes()
         {

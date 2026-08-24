@@ -113,6 +113,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: 781d165a488ac024d9f759e24d00d952, type: 2}
     - target: {fileID: 617857681793790734, guid: 963b0150493e81744a7dc03fa292f988, type: 3}
+      propertyPath: SpellParams
+      value: 
+      objectReference: {fileID: 11400000, guid: 99883c9ae70c6aa4b8703fafb34e6255, type: 2}
+    - target: {fileID: 617857681793790734, guid: 963b0150493e81744a7dc03fa292f988, type: 3}
       propertyPath: SelectedParticleType
       value: 2
       objectReference: {fileID: 0}
