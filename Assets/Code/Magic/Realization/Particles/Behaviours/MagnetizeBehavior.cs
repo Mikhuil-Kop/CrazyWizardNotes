@@ -1,87 +1,51 @@
-﻿using CrazyWizardNotes.Magic.Abstractions;
-using UNet.Core.Abstractions;
-using UNet.Physics.Abstractions;
+﻿using CrazyWizardNotes.Elements.Abstractions;
 using UnityEngine;
 
 namespace CrazyWizardNotes.Magic.Realization.Particles
 {
-    public sealed class MagnetizeBehavior : CustomParticleBehaviourBase
+    public sealed class MagnetizeBehavior : CustomParticleBehaviourBase, IMagnetic
     {
-        private IPhysicsService PhysicsService { get; }
-        private IHasSpacePoint HasSpacePoint { get; }
-        private ITouches Touches { get; }
         private Animator Animator { get; }
+        private float ChargeValue { get; }
+        private bool IsActive { get; set; }
+        private bool IsChargePositive { get; set; }
 
-        private int Level { get; set; }
+        public float MagneticCharge =>
+            IsActive
+            ? IsChargePositive
+                ? ChargeValue
+                : -ChargeValue
+            : 0;
 
-        private const float TimeToLevel = 3.0f;
+        public float MagneticSusceptibility => 0f;
+        public bool IsAffectedByMagnetic => false;
 
-        public MagnetizeBehavior(Animator animator, IPhysicsService physicsService, IHasSpacePoint spacePoint, IPhysical physical, ITouches touches)
+        public MagnetizeBehavior(Animator animator)
         {
-            PhysicsService = physicsService;
-            HasSpacePoint = spacePoint;
-            Touches = touches;
             Animator = animator;
+            ChargeValue = 100f;
+            IsActive = false;
+            IsChargePositive = true;
+        }
 
-            Level = -1;
+        public override void OnBendStart(ICustomParticleBehaviorContext context)
+        {
+            IsActive = true;
         }
 
         public override void OnUpdate(ICustomParticleBehaviorContext context)
         {
-            if (context.State.IsBending)
+            if (context.State.CurFreeTime > 3f)
             {
-                var targetLevel = Mathf.FloorToInt(context.State.SumBendTime / TimeToLevel);
-
-                if (Level <= targetLevel)
-                {
-                    Level = targetLevel;
-                    Animator.SetInteger("Level", Level + 1);
-                }
-            }
-        }
-
-        public override void OnFixedUpdate(ICustomParticleBehaviorContext context)
-        {
-            if (context.State.IsBending)
-            {
-                var force = Level switch
-                {
-                    2 => 4f,
-                    1 => 2f,
-                    0 => 1f,
-                    _ => 0f,
-                };
-
-                PhysicsService.AddCircleGravity(HasSpacePoint.SpacePoint.Position, force);
-            }
-
-            if (!context.State.IsBending && context.State.EndBendCount > 0)
-            {
-                var force = 10f;
-                PhysicsService.AddCircleGravity(HasSpacePoint.SpacePoint.Position, force);
+                context.IsVanishRequested = true;
             }
         }
 
         public override void OnBendEnd(ICustomParticleBehaviorContext context)
         {
-            context.IsBendEnabled = false;
-            Animator.SetBool("Released", true);
+            IsActive = false;
 
-            Touches.OnTouch -= Touches_OnTouch;
-            Touches.OnTouch += Touches_OnTouch;
-        }
-
-        private void Touches_OnTouch(OnTouchEventArgs obj)
-        {
-            foreach (var touch in obj.Touches.ActorsAs<IDestroyable>())
-            {
-                touch.Destroy();
-            }
-
-            foreach (var touch in obj.Touches.ActorsAs<IVanishable>())
-            {
-                touch.Vanish();
-            }
+            IsChargePositive = !IsChargePositive;
         }
     }
 }

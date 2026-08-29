@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace UNet
@@ -23,6 +25,36 @@ namespace UNet
                 dict[field.Name] = field.GetValue(obj);
             }
             return dict;
+        }
+
+        public static Type GetTypeByNameRequired(string name, bool strictOnly)
+        {
+            return GetTypeByName(name, strictOnly) ?? throw new KeyNotFoundException($"Type \"{name}\" not found. (strictOnly={strictOnly})");
+        }
+
+        public static Type GetTypeByName(string name, bool strictOnly)
+        {
+            if (strictOnly)
+            {
+                return
+                    AppDomain.CurrentDomain.GetAssemblies()
+                        .Reverse()
+                        .Select(assembly => assembly.GetType(name))
+                        .FirstOrDefault(t => t != null);
+            }
+            else
+            {
+                return
+                    AppDomain.CurrentDomain.GetAssemblies()
+                        .Reverse()
+                        .Select(assembly => assembly.GetType(name))
+                        .FirstOrDefault(t => t != null)
+                    ??
+                    AppDomain.CurrentDomain.GetAssemblies()
+                        .Reverse()
+                        .SelectMany(assembly => assembly.GetTypes())
+                        .FirstOrDefault(t => t.Name.Contains(name));
+            }
         }
     }
 }

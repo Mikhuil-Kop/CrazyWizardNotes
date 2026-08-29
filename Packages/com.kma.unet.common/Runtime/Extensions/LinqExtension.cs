@@ -1,9 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UNet;
 
 public static class LinqExtension
 {
+    public static Vector2D Sum<T>(this IEnumerable<T> enumarable, Func<T, Vector2D> func)
+    {
+        if (enumarable == null) throw new ArgumentNullException(nameof(enumarable));
+        if (func == null) throw new ArgumentNullException(nameof(func));
+
+        return enumarable.Aggregate(Vector2D.Zero, (x, y) => x + func(y));
+    }
+
+    public static Vector3D Sum<T>(this IEnumerable<T> enumarable, Func<T, Vector3D> func)
+    {
+        if (enumarable == null) throw new ArgumentNullException(nameof(enumarable));
+        if (func == null) throw new ArgumentNullException(nameof(func));
+
+        return enumarable.Aggregate(Vector3D.Zero, (x, y) => x + func(y));
+    }
+
+    public static Vector4D Sum<T>(this IEnumerable<T> enumarable, Func<T, Vector4D> func)
+    {
+        if (enumarable == null) throw new ArgumentNullException(nameof(enumarable));
+        if (func == null) throw new ArgumentNullException(nameof(func));
+
+        return enumarable.Aggregate(Vector4D.Zero, (x, y) => x + func(y));
+    }
+
+    public static Vector2D Sum(this IEnumerable<Vector2D> enumarable)
+    {
+        if (enumarable == null) throw new ArgumentNullException(nameof(enumarable));
+
+        return enumarable.Aggregate(Vector2D.Zero, (x, y) => x + y);
+    }
+
+    public static Vector3D Sum(this IEnumerable<Vector3D> enumarable)
+    {
+        if (enumarable == null) throw new ArgumentNullException(nameof(enumarable));
+
+        return enumarable.Aggregate(Vector3D.Zero, (x, y) => x + y);
+    }
+
+    public static Vector4D Sum(this IEnumerable<Vector4D> enumarable)
+    {
+        if (enumarable == null) throw new ArgumentNullException(nameof(enumarable));
+
+        return enumarable.Aggregate(Vector4D.Zero, (x, y) => x + y);
+    }
+
     public static IEnumerable<LinkedListNode<T>> AsNodes<T>(this LinkedList<T> list)
     {
         if (list == null) throw new ArgumentNullException(nameof(list));

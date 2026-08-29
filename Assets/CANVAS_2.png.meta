@@ -130,8 +130,8 @@ TextureImporter:
         y: 2018
         width: 16
         height: 29
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -152,8 +152,8 @@ TextureImporter:
         y: 1997
         width: 23
         height: 50
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5217391, y: 0.08}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -174,8 +174,8 @@ TextureImporter:
         y: 1969
         width: 31
         height: 77
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.54838705, y: 0.025974026}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -544,7 +544,7 @@ TextureImporter:
       name: Square
       rect:
         serializedVersion: 2
-        x: 250
+        x: 256
         y: 2008
         width: 32
         height: 32
@@ -558,6 +558,72 @@ TextureImporter:
       bones: []
       spriteID: ec728e58f0faf1b4c85b2115cec2203f
       internalID: -1645393799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Circle
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 2008
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecdda86c4815e134eb861f118b53dcbb
+      internalID: 525810652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Circle B
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 2008
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c5795b886cb11e48acc7f4e02279a6d
+      internalID: -1465453613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Line
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 2000
+        width: 32
+        height: 2
+      alignment: 4
+      pivot: {x: 0, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 929ea452516acfb4f8b95a79e21ca0e5
+      internalID: 2125211501
       vertices: []
       indices: 
       edges: []
@@ -597,8 +663,11 @@ TextureImporter:
       CANVAS_2_7: 1423948126
       CANVAS_2_8: -568673305
       CANVAS_2_9: 748770726
+      Circle: 525810652
+      Circle B: -1465453613
       Flasks_0: 623897280
       Flasks_1: -2083278981
+      Line: 2125211501
       Square: -1645393799
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

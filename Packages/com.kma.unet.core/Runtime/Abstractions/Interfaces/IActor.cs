@@ -83,7 +83,7 @@ namespace UNet.Core.Abstractions
                 Component1 = component1;
             }
 
-            public bool AllComponentsPresent() => Component1 != null;
+            public bool AllComponentsPresent => Component1 != null;
         }
 
         public class ActorWithComponents<T1, T2>
@@ -101,7 +101,7 @@ namespace UNet.Core.Abstractions
                 Component2 = component2;
             }
 
-            public bool AllComponentsPresent() => Component1 != null && Component2 != null;
+            public bool AllComponentsPresent => Component1 != null && Component2 != null;
         }
 
         public class ActorWithComponents<T1, T2, T3>
@@ -122,7 +122,7 @@ namespace UNet.Core.Abstractions
                 Component3 = component3;
             }
 
-            public bool AllComponentsPresent() =>
+            public bool AllComponentsPresent =>
                 Component1 != null && Component2 != null && Component3 != null;
         }
 
@@ -147,7 +147,7 @@ namespace UNet.Core.Abstractions
                 Component4 = component4;
             }
 
-            public bool AllComponentsPresent() =>
+            public bool AllComponentsPresent =>
                 Component1 != null && Component2 != null && Component3 != null && Component4 != null;
         }
 

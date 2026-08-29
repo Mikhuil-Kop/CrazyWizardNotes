@@ -63,6 +63,7 @@ namespace UNet
 
         public static Vector4D operator +(Vector4D a) => new(a.X, a.Y, a.Z, a.W);
         public static Vector4D operator -(Vector4D a) => new(-a.X, -a.Y, -a.Z, -a.W);
+        public static Vector4D operator +(Vector4D a, Vector4D b) => new(a.X + b.X, a.Y + b.Y, a.Z + b.Z, a.W + b.W);
         public static Vector4D operator -(Vector4D a, Vector4D b) => new(a.X - b.X, a.Y - b.Y, a.Z - b.Z, a.W - b.W);
         public static Vector4D operator *(Vector4D a, Vector4D b) => new(a.X * b.X, a.Y * b.Y, a.Z * b.Z, a.W * b.W);
         public static Vector4D operator /(Vector4D a, Vector4D b) => new(a.X / b.X, a.Y / b.Y, a.Z / b.Z, a.W / b.W);

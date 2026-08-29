@@ -17,5 +17,6 @@ namespace CrazyWizardNotes.Elements.Realization
         public float Flammability;
 
         public float ElectricCapacity;
+        public float MagneticSusceptibility;
     }
 }

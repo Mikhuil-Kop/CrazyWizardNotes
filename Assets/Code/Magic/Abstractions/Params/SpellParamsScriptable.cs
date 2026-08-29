@@ -11,6 +11,7 @@ namespace CrazyWizardNotes.Magic.Abstractions
         public string DefaultSpellName => name;
         public string DefaultSpellTitle => $"@Spells.{name}_Title";
         public string DefaultSpellDescription => $"@Spells.{name}_Description";
+        public string DefaultSpellParticleType => $"CrazyWizardNotes.Magic.Realization.Particles.{name}Behavior";
         public string DefaultSpellParticleAsset => $"Particles/{name}";
         public string DefaultSpellTotemAsset => $"Totems/{name}_Totem";
 

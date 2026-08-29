@@ -29,7 +29,7 @@ namespace UNet
 			}
         }
 
-        public float MagnitudeSqrt
+        public float MagnitudeSqr
         {
             readonly get
             {
@@ -37,7 +37,7 @@ namespace UNet
             }
             set
             {
-                var scale = value / MagnitudeSqrt;
+                var scale = value / MagnitudeSqr;
                 X *= scale;
                 Y *= scale;
             }

@@ -22,3 +22,4 @@ MonoBehaviour:
     FlashPointTemperature: 1400
     Flammability: 0
     ElectricCapacity: 5
+    MagneticSusceptibility: 1

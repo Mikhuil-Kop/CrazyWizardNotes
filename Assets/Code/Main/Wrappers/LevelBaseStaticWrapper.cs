@@ -94,7 +94,8 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(Magic.Realization.SpellWizardService),
 
                 typeof(Elements.Realization.PhysicsElectricService),
-
+                //typeof(Elements.Realization.MagneticService),
+                
                 typeof(UI.Realization.ActiveLogger),
                 typeof(UI.Realization.ActionBarService),
 

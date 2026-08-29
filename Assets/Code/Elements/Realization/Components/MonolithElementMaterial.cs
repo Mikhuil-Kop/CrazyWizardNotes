@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CrazyWizardNotes.Elements.Realization
 {
-    public class MonolithElementMaterial : IHasTemperature, IHasMoisture, IFlammable, IElectricConductor, IHandlesUpdate, IDisposable
+    public class MonolithElementMaterial : IHasTemperature, IHasMoisture, IFlammable, IElectricConductor, IMagnetic, IHandlesUpdate, IDisposable
     {
         #region Поля
 
@@ -24,6 +24,7 @@ namespace CrazyWizardNotes.Elements.Realization
         private float _moisture;
         private float _moisturePercent;
         private float _electricCharge;
+        private float _magneticCharge;
         private IFlame _attachedFlame;
 
         public MonolithElementMaterial(IActorsSpawnService spawnService, IElectricService electricService, IActor actor, ITouches touches, IPhysical physical, IHasSpaceObject spaceObject, MaterialConfig config)
@@ -70,6 +71,10 @@ namespace CrazyWizardNotes.Elements.Realization
         public float AutoignitionTemperature => Config.AutoignitionTemperature;
         public float FlashPointTemperature => Config.FlashPointTemperature;
         public float Flammability => Config.Flammability;
+
+        public bool IsAffectedByMagnetic => true;
+        public float MagneticCharge => _magneticCharge;
+        public float MagneticSusceptibility => Config.MagneticSusceptibility;
 
         #endregion
 

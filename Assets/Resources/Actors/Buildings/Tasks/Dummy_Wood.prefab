@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 1644185895, guid: 6b43bfd179518f54ab35ca4eff2e8894, type: 3}
+  m_Sprite: {fileID: -575807170, guid: 6b43bfd179518f54ab35ca4eff2e8894, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -185,7 +185,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -213,7 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0752e0858e6d99a43b64c21be86fc36d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: kma.unet.core::UNet.Core.Realization.UNetActor
-  tags: []
+  tags:
+  - dummy
 --- !u!114 &6903098509610123683
 MonoBehaviour:
   m_ObjectHideFlags: 0

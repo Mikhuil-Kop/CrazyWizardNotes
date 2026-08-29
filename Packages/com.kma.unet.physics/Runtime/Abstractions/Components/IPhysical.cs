@@ -21,7 +21,7 @@ namespace UNet.Physics.Abstractions
                 return;
             }
 
-            var speedSq = physical.SpeedSummary.MagnitudeSqrt;
+            var speedSq = physical.SpeedSummary.MagnitudeSqr;
 
             if (speedSq < 0.0001f)
             {
@@ -62,7 +62,7 @@ namespace UNet.Physics.Abstractions
             var toDestination = destination; // уже ненормализованный
 
             // Если объект уже очень близко к цели — резко тормозим
-            if (toDestination.MagnitudeSqrt < 0.01f)
+            if (toDestination.MagnitudeSqr < 0.01f)
             {
                 var stopImpulse = -currentVelocity * physical.Mass;
                 physical.ApplyImpulse(stopImpulse);
@@ -76,7 +76,7 @@ namespace UNet.Physics.Abstractions
             physical.ApplyForce(walkForce);
 
             // Ограничение максимальной скорости (если превысили — корректируем)
-            var currentSpeed = (float)Math.Sqrt(currentVelocity.MagnitudeSqrt);
+            var currentSpeed = (float)Math.Sqrt(currentVelocity.MagnitudeSqr);
             if (currentSpeed > maxSpeed)
             {
                 // Снижаем скорость до maxSpeed, сохраняя направление

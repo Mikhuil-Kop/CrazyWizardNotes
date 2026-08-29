@@ -200,8 +200,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2098313210, guid: 6b43bfd179518f54ab35ca4eff2e8894, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -1269504191, guid: 032b30a2573d55747a59ebc3cdb58263, type: 3}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -341,6 +341,7 @@ GameObject:
   - component: {fileID: 6428743899761909331}
   - component: {fileID: 3376406857695527125}
   - component: {fileID: 617857681793790734}
+  - component: {fileID: 2893902599593576192}
   - component: {fileID: 2788914527859927527}
   - component: {fileID: 3260260714733838311}
   - component: {fileID: 4516491949751956461}
@@ -397,6 +398,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Main.Wrappers.ParticleWrapper
   SelectedParticleType: 0
+  SpellParams: {fileID: 0}
+--- !u!114 &2893902599593576192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4575661662748150011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ddca3324ef390e48a8eb3f6b98a03e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Magic.Realization.SpellParticleVisualizer
+  ParticleSprite: {fileID: 3041762863950522131}
+  ParticleLight: {fileID: 4516491949751956461}
+  Color: {r: 1, g: 0, b: 0, a: 1}
 --- !u!50 &2788914527859927527
 Rigidbody2D:
   serializedVersion: 5
@@ -480,7 +497,7 @@ MonoBehaviour:
   m_SelectionSources:
     rid: 7943203079248412688
   m_FalloffIntensity: 0.813
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_Intensity: 0.3
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
