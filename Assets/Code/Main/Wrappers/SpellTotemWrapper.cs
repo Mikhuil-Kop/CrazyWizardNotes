@@ -15,7 +15,7 @@ namespace CrazyWizardNotes.Main.Wrappers
         {
             return new[]
             {
-                new Buildings.Realization.SpellParticleTotemConfig()
+                new Totems.Realization.SpellParticleTotemConfig()
                 {
                     SpellId = SpellToSpawn.DefaultSpellName,
                     ActivationTimeGap = ActivationTimeGap,
@@ -31,7 +31,7 @@ namespace CrazyWizardNotes.Main.Wrappers
             {
                 typeof(UNet.Core.Realization.Destroyable),
                 typeof(UNet.Physics.Realization.PhysicalObject),
-                typeof(Buildings.Realization.SpellParticleTotem),
+                typeof(Totems.Realization.SpellParticleTotem),
             };
         }
     }

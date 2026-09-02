@@ -6,6 +6,7 @@ namespace UNet.Physics.Abstractions
     public class OnTouchEventArgs
     {
         public IActor InvokeActor { get; set; }
+        public string InvokeColliderName { get; set; }
         public IEnumerable<IActor> Touched { get; set; }
         public IEnumerable<IActor> Touches { get; set; }
     }

@@ -1075,11 +1075,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: orthographic size
-      value: 9.374999
+      value: 6.5625
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
-      value: 0.19981238
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
@@ -1087,7 +1087,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
-      value: 0.60037524
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
@@ -1425,7 +1425,7 @@ PrefabInstance:
     - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
       propertyPath: TestSceneResource
       value: 
-      objectReference: {fileID: 11400000, guid: 5c7dc3ee02fad6e4199fe08dcc29edbd, type: 2}
+      objectReference: {fileID: 11400000, guid: 3b095387f766a7a47acab7e32674808b, type: 2}
     - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
       propertyPath: TooltipUIMonoBehaviour
       value: 

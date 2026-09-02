@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace UNet.Physics.Realization
 {
-    public class PhysicalObject : IPhysical, IHasSpaceObject, ITouches, IMovable, IHandlesStart, IHandlesUpdate
+    public class PhysicalObject : IPhysical, IHasSpaceObject, ITouches, IMovable, IPinable, IHandlesStart, IHandlesUpdate, IHandlesFixedUpdate
     {
         #region Поля
 
@@ -14,7 +14,11 @@ namespace UNet.Physics.Realization
         private IActor Actor { get; }
         private Transform Transform { get; }
         private Rigidbody2D Rigidbody { get; }
+        private Joint2D OptionalJoint { get; set; }
         private LinkedList<IActor> TouchingActors { get; set; }
+        private bool IsPined { get; set; }
+        private float RemainingPinForce { get; set; }
+        private const float PinFrictionDelta = 2000f;
 
         public PhysicalObject(IPhysicsService physicsService, IActor actor, Transform transform, Rigidbody2D physicsBody2D)
         {
@@ -42,6 +46,8 @@ namespace UNet.Physics.Realization
         IEnumerable<IActor> ITouches.TouchingActors => TouchingActors;
 
         public event Action<OnTouchEventArgs> OnTouch;
+        public event Action OnPin;
+        public event Action OnUnpin;
 
         public void ApplyForce(Vector2D force) => Rigidbody.AddForce(force, ForceMode2D.Force);
         public void ApplyImpulse(Vector2D force) => Rigidbody.AddForce(force, ForceMode2D.Impulse);
@@ -87,12 +93,55 @@ namespace UNet.Physics.Realization
             Transform.eulerAngles = new Vector3(0, 0, obj.Rotation);
         }
 
+        [Obsolete("Определиться с группировкой")]
+        private string GetColliderName(Collider2D collider)
+        {
+            return null;
+        }
+
+        public void Pin(float forceToUnpin)
+        {
+            if (IsPined)
+            {
+                return;
+            }
+
+            IsPined = true;
+            RemainingPinForce = forceToUnpin;
+
+            Rigidbody.linearDamping += PinFrictionDelta;
+
+            OnPin?.Invoke();
+        }
+
+        public void Unpin()
+        {
+            if (!IsPined)
+            {
+                return;
+            }
+
+            IsPined = false;
+            RemainingPinForce = -1f;
+
+            Rigidbody.linearDamping -= PinFrictionDelta;
+
+            OnUnpin?.Invoke();
+        }
+
         #endregion
 
         #region События Unity
 
         public void OnStart()
         {
+            OptionalJoint = Transform.gameObject.GetComponent<Joint2D>();
+
+            if (OptionalJoint != null)
+            {
+                OptionalJoint.breakAction = JointBreakAction2D.Disable;
+            }
+
             Transform.gameObject.AddComponent<CollisionTriggerProxy>().Initialize(this);
         }
 
@@ -108,6 +157,7 @@ namespace UNet.Physics.Realization
             OnTouch?.Invoke(new OnTouchEventArgs()
             {
                 InvokeActor = Actor,
+                InvokeColliderName = GetColliderName(c.otherCollider),
                 Touched = actors,
                 Touches = TouchingActors,
             });
@@ -125,6 +175,7 @@ namespace UNet.Physics.Realization
             OnTouch?.Invoke(new OnTouchEventArgs()
             {
                 InvokeActor = Actor,
+                InvokeColliderName = GetColliderName(c),
                 Touched = actors,
                 Touches = TouchingActors
             });
@@ -154,6 +205,20 @@ namespace UNet.Physics.Realization
         public void OnUpdate(float deltaTime)
         {
             Transform.position = new Vector3(Transform.position.x, Transform.position.y, 0.5f * Transform.position.y);
+        }
+
+        [Obsolete("Постоянное выполнение. Нужно поправить.")]
+        public void OnFixedUpdate(float fixedDeltaTime)
+        {
+            if (IsPined)
+            {
+                //RemainingPinForce -= Rigidbody.totalForce.magnitude * fixedDeltaTime;
+
+                if (RemainingPinForce <= 0f || (OptionalJoint != null && !OptionalJoint.enabled))
+                {
+                    Unpin();
+                }
+            }
         }
 
         #endregion

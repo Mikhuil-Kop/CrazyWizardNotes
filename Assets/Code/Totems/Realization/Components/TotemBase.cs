@@ -2,7 +2,7 @@
 using System;
 using UNet.Core.Abstractions;
 
-namespace CrazyWizardNotes.Buildings.Realization
+namespace CrazyWizardNotes.Totems.Realization
 {
     public class TotemBase : ITotem, IHandlesUpdate
     {
@@ -15,7 +15,9 @@ namespace CrazyWizardNotes.Buildings.Realization
         private bool _isActive;
 
         public event TotemActivationHandler OnActivated;
+        public event TotemActivationHandler OnDeactivated;
         public event TotemEnabledHandler OnEnabled;
+        public event TotemEnabledHandler OnDisabled;
 
         public TotemBase(IActor actor, ITotemVisualizer totemVisualizer)
         {
@@ -46,9 +48,19 @@ namespace CrazyWizardNotes.Buildings.Realization
             OnActivated?.Invoke(new TotemActivationEventArgs(Actor, this));
         }
 
+        private void RaiseOnDeactivated()
+        {
+            OnDeactivated?.Invoke(new TotemActivationEventArgs(Actor, this));
+        }
+
         private void RaiseOnEnabled()
         {
             OnEnabled?.Invoke(new TotemEnabledEventArgs(Actor, this));
+        }
+
+        private void RaiseOnDisabled()
+        {
+            OnDisabled?.Invoke(new TotemEnabledEventArgs(Actor, this));
         }
 
         #region Активации и деактивации
@@ -96,7 +108,7 @@ namespace CrazyWizardNotes.Buildings.Realization
         {
             if (_isEnabled)
             {
-                //RaiseOnDisabled();
+                RaiseOnDisabled();
                 TotemVisualizer.RunDisableAnimation();
 
                 _isEnabled = false;
@@ -153,7 +165,7 @@ namespace CrazyWizardNotes.Buildings.Realization
             {
                 _timer = 0f;
 
-                //RaiseOnDeactivated();
+                RaiseOnDeactivated();
                 TotemVisualizer.RunDeactivateAnimation();
 
                 _isActive = false;

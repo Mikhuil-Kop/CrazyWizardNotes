@@ -33,7 +33,7 @@ Transform:
   - {fileID: 8754870280167331898}
   - {fileID: 2777646589314203845}
   - {fileID: 8691200422721222933}
-  - {fileID: 8259178442982868890}
+  - {fileID: 1566351155009089984}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1301257405102078063
@@ -323,6 +323,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 4461372161572883107}
     m_Modifications:
     - target: {fileID: 504869030141060685, guid: 16b844fa9e6275a46a9151c894908f74, type: 3}
+      propertyPath: Radius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 504869030141060685, guid: 16b844fa9e6275a46a9151c894908f74, type: 3}
       propertyPath: IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -460,13 +464,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dummy_Wood_1
       objectReference: {fileID: 0}
+    - target: {fileID: 3441049192432513151, guid: 8f0fa690946563c4aa14f2fbebdaca02, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002932355881096110, guid: 8f0fa690946563c4aa14f2fbebdaca02, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f0fa690946563c4aa14f2fbebdaca02, type: 3}
---- !u!4 &8259178442982868890 stripped
+--- !u!4 &1566351155009089984 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 436245276810405364, guid: 8f0fa690946563c4aa14f2fbebdaca02, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7002932355881096110, guid: 8f0fa690946563c4aa14f2fbebdaca02, type: 3}
   m_PrefabInstance: {fileID: 8400240027610063470}
   m_PrefabAsset: {fileID: 0}

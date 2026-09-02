@@ -13,7 +13,7 @@ namespace CrazyWizardNotes.Main.Wrappers
         {
             return new[]
             {
-                new Buildings.Realization.AntimagicTotemConfig()
+                new Totems.Realization.AntimagicTotemConfig()
                 {
                     AntimagicRadius = Radius,
                     IsEnabled = IsEnabled,
@@ -28,7 +28,7 @@ namespace CrazyWizardNotes.Main.Wrappers
             {
                 typeof(UNet.Core.Realization.Destroyable),
                 typeof(UNet.Physics.Realization.PhysicalObject),
-                typeof(Buildings.Realization.AntimagicTotem),
+                typeof(Totems.Realization.AntimagicTotem),
             };
         }
     }

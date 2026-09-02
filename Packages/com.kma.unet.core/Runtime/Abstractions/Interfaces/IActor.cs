@@ -14,6 +14,13 @@ namespace UNet.Core.Abstractions
 
     public static class ActorsExtensions
     {
+        public static T AsRequired<T>(this IActor actor) where T : class
+        {
+            if (actor == null) throw new ArgumentNullException(nameof(actor));
+
+            return actor.As<T>() ?? throw new Exception($"Actor is not of type ({typeof(T).Name}).");
+        }
+
         public static IEnumerable<T> ActorsAs<T>(this IEnumerable<IActor> actors) where T : class
         {
             if (actors == null) throw new ArgumentNullException(nameof(actors));

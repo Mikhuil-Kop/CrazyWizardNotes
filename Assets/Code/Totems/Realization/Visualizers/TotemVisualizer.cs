@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-namespace CrazyWizardNotes.Buildings.Realization
+namespace CrazyWizardNotes.Totems.Realization
 {
     [ExecuteAlways]
     public class TotemVisualizer : MonoBehaviour, ITotemVisualizer

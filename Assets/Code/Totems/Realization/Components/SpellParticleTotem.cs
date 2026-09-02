@@ -4,7 +4,7 @@ using UNet;
 using UNet.Core.Abstractions;
 using UNet.Physics.Abstractions;
 
-namespace CrazyWizardNotes.Buildings.Realization
+namespace CrazyWizardNotes.Totems.Realization
 {
     public class SpellParticleTotem : TotemBase, ISpellParticleTotem, IHandlesStart
     {

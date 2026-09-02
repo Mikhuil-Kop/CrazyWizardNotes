@@ -3,33 +3,48 @@ using CrazyWizardNotes.Totems.Abstractions;
 using UNet.Core.Abstractions;
 using UNet.Physics.Abstractions;
 
-namespace CrazyWizardNotes.Buildings.Realization
+namespace CrazyWizardNotes.Totems.Realization
 {
-    public class AntimagicTotem : TotemBase, IHandlesStart
+    public class AntimagicTotem : TotemBase
     {
-        private ISpellParticleService SpellParticleService { get; }
+        private IPhysicsActorSpawnService SpawnService { get; }
         private IHasSpacePoint HasSpacePoint { get; }
         private AntimagicTotemConfig Config { get; }
 
-        public AntimagicTotem(IActor actor, ITotemVisualizer totemVisualizer, IHasSpacePoint hasSpacePoint, ISpellParticleService spellParticleService, AntimagicTotemConfig config) : base(actor, totemVisualizer)
+        private IActor AntimagicActor { get; set; }
+        private IAntimagicField AntimagicField { get; set; }
+
+        public AntimagicTotem(IActor actor, ITotemVisualizer totemVisualizer, IPhysicsActorSpawnService spawnService, IHasSpacePoint hasSpacePoint, AntimagicTotemConfig config) : base(actor, totemVisualizer)
         {
-            SpellParticleService = spellParticleService;
+            SpawnService = spawnService;
             HasSpacePoint = hasSpacePoint;
             Config = config;
 
-            OnActivated += SpellParticleTotem_OnActivated;
-        }
+            OnActivated += AntimagicTotem_OnActivated;
+            OnDeactivated += AntimagicTotem_OnDeactivated;
 
-        public void OnStart()
-        {
             IsEnabled = Config.IsEnabled;
             IsActive = Config.IsActive;
-            ActivationTimeGap = System.TimeSpan.FromSeconds(3);
+            ActivationTimeGap = System.TimeSpan.MaxValue;
         }
 
-        private void SpellParticleTotem_OnActivated(TotemActivationEventArgs args)
+        private void AntimagicTotem_OnActivated(TotemActivationEventArgs args)
         {
-            //SpellParticleService.SpawnParticle(Config.SpellId, HasSpacePoint.SpacePoint + Vector2D.Up);
+            if (AntimagicActor == null)
+            {
+                var spawn = SpawnService.SpawnActor("Magic/Spawns/AntimagicField", HasSpacePoint.SpacePoint);
+
+                AntimagicActor = spawn;
+                AntimagicField = spawn.AsRequired<IAntimagicField>();
+            }
+
+            AntimagicField.Radius = Config.AntimagicRadius;
+            AntimagicField.IsActive = true;
+        }
+
+        private void AntimagicTotem_OnDeactivated(TotemActivationEventArgs args)
+        {
+            AntimagicField.IsActive = false;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CrazyWizardNotes.Buildings.Realization
+namespace CrazyWizardNotes.Totems.Realization
 {
     [Serializable]
     public class AntimagicTotemConfig
