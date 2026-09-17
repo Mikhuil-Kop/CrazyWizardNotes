@@ -32,7 +32,7 @@ Transform:
   - {fileID: 9099683751673802332}
   - {fileID: 6291249759147022616}
   - {fileID: 9163532290786761919}
-  - {fileID: 8468561146096843004}
+  - {fileID: 1343458507443064486}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5452091672596325397
@@ -235,22 +235,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4461372161572883107}
     m_Modifications:
-    - target: {fileID: 2801522237484657755, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
-      propertyPath: IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2801522237484657755, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
-      propertyPath: IsEnabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3783815799418042538, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3783815799418042538, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1459015041545324800, guid: c9810867d86fdde42a4520ce1a391d68, type: 3}
       propertyPath: TotemConfig.IsActive
       value: 1
@@ -302,6 +286,22 @@ PrefabInstance:
     - target: {fileID: 8068373467956167745, guid: c9810867d86fdde42a4520ce1a391d68, type: 3}
       propertyPath: m_Name
       value: MagnetizeTotem_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801522237484657755, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
+      propertyPath: IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801522237484657755, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
+      propertyPath: IsEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3783815799418042538, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3783815799418042538, guid: 17862456ba0030943b99dabcde03b01f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -365,13 +365,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dummy_Wood_1
       objectReference: {fileID: 0}
+    - target: {fileID: 3441049192432513151, guid: 8f0fa690946563c4aa14f2fbebdaca02, type: 3}
+      propertyPath: m_ConnectedAnchor.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7002932355881096110, guid: 8f0fa690946563c4aa14f2fbebdaca02, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f0fa690946563c4aa14f2fbebdaca02, type: 3}
---- !u!4 &8468561146096843004 stripped
+--- !u!4 &1343458507443064486 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 436245276810405364, guid: 8f0fa690946563c4aa14f2fbebdaca02, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7002932355881096110, guid: 8f0fa690946563c4aa14f2fbebdaca02, type: 3}
   m_PrefabInstance: {fileID: 8325895373809720584}
   m_PrefabAsset: {fileID: 0}

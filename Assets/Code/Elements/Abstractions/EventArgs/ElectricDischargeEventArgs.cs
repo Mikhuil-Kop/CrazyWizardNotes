@@ -9,13 +9,15 @@ namespace CrazyWizardNotes.Elements.Abstractions
         public float OldElectricCharge { get; }
         public float NewElectricCharge { get; }
         public float DeltaElectricCharge { get; }
+        public float FlowElectricCharge { get; }
 
-        public ElectricDischargeEventArgs(IActor actor, float oldElectricCharge, float newElectricCharge)
+        public ElectricDischargeEventArgs(IActor actor, float oldElectricCharge, float newElectricCharge, float flowElectricCharge)
         {
             Actor = actor;
             OldElectricCharge = oldElectricCharge;
             NewElectricCharge = newElectricCharge;
             DeltaElectricCharge = newElectricCharge - oldElectricCharge;
+            FlowElectricCharge = flowElectricCharge;
         }
     }
 

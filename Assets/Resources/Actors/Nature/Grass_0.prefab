@@ -191,6 +191,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5459643927317680774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaf169a3991372048b5da9f617df50a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 9660f5c83aa74f340b32d675ca7d35ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Main.Wrappers.GrassWrapper
+  MaterialConfigScript: {fileID: 11400000, guid: 8eafeede2be507b40ba8ce905c94458d, type: 2}

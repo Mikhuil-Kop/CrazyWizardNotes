@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UNet.Core.Abstractions;
 using UNet.Physics.Abstractions;
+using UnityEngine;
 
 namespace UNet.Physics.Realization
 {
@@ -34,6 +35,15 @@ namespace UNet.Physics.Realization
             return ActorsCollectionService.GetAll()
                 .Where(x => CheckSpacePointCondition(conditions, x.As<IHasSpacePoint>()))
                 .ToArray();
+        }
+
+        public IEnumerable<IActor> GetActors(PhysicsRaycastParams raycast)
+        {
+            var hits = raycast.One
+                ? new[] { Physics2D.Raycast(raycast.From.Position, raycast.To.Position - raycast.From.Position) }
+                : Physics2D.RaycastAll(raycast.From.Position, raycast.To.Position - raycast.From.Position);
+
+            return hits.Select(x => x.collider?.gameObject?.GetComponent<IActor>()).Where(x => x != null);
         }
 
         private bool CheckSpacePointCondition(PhysicsConditionParams conditions, IHasSpacePoint obj)

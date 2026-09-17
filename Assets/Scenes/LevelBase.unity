@@ -1075,23 +1075,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: orthographic size
-      value: 6.5625
+      value: 6.53125
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
-      value: 0
+      value: 0.07104558
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
-      value: 0
+      value: 0.0011918951
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
-      value: 1
+      value: 0.85790884
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
-      value: 1
+      value: 0.9964243
       objectReference: {fileID: 0}
     - target: {fileID: 4415192430995338270, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_Name
@@ -1425,7 +1425,7 @@ PrefabInstance:
     - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
       propertyPath: TestSceneResource
       value: 
-      objectReference: {fileID: 11400000, guid: 3b095387f766a7a47acab7e32674808b, type: 2}
+      objectReference: {fileID: 11400000, guid: c59109be7444f3e4784220f41e318e94, type: 2}
     - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
       propertyPath: TooltipUIMonoBehaviour
       value: 
@@ -1450,6 +1450,10 @@ PrefabInstance:
       propertyPath: SceneLoadAnimatorConfig.Animator
       value: 
       objectReference: {fileID: 1903423711}
+    - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
+      propertyPath: TestRuntimeData.LastSceneIsCompleted
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
       propertyPath: ActionBarServiceConfig.BarRectTransform
       value: 

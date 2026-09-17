@@ -8,14 +8,14 @@ namespace CrazyWizardNotes.Scenes.Realization
 {
     public class SceneRulesService : IHandlesSceneLoaded
     {
-        private ISceneLoadService SceneLoadService { get; }
+        private ISceneLoadResourceService SceneLoadService { get; }
         private IAsyncJobService AsyncJobService { get; }
         private IUServiceProvider ServiceProvider { get; }
         private Transform Transform { get; }
         private ISceneRule SceneRule { get; set; }
         private bool RuleStarted { get; set; }
 
-        public SceneRulesService(ISceneLoadService sceneLoadService, IAsyncJobService asyncJobService, IUServiceProvider serviceProvider, Transform transform)
+        public SceneRulesService(ISceneLoadResourceService sceneLoadService, IAsyncJobService asyncJobService, IUServiceProvider serviceProvider, Transform transform)
         {
             SceneLoadService = sceneLoadService;
             AsyncJobService = asyncJobService;

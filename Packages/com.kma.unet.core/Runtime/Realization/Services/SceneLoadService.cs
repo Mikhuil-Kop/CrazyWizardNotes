@@ -1,20 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using UNet.Core.Abstractions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using ILogger = UNet.Core.Abstractions.ILogger;
 
 namespace UNet.Core.Realization
 {
-    // Возможно, этот функционал стоит перенести в UNetScene. Но он занимал слишком много места и я не хотел перегружать UNetScene.
-    // TODO: Стоит поделить сервис на загрузчик сцен и на загрузчик ресурсов о сцене. Сейчас пофиг.
-    [Obsolete()]
     public class SceneLoadService : ISceneLoadService, IHandlesStart, IHandlesUpdate
     {
-        private IActorsCollectionService ActorsCollectionService { get; }
-        private IResourcesService ResourceService { get; }
-        private ISceneResource TestSceneResource { get; }
-        private object TestRuntimeData { get; }
-        private UNetSceneLoadingProcess CurrentProcess { get; set; }
+        private ILogger Logger { get; }
+        private SceneLoadServiceConfig Config { get;}
 
         private UNetSceneInfo ParentSceneInfo { get; set; }
         private UNetSceneInfo CurrentSceneInfo { get; set; }
@@ -24,26 +20,23 @@ namespace UNet.Core.Realization
         ISceneInfo ISceneLoadService.CurrentSceneInfo => CurrentSceneInfo;
         ISceneData ISceneLoadService.CurrentSceneData => CurrentSceneData;
 
+        private SceneLoadingProcess CurrentProcess { get; set; }
         private static StaticBuffer Buffer { get; set; }
 
-        public SceneLoadService(IActorsCollectionService actorsCollectionService, IResourcesService resourcesService, SceneLoadServiceConfig config)
+        public SceneLoadService(ILogger logger, SceneLoadServiceConfig config)
         {
-            ActorsCollectionService = actorsCollectionService;
-            ResourceService = resourcesService;
-            TestSceneResource = config.TestSceneResource;
-            TestRuntimeData = config.TestRuntimeData;
+            Logger = logger;
+            Config = config;
         }
 
-        public ISceneLoadingProcess LoadScene(string nextSceneName, object nextSceneData)
+        public ISceneLoadingProcess LoadScene(string nextSceneName, object sceneData1, object sceneData2)
         {
             if (CurrentProcess != null)
             {
-                Debug.LogWarning($"Сцена уже в процессе загрузки: {CurrentProcess.LoadingSceneInfo.Name} -> {nextSceneName}");
+                Logger.LogWarning($"Сцена уже в процессе загрузки: {CurrentProcess.LoadingSceneInfo.Name} -> {nextSceneName}");
             }
 
-            var resource = ResourceService.Load<ISceneResource>("Scenes/" + nextSceneName);
-
-            Debug.Log("Load Scenes/" + nextSceneName + "-" + resource);
+            Logger.LogInfo($"Loading \"Scenes/{nextSceneName}\"");
 
             var info = new UNetSceneInfo()
             {
@@ -52,8 +45,8 @@ namespace UNet.Core.Realization
 
             var data = new UNetSceneData()
             {
-                PreloadRawData = nextSceneData,
-                ResourceRawData = resource.SceneData,
+                ResourceRawData = sceneData1,
+                PreloadRawData = sceneData2
             };
 
             Buffer = new StaticBuffer()
@@ -64,10 +57,10 @@ namespace UNet.Core.Realization
                 NextSceneData = data
             };
 
-            var op = SceneManager.LoadSceneAsync(resource.SceneName);
+            var op = SceneManager.LoadSceneAsync(nextSceneName);
             op.allowSceneActivation = false;
 
-            CurrentProcess = new UNetSceneLoadingProcess()
+            CurrentProcess = new SceneLoadingProcess()
             {
                 SceneLoadService = this,
                 AsyncOperation = op,
@@ -82,10 +75,7 @@ namespace UNet.Core.Realization
         {
             if (Buffer == null)
             {
-                // Тестовый запуск не из редактора
-                Debug.Log("Тестовый запуск из редактора (возможно боевой)))))");
-
-                if (TestSceneResource == null)
+                if (Config.TestSceneData1 == null)
                 {
                     throw new Exception("Для запуска сцены необходим TestSceneResource");
                 }
@@ -93,28 +83,26 @@ namespace UNet.Core.Realization
                 ParentSceneInfo = null;
                 CurrentSceneInfo = new UNetSceneInfo()
                 {
-                    Name = TestSceneResource.SceneName
+                    Name = Config.TestSceneName
                 };
+
                 CurrentSceneData = new UNetSceneData()
                 {
-                    ResourceRawData = TestSceneResource.SceneData,
-                    PreloadRawData = TestRuntimeData,
+                    ResourceRawData = Config.TestSceneData1,
+                    PreloadRawData = Config.TestSceneData2,
                 };
             }
             else
             {
-                Debug.Log("Запуск новой сцены.");
-
                 ParentSceneInfo = Buffer.PrevSceneInfo;
                 CurrentSceneInfo = Buffer.NextSceneInfo;
                 CurrentSceneData = Buffer.NextSceneData;
                 Buffer = null;
             }
 
-            Debug.Log("OnSceneLoaded");
-            foreach (var a in UNetScene.Instance.Components.As<IHandlesSceneLoaded>())
+            foreach (var actor in GetComponents<IHandlesSceneLoaded>())
             {
-                a.OnSceneLoaded(CurrentSceneInfo, CurrentSceneData);
+                actor.OnSceneLoaded(CurrentSceneInfo, CurrentSceneData);
             }
         }
 
@@ -124,8 +112,7 @@ namespace UNet.Core.Realization
             {
                 var prevents = false;
 
-                Debug.Log("OnNextSceneLoading");
-                foreach (var a in UNetScene.Instance.Components.As<IHandlesNextSceneLoading>())
+                foreach (var actor in GetComponents<IHandlesNextSceneLoading>())
                 {
                     var context = new SceneLoadingContext()
                     {
@@ -133,7 +120,7 @@ namespace UNet.Core.Realization
                         PreventOpenNextScene = false
                     };
 
-                    a.OnNextSceneLoading(context);
+                    actor.OnNextSceneLoading(context);
 
                     prevents |= context.PreventOpenNextScene;
                 }
@@ -145,28 +132,34 @@ namespace UNet.Core.Realization
             }
         }
 
-        private void Open(UNetSceneLoadingProcess process)
+        private void Open(SceneLoadingProcess process)
         {
-            Debug.Log("OnSceneUnloaded");
-            foreach (var a in UNetScene.Instance.Components.As<IHandlesSceneUnloaded>())
+            foreach (var actor in GetComponents<IHandlesSceneUnloaded>())
             {
-                a.OnSceneUnloaded(CurrentProcess.LoadingSceneInfo, CurrentProcess.LoadingSceneData);
+                actor.OnSceneUnloaded(CurrentProcess.LoadingSceneInfo, CurrentProcess.LoadingSceneData);
             }
 
             process.AsyncOperation.allowSceneActivation = true;
         }
 
-        [Obsolete]
+        private IEnumerable<T> GetComponents<T>() where T : class
+        {
+            return UNetScene.Instance.Components.As<T>();
+        }
+
+        #region Unity Очистка статики
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void ClearStatic()
         {
             Buffer = null;
-            Debug.Log("Статика очищена");
         }
+
+        #endregion
 
         #region Внутренние классы
 
-        private class UNetSceneLoadingProcess : ISceneLoadingProcess
+        private class SceneLoadingProcess : ISceneLoadingProcess
         {
             public SceneLoadService SceneLoadService { get; internal set; }
             public AsyncOperation AsyncOperation { get; internal set; }
@@ -188,14 +181,6 @@ namespace UNet.Core.Realization
             public UNetSceneData NextSceneData { get; set; }
             public UNetSceneInfo PrevSceneInfo { get; set; }
             public UNetSceneData PrevSceneData { get; set; }
-        }
-
-
-        [Obsolete]
-        public class SceneLoadServiceConfig
-        {
-            public ISceneResource TestSceneResource;
-            public object TestRuntimeData;
         }
 
         #endregion

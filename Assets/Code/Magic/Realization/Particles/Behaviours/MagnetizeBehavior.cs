@@ -10,12 +10,21 @@ namespace CrazyWizardNotes.Magic.Realization.Particles
         private bool IsActive { get; set; }
         private bool IsChargePositive { get; set; }
 
-        public float MagneticCharge =>
-            IsActive
+        public float MagneticCharge
+        {
+            get
+            {
+                return IsActive
             ? IsChargePositive
                 ? ChargeValue
                 : -ChargeValue
             : 0;
+            }
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
 
         public float MagneticSusceptibility => 0f;
         public bool IsAffectedByMagnetic => false;

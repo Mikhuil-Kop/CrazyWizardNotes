@@ -179,6 +179,42 @@ public static class LinqExtension
         }
     }
 
+    public static LinkedList<T> ToLinkedList<T>(this IEnumerable<T> enumerable)
+    {
+        return new LinkedList<T>(enumerable);
+    }
+
+    public static IEnumerable<Pair<T1, T2>> ToParallel<T1, T2>(this IEnumerable<T1> col1, IEnumerable<T2> col2)
+    {
+        using var en1 = col1.GetEnumerator();
+        using var en2 = col2.GetEnumerator();
+
+        while (true)
+        {
+            yield return new Pair<T1, T2>
+            {
+                Item1 = en1.Current,
+                Item2 = en2.Current
+            };
+
+            var b1 = en1.MoveNext();
+            var b2 = en2.MoveNext();
+
+            if (!b1 && !b2)
+            {
+                break;
+            }
+        }
+    }
+
+    public class Pair<T1, T2>
+    {
+        public T1 Item1 { get; set; }
+        public T2 Item2 { get; set; }
+    }
+
+    #region Рекурсии
+
     public static IEnumerable<T> ToRecursion<T>(this T root, Func<T, T> selector)
     {
         var now = root;
@@ -235,37 +271,67 @@ public static class LinqExtension
         }
     }
 
-    public static LinkedList<T> ToLinkedList<T>(this IEnumerable<T> enumerable)
-    {
-        return new LinkedList<T>(enumerable);
-    }
+    #endregion
 
-    public static IEnumerable<Pair<T1, T2>> ToParallel<T1, T2>(this IEnumerable<T1> col1, IEnumerable<T2> col2)
-    {
-        using var en1 = col1.GetEnumerator();
-        using var en2 = col2.GetEnumerator();
+    #region Графы
 
-        while (true)
+    public static IEnumerable<GraphNode<T>> ToGraph<T>(this IEnumerable<T> roots, Func<T, IEnumerable<T>> selector, IEqualityComparer<T> comparer = null)
+    {
+        if (roots == null) throw new ArgumentNullException(nameof(roots));
+        if (selector == null) throw new ArgumentNullException(nameof(selector));
+
+        comparer ??= EqualityComparer<T>.Default;
+        var nodes = new Dictionary<T, GraphNode<T>>(comparer);
+        var visited = new HashSet<T>(comparer);
+        var queue = new Queue<T>();
+
+        foreach (var root in roots)
         {
-            yield return new Pair<T1, T2>
-            {
-                Item1 = en1.Current,
-                Item2 = en2.Current
-            };
+            if (root == null || !visited.Add(root)) continue;
+            queue.Enqueue(root);
+            nodes[root] = new GraphNode<T> { Value = root };
 
-            var b1 = en1.MoveNext();
-            var b2 = en2.MoveNext();
-
-            if (!b1 && !b2)
+            while (queue.Count > 0)
             {
-                break;
+                var current = queue.Dequeue();
+                var neighbors = selector(current);
+                if (neighbors == null) continue;
+
+                foreach (var next in neighbors)
+                {
+                    if (next == null) continue;
+                    if (!nodes.ContainsKey(next))
+                        nodes[next] = new GraphNode<T> { Value = next };
+                    if (visited.Add(next))
+                        queue.Enqueue(next);
+                }
             }
         }
+
+        foreach (var kv in nodes)
+        {
+            var list = new List<GraphNode<T>>();
+            var neighbors = selector(kv.Key);
+
+            if (neighbors != null)
+            {
+                foreach (var next in neighbors)
+                {
+                    if (next != null && nodes.TryGetValue(next, out var node))
+                        list.Add(node);
+                }
+            }
+            kv.Value.Neighbors = list.ToArray();
+        }
+
+        return nodes.Values;
     }
 
-    public class Pair<T1, T2>
+    public class GraphNode<T>
     {
-        public T1 Item1 { get; set; }
-        public T2 Item2 { get; set; }
+        public T Value { get; set; }
+        public GraphNode<T>[] Neighbors { get; set; }
     }
+
+    #endregion
 }

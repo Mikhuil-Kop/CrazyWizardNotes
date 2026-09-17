@@ -39,6 +39,14 @@ MonoBehaviour:
     m_Key: LightningBolt_Description
     m_Metadata:
       m_Items: []
+  - m_Id: 21032564792745984
+    m_Key: Heatwave_Title
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21032598892437504
+    m_Key: Heatwave_Description
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

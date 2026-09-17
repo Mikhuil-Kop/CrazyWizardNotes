@@ -6,6 +6,6 @@ namespace UNet.Core.Abstractions
         ISceneInfo CurrentSceneInfo { get; }
         ISceneData CurrentSceneData { get; }
 
-        ISceneLoadingProcess LoadScene(string nextSceneName, object nextSceneData);
+        ISceneLoadingProcess LoadScene(string nextSceneName, object sceneData1, object sceneData2);
     }
 }

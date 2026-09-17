@@ -1,5 +1,4 @@
-﻿using System;
-using UNet.Physics.Abstractions;
+﻿using UNet.Physics.Abstractions;
 
 namespace CrazyWizardNotes.Elements.Abstractions
 {

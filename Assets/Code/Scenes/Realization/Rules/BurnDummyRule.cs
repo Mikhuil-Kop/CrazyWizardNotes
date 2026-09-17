@@ -2,7 +2,6 @@
 using CrazyWizardNotes.Scenes.Abstractions;
 using System.Linq;
 using UNet.Core.Abstractions;
-using UNet.Core.Realization;
 
 namespace CrazyWizardNotes.Scenes.Realization
 {
@@ -17,11 +16,8 @@ namespace CrazyWizardNotes.Scenes.Realization
             UnityEngine.Debug.Log("BurnDummyRule - OnStart");
 
             var actors = serviceProvider.GetRequiredService<IActorsCollectionService>();
-            var arr = actors.GetAll().Where(x => x.Is<IFlammable>()).Select(x => (x as UNetActor)?.name);
 
             Dummy = actors.GetAll().FirstOrDefault(x => x.Is<IFlammable>());
-
-            UnityEngine.Debug.Log("BurnDummyRule - (" + string.Join(", ",  arr) + ")");
         }
 
         public void OnTick()

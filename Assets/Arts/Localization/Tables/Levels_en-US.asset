@@ -30,6 +30,10 @@ MonoBehaviour:
     m_Localized: BreakDummy
     m_Metadata:
       m_Items: []
+  - m_Id: 11579719613931520
+    m_Localized: Burn it differently
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

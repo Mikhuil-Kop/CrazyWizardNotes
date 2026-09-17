@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8afe11708855e334fa5b505d2a297e34, type: 3}
+  m_Name: Destruction_BurnWithFireball
+  m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Scenes.Realization.SceneResource
+  SceneName: LevelBase
+  SceneTitle: BurnWithFireball
+  SceneData:
+    Field: {fileID: 6900881242645081220, guid: 1f6ff69c8b285eb4eab9f7df1ad06300, type: 3}
+    RuleType: {fileID: 11500000, guid: 6a6996b9afbddf84fab3e3d8e164fafb, type: 3}

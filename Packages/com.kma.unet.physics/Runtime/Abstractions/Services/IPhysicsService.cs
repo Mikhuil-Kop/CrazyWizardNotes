@@ -7,6 +7,7 @@ namespace UNet.Physics.Abstractions
     public interface IPhysicsService
     {
         IEnumerable<IActor> GetActors(PhysicsConditionParams conditions);
+        IEnumerable<IActor> GetActors(PhysicsRaycastParams raycast);
         SpacePoint GetDefaultSpacePoint(Vector2D vector2D);
         Vector2D GetPosition(SpacePoint point, ISpaceContainer container);
         Vector2D GetDistance(SpacePoint point1, SpacePoint point2);

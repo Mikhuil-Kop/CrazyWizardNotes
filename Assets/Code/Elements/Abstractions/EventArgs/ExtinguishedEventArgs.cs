@@ -7,5 +7,5 @@ namespace CrazyWizardNotes.Elements.Abstractions
         public ExtinguishedEventArgs() { }
     }
 
-    public delegate void ExtinguishedEventHandler(object sender, ExtinguishedEventArgs e);
+    public delegate void ExtinguishedEventHandler(ExtinguishedEventArgs e);
 }

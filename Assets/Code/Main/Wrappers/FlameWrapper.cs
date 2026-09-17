@@ -10,7 +10,7 @@ namespace CrazyWizardNotes.Main.Wrappers
         {
             return new[]
             {
-                typeof(Flame),
+                typeof(FlameObject),
             };
         }
     }

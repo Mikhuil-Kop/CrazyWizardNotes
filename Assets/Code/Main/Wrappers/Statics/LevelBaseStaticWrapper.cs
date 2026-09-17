@@ -40,10 +40,11 @@ namespace CrazyWizardNotes.Main.Wrappers
                 SceneLoadAnimatorConfig,
                 CanvasConfig,
 
-                new UNet.Core.Realization.SceneLoadService.SceneLoadServiceConfig()
+                new UNet.Core.Realization.SceneLoadServiceConfig()
                 {
-                    TestRuntimeData = TestRuntimeData,
-                    TestSceneResource = TestSceneResource,
+                    TestSceneName = TestSceneResource?.SceneName,
+                    TestSceneData1 = TestSceneResource?.SceneData,
+                    TestSceneData2 = TestRuntimeData,
                 }
             };
         }
@@ -74,6 +75,7 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(UNet.Core.Realization.ResourcesService),
                 typeof(UNet.Core.Realization.ActorsSpawnService),
                 typeof(UNet.Core.Realization.SceneLoadService),
+                typeof(UNet.Core.Realization.SceneLoadResourceService),
 
                 typeof(UNet.Inputs.Realization.CameraInputService),
 
@@ -93,7 +95,7 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(Magic.Realization.SpellParticleFromSoundService),
                 typeof(Magic.Realization.SpellWizardService),
 
-                typeof(Elements.Realization.PhysicsElectricService),
+                typeof(Elements.Realization.ElectricService),
                 //typeof(Elements.Realization.MagneticService),
                 
                 typeof(UI.Realization.ActiveLogger),

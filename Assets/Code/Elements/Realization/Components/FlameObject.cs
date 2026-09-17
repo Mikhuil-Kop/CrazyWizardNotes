@@ -1,15 +1,17 @@
 ﻿using CrazyWizardNotes.Elements.Abstractions;
+using UNet.Core.Abstractions;
 using UNet.Physics.Abstractions;
 using UnityEngine;
 
 namespace CrazyWizardNotes.Elements.Realization
 {
-    public class Flame : IFlame
+    public class FlameObject : IFlame, IHasParent
     {
         private GameObject GameObject { get; }
+        public IActor Parent { get => null; set => throw new System.NotImplementedException(); }
         public bool IsActive { get; private set; }
 
-        public Flame(GameObject gameObject)
+        public FlameObject(GameObject gameObject)
         {
             GameObject = gameObject;
             IsActive = true;

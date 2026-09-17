@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CrazyWizardNotes.Main.Wrappers
 {
@@ -21,8 +22,9 @@ namespace CrazyWizardNotes.Main.Wrappers
             {
                 typeof(UNet.Core.Realization.Destroyable),
                 typeof(UNet.Physics.Realization.PhysicalObject),
-                typeof(Elements.Realization.MonolithElementMaterial),
-            };
+            }
+            .Concat(Elements.Realization.ElementsWrapping.GetComponentsForPhysicalObject())
+            .Concat(Elements.Realization.ElementsWrapping.GetWorkersForPhysicalObject());
         }
     }
 }

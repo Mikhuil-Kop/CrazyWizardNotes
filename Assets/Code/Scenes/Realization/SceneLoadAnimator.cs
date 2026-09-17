@@ -37,6 +37,7 @@ namespace CrazyWizardNotes.Scenes.Realization
 
         public void OnSceneLoaded(ISceneInfo sceneInfo, ISceneData sceneData)
         {
+            Config.Animator.gameObject.SetActive(true);
             Config.Animator.Play("Loading_Unfade");
             Config.Slider.normalizedValue = 1;
         }

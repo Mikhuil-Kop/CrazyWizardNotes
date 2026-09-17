@@ -159,6 +159,10 @@ namespace UNet.Core.Realization
             {
                 throw new Exception($"Не удалось получить {serviceType.FullName} из-за циклической зависимости.");
             }
+            catch(Exception e)
+            {
+                throw new ServiceNotProvidedException(serviceType?.Name ?? "null", key, e);
+            }
         }
 
         public void Dispose()
