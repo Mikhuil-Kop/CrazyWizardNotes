@@ -1,22 +1,21 @@
-﻿using CrazyWizardNotes.Elements.Abstractions;
+﻿using System.Collections.Generic;
 using UNet.Core.Abstractions;
 using UNet.Physics.Abstractions;
-using UnityEngine;
 
 namespace CrazyWizardNotes.Magic.Realization.Particles
 {
-    public class LazerBehavior : CustomParticleBehaviourBase
+    public abstract class LazerBehaviorBase : CustomParticleBehaviourBase
     {
-        private IPhysicsService PhysicsService { get; }
-        private ILazerVisualizer Visualizer { get; }
-        private IHasSpacePoint HasSpacePoint { get; }
-        private IPhysical Physical { get; }
+        protected IPhysicsService PhysicsService { get; }
+        protected ILazerVisualizer Visualizer { get; }
+        protected IHasSpacePoint HasSpacePoint { get; }
+        protected IPhysical Physical { get; }
 
-        private bool IsEnabled { get; set; }
-        private bool IsActive { get; set; }
-        private int Level { get; set; }
+        protected bool IsEnabled { get; set; }
+        protected bool IsActive { get; set; }
+        protected int Level { get; set; }
 
-        public LazerBehavior(IPhysicsService physicsService, ILazerVisualizer visualizer, IHasSpacePoint spacePoint, IPhysical physical)
+        public LazerBehaviorBase(IPhysicsService physicsService, ILazerVisualizer visualizer, IHasSpacePoint spacePoint, IPhysical physical)
         {
             PhysicsService = physicsService;
             Visualizer = visualizer;
@@ -25,6 +24,7 @@ namespace CrazyWizardNotes.Magic.Realization.Particles
 
             IsEnabled = false;
             IsActive = false;
+            Level = 0;
         }
 
         public override void OnBendStart(ICustomParticleBehaviorContext context)
@@ -77,24 +77,14 @@ namespace CrazyWizardNotes.Magic.Realization.Particles
             {
                 Physical.ApplyBreak(6f, context.DeltaTime);
 
-                var heated = PhysicsService.GetActors(new PhysicsRaycastParams()
+                var actors = PhysicsService.GetActors(new PhysicsRaycastParams()
                 {
                     From = HasSpacePoint.SpacePoint,
                     To = context.State.BendingTargetPoint.Value,
                     One = false
                 });
 
-                foreach (var actor in heated.WithComponents<IHasTemperature, IFlammable, IHasSpacePoint>())
-                {
-                    actor.Component1?.AddThermalEnergy(Level * 3f * context.DeltaTime);
-                    actor.Component2?.ApplySpark(Level / 10f);
-
-                    if (actor.Component3 != null)
-                    {
-                        Debug.DrawLine(HasSpacePoint.SpacePoint.Position, actor.Component3.SpacePoint.Position, Color.red);
-                        Debug.Log($"Draw from {HasSpacePoint.SpacePoint.Position} to {actor.Component3.SpacePoint.Position}");
-                    }
-                }
+                OnLazer(context, actors);
             }
         }
 
@@ -116,6 +106,7 @@ namespace CrazyWizardNotes.Magic.Realization.Particles
                 Visualizer.Level = 0;
             }
         }
+
+        protected abstract void OnLazer(ICustomParticleBehaviorContext context, IEnumerable<IActor> actors);
     }
 }
-// Stopped

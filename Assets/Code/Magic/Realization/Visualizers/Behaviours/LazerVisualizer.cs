@@ -60,13 +60,13 @@ namespace CrazyWizardNotes.Magic.Realization.Particles
 
         #endregion
 
-        public void UpdateTarget(Vector2D distance)
+        public void UpdateTarget(Vector2D level)
         {
-            //Beam.localScale = new Vector3(distance.Magnitude, 1, 1);
+            //Beam.localScale = new Vector3(level.Magnitude, 1, 1);
             Beam.localScale = new Vector3(100f, 1, 1);
-            Beam.rotation = Quaternion.Euler(0f, 0f, -90f - Mathf.Atan2(distance.X, distance.Y) * Mathf.Rad2Deg);
+            Beam.rotation = Quaternion.Euler(0f, 0f, -90f - Mathf.Atan2(level.X, level.Y) * Mathf.Rad2Deg);
 
-            Hitpoint.localPosition = -distance;
+            Hitpoint.localPosition = -level;
         }
     }
 }

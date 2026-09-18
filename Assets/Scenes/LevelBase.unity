@@ -1063,7 +1063,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3292387977431519497, guid: 15e95df0f34edf5498699591b2f37a31, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 15e95df0f34edf5498699591b2f37a31, type: 3}
 --- !u!1001 &523926176990891434
 PrefabInstance:
@@ -1436,7 +1439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
       propertyPath: TestRuntimeData.KeepField
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5774264573791733186, guid: eab646e7ed2010f458f13da61227e53f, type: 3}
       propertyPath: TooltipCanvasMonoBehaviour
