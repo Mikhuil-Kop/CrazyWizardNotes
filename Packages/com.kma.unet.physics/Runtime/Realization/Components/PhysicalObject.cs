@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UNet.Core.Abstractions;
 using UNet.Physics.Abstractions;
 using UnityEngine;
@@ -142,10 +143,18 @@ namespace UNet.Physics.Realization
                 OptionalJoint.breakAction = JointBreakAction2D.Disable;
             }
 
-            Transform.gameObject.AddComponent<CollisionTriggerProxy>().Initialize(this);
+            var colliders = Transform
+                .GetComponentsInChildren<Collider2D>(true)
+                .ConcatAdd(Transform.GetComponent<Collider2D>())
+                .Where(x => x != null);
+
+            foreach (var collider in colliders)
+            {
+                Transform.gameObject.AddComponent<CollisionTriggerProxy>().Initialize(this);
+            }
         }
 
-        protected virtual void OnCollisionEnter2D(Collision2D c)
+        protected virtual void OnCollisionEnter2D(GameObject target, Collision2D c, IColliderData colliderData)
         {
             var actors = c.gameObject.GetComponents<IActor>();
 
@@ -163,7 +172,7 @@ namespace UNet.Physics.Realization
             });
         }
 
-        protected virtual void OnTriggerEnter2D(Collider2D c)
+        protected virtual void OnTriggerEnter2D(GameObject target, Collider2D c, IColliderData colliderData)
         {
             var actors = c.gameObject.GetComponents<IActor>();
 
@@ -181,7 +190,7 @@ namespace UNet.Physics.Realization
             });
         }
 
-        protected virtual void OnCollisionExit2D(Collision2D c)
+        protected virtual void OnCollisionExit2D(GameObject target, Collision2D c, IColliderData colliderData)
         {
             var actors = c.gameObject.GetComponents<IActor>();
 
@@ -191,7 +200,7 @@ namespace UNet.Physics.Realization
             }
         }
 
-        protected virtual void OnTriggerExit2D(Collider2D c)
+        protected virtual void OnTriggerExit2D(GameObject target, Collider2D c, IColliderData colliderData)
         {
             var actors = c.gameObject.GetComponents<IActor>();
 
@@ -225,18 +234,30 @@ namespace UNet.Physics.Realization
 
         #region Внутренние классы
 
-        public class CollisionTriggerProxy : MonoBehaviour
+        private class CollisionTriggerProxy : MonoBehaviour
         {
             private PhysicalObject Owner { get; set; }
+            private IColliderData ColliderData { get; set; }
+
             public void Initialize(PhysicalObject owner)
             {
                 Owner = owner;
+
+                ColliderData = gameObject.GetComponent<IColliderData>() ?? new EmptyColliderData();
             }
 
-            public void OnCollisionEnter2D(Collision2D c) => Owner.OnCollisionEnter2D(c);
-            public void OnTriggerEnter2D(Collider2D c) => Owner.OnTriggerEnter2D(c);
-            public void OnCollisionExit2D(Collision2D c) => Owner.OnCollisionExit2D(c);
-            public void OnTriggerExit2D(Collider2D c) => Owner.OnTriggerExit2D(c);
+            public void OnCollisionEnter2D(Collision2D c) => Owner.OnCollisionEnter2D(gameObject, c, ColliderData);
+            public void OnTriggerEnter2D(Collider2D c) => Owner.OnTriggerEnter2D(gameObject, c, ColliderData);
+            public void OnCollisionExit2D(Collision2D c) => Owner.OnCollisionExit2D(gameObject, c, ColliderData);
+            public void OnTriggerExit2D(Collider2D c) => Owner.OnTriggerExit2D(gameObject, c, ColliderData);
+        }
+
+        private class EmptyColliderData : IColliderData
+        {
+            public T GetMetadata<T>() where T : class
+            {
+                return null;
+            }
         }
 
         #endregion

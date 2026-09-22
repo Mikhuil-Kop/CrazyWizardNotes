@@ -10,16 +10,22 @@ namespace CrazyWizardNotes.Magic.Realization
         public Light2D ParticleLight;
         public Color Color;
 
+        [Header("Animation Fields")]
+        [Range(0f, 1f)]
+        public float Alpha;
+
+        public Color AlphaColor => new(Color.r, Color.g, Color.b, Color.a * Alpha);
+
         public void LateUpdate()
         {
             if (ParticleSprite != null)
             {
-                ParticleSprite.color = Color;
+                ParticleSprite.color = AlphaColor;
             }
 
             if (ParticleLight != null)
             {
-                ParticleLight.color = Color;
+                ParticleLight.color = AlphaColor;
             }
         }
 

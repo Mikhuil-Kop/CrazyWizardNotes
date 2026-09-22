@@ -6,8 +6,9 @@ namespace CrazyWizardNotes.Magic.Realization.Particles
     public class SlingshotVisualizer : MonoBehaviour, ISlingshotVisualizer
     {
         public Animator Animator;
-        public Transform Beam;
-        public Transform Hitpoint;
+        public Transform Target;
+        public Transform Line;
+        public Transform Attack;
 
         #region Animator
 
@@ -75,13 +76,16 @@ namespace CrazyWizardNotes.Magic.Realization.Particles
 
         #endregion
 
-        public void UpdateTarget(Vector2D level)
+        public void UpdateTarget(Vector2D pull)
         {
-            //Beam.localScale = new Vector3(level.Magnitude, 1, 1);
-            Beam.localScale = new Vector3(100f, 1, 1);
-            Beam.rotation = Quaternion.Euler(0f, 0f, -90f - Mathf.Atan2(level.X, level.Y) * Mathf.Rad2Deg);
+            var angle = Mathf.Atan2(pull.X, pull.Y) * Mathf.Rad2Deg;
 
-            Hitpoint.localPosition = -level;
+            Target.localPosition = -pull;
+
+            Line.localScale = new Vector3(pull.Magnitude, 1, 1);
+            Line.rotation = Quaternion.Euler(0f, 0f, -90f - angle);
+
+            Attack.rotation = Quaternion.Euler(0f, 0f, +90f - angle);
         }
     }
 }

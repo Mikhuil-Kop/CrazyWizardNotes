@@ -10,8 +10,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5459643927317680774, guid: fe0546e9e83e72f4a98c9f900869515b, type: 3}
       propertyPath: m_Name
-      value: Bush_0 Variant
+      value: Bush_2
       objectReference: {fileID: 0}
+    - target: {fileID: 7795920245342134595, guid: fe0546e9e83e72f4a98c9f900869515b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -2085137162, guid: 6b43bfd179518f54ab35ca4eff2e8894, type: 3}
     - target: {fileID: 8048802219445642781, guid: fe0546e9e83e72f4a98c9f900869515b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.008
@@ -50,6 +54,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8048802219445642781, guid: fe0546e9e83e72f4a98c9f900869515b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8347507661039791302, guid: fe0546e9e83e72f4a98c9f900869515b, type: 3}
+      propertyPath: m_Size.x
+      value: 1.3414087
+      objectReference: {fileID: 0}
+    - target: {fileID: 8347507661039791302, guid: fe0546e9e83e72f4a98c9f900869515b, type: 3}
+      propertyPath: m_Offset.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

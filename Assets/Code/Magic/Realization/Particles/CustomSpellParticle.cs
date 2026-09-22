@@ -19,9 +19,10 @@ namespace CrazyWizardNotes.Magic.Realization
         private Transform Transform { get; }
         private Turbulence Turbulence { get; }
         private CustomParticleBehaviourBase Behaviour { get; }
+        private CustomSpellParticleAnimatior Animator { get; }
         private CustomParticleBehaviorContext Context { get; }
 
-        public CustomSpellParticle(IPhysicsService physicsService, IActor actor, IHasSpacePoint hasSpacePoint, IPhysical physical, Transform transform, CustomParticleBehaviourBase behaviour)
+        public CustomSpellParticle(IPhysicsService physicsService, IActor actor, IHasSpacePoint hasSpacePoint, IPhysical physical, Transform transform, CustomParticleBehaviourBase behaviour, CustomSpellParticleAnimatior animatior)
         {
             PhysicsService = physicsService;
             
@@ -30,6 +31,7 @@ namespace CrazyWizardNotes.Magic.Realization
             HasSpacePoint = hasSpacePoint;
             Transform = transform;
             Behaviour = behaviour;
+            Animator = animatior;
 
             Turbulence = new Turbulence();
 

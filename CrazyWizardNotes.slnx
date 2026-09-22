@@ -7,8 +7,8 @@
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="kma.unet.physics.csproj" />
   <Project Path="kma.unet.input.csproj" />
-  <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="kma.unet.animations.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="kma.unet.sound.csproj" />
   <Project Path="kma.unet.calculations.csproj" />
 </Solution>

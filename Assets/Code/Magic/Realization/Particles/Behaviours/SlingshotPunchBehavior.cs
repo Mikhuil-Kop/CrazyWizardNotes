@@ -11,7 +11,7 @@ namespace CrazyWizardNotes.Magic.Realization.Particles
         {
             Touches = touches;
 
-            Touches.OnTouch += Touches_OnTouch; ;
+            Touches.OnTouch += Touches_OnTouch;
         }
 
         protected override void OnSlingRelease(ICustomParticleBehaviorContext context)
