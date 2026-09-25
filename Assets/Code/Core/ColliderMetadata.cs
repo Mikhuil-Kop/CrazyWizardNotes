@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CrazyWizardNotes
+namespace CrazyWizardNotes.Core
 {
     [Serializable]
     public class ColliderMetadata

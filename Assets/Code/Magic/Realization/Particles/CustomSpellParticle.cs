@@ -15,6 +15,7 @@ namespace CrazyWizardNotes.Magic.Realization
         private IPhysicsService PhysicsService { get; }
         private IActor Actor { get; }
         private IPhysical Physical { get; }
+        private IDestroyable Destroyable { get; }
         private IHasSpacePoint HasSpacePoint { get; }
         private Transform Transform { get; }
         private Turbulence Turbulence { get; }
@@ -22,12 +23,13 @@ namespace CrazyWizardNotes.Magic.Realization
         private CustomSpellParticleAnimatior Animator { get; }
         private CustomParticleBehaviorContext Context { get; }
 
-        public CustomSpellParticle(IPhysicsService physicsService, IActor actor, IHasSpacePoint hasSpacePoint, IPhysical physical, Transform transform, CustomParticleBehaviourBase behaviour, CustomSpellParticleAnimatior animatior)
+        public CustomSpellParticle(IPhysicsService physicsService, IActor actor, IHasSpacePoint hasSpacePoint, IPhysical physical, IDestroyable destroyable, Transform transform, CustomParticleBehaviourBase behaviour, CustomSpellParticleAnimatior animatior)
         {
             PhysicsService = physicsService;
             
             Actor = actor;
             Physical = physical;
+            Destroyable = destroyable;
             HasSpacePoint = hasSpacePoint;
             Transform = transform;
             Behaviour = behaviour;
@@ -71,7 +73,7 @@ namespace CrazyWizardNotes.Magic.Realization
         public void OnStartBend(SpellBendStartEventArgs args)
         {
             Context.State.BendingTargetPoint = args.StartPoint;
-            Context.State.IsBending = true;
+            Context.State.IsBending = Animator.IsBending = true;
             Context.State.StartBendCount++;
 
             Context.State.CurBendTime = 0;
@@ -83,7 +85,7 @@ namespace CrazyWizardNotes.Magic.Realization
         public void OnUpdateBend(SpellBendUpdateEventArgs args)
         {
             Context.State.BendingTargetPoint = args.TargetPoint;
-            Context.State.IsBending = true;
+            Context.State.IsBending = Animator.IsBending = true;
 
             Behaviour.OnBendUpdate(Context);
         }
@@ -91,7 +93,7 @@ namespace CrazyWizardNotes.Magic.Realization
         public void OnEndBend(SpellBendEndEventArgs args)
         {
             Context.State.BendingTargetPoint = null;
-            Context.State.IsBending = false;
+            Context.State.IsBending = Animator.IsBending = false;
             Context.State.EndBendCount++;
 
             Context.State.CurBendTime = 0;
@@ -156,11 +158,8 @@ namespace CrazyWizardNotes.Magic.Realization
 
         public void Vanish()
         {
-            if (Transform != null)
-            {
-                UnityEngine.Debug.Log("Spell - Destroy");
-                GameObject.Destroy(Transform.gameObject);
-            }
+            Animator.IsVanishRequested = true;
+            Destroyable.Destroy();
         }
 
         #endregion

@@ -13,9 +13,11 @@ namespace CrazyWizardNotes.Main.Wrappers
         {
             return new Type[]
             {
-                typeof(UNet.Core.Realization.Destroyable),
+                //typeof(UNet.Core.Realization.Destroyable),
                 typeof(UNet.Physics.Realization.PhysicalObject),
                 typeof(Magic.Realization.CustomSpellParticle),
+                typeof(Magic.Realization.CustomSpellParticleAnimatior),
+                typeof(DestroyableByAnimation),
                 GetParticleType()
             };
         }

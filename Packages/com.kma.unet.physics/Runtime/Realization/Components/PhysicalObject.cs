@@ -145,12 +145,11 @@ namespace UNet.Physics.Realization
 
             var colliders = Transform
                 .GetComponentsInChildren<Collider2D>(true)
-                .ConcatAdd(Transform.GetComponent<Collider2D>())
                 .Where(x => x != null);
 
             foreach (var collider in colliders)
             {
-                Transform.gameObject.AddComponent<CollisionTriggerProxy>().Initialize(this);
+                collider.gameObject.AddComponent<CollisionTriggerProxy>().Initialize(this);
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿using UNet.Physics.Realization;
 
-namespace CrazyWizardNotes
+namespace CrazyWizardNotes.Core
 {
     public class ColliderData : ColliderDataBase<ColliderMetadata>
     {

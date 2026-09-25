@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf86a80546987974d91b4be32da47e7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Main.Wrappers.SpellTotemWrapper
-  Spell: {fileID: 0}
+  SpellToSpawn: {fileID: 0}
   ActivationTimeGap: 3
   IsEnabled: 0
   IsActive: 0
