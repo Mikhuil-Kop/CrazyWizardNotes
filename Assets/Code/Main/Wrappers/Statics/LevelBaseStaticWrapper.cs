@@ -18,12 +18,11 @@ namespace CrazyWizardNotes.Main.Wrappers
 
         public UI.Realization.ActionsBarServiceConfig ActionBarServiceConfig;
         public Scenes.Realization.SceneLoadAnimatorConfig SceneLoadAnimatorConfig;
+        public Elements.Realization.ElementalChunkServiceConfig ElementalChunksServiceConfig;
 
         [Header("Эти данные используются, когда сцена была открыта через редактор, а не через SceneLoadService.")]
         public Scenes.Realization.SceneResource TestSceneResource;
         public Scenes.Abstractions.SceneRuntimeData TestRuntimeData;
-
-        public Assets.Code.CanvasConfig CanvasConfig;
 
         protected override IEnumerable<object> GetObjects()
         {
@@ -38,7 +37,7 @@ namespace CrazyWizardNotes.Main.Wrappers
                 TooltipCanvasMonoBehaviour,
                 ActionBarServiceConfig,
                 SceneLoadAnimatorConfig,
-                CanvasConfig,
+                ElementalChunksServiceConfig,
 
                 new UNet.Core.Realization.SceneLoadServiceConfig()
                 {
@@ -49,21 +48,21 @@ namespace CrazyWizardNotes.Main.Wrappers
             };
         }
 
-        protected override IDictionary<string, object> GetKeyedObjects()
-        {
-            return new Dictionary<string, object>
-            {
-                { "TestRuntimeData", TestRuntimeData },
-                { "TestSceneResource", TestSceneResource },
-            };
-        }
+        //protected override IDictionary<string, object> GetKeyedObjects()
+        //{
+        //    return new Dictionary<string, object>
+        //    {
+        //        { "TestRuntimeData", TestRuntimeData },
+        //        { "TestSceneResource", TestSceneResource },
+        //    };
+        //}
 
         protected override IEnumerable<Type> GetWrappedTypes()
         {
             return new Type[]
             {
                 typeof(Assets.Code.Canvas),
-                typeof(Assets.Code.F),
+                typeof(SceneEffectsVisualizer),
 
                 typeof(UNet.Core.Realization.ActorsCollectionService),
                 typeof(UNet.Core.Realization.AsyncExecutionService),
@@ -76,11 +75,13 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(UNet.Core.Realization.ActorsSpawnService),
                 typeof(UNet.Core.Realization.SceneLoadService),
                 typeof(UNet.Core.Realization.SceneLoadResourceService),
+                typeof(UNet.Core.Realization.VirtualActorsService),
 
                 typeof(UNet.Inputs.Realization.CameraInputService),
 
                 typeof(UNet.Physics.Realization.PhysicsService),
                 typeof(UNet.Physics.Realization.PhysicsActorSpawnService),
+                typeof(UNet.Physics.Realization.SpaceChunkActorsFactory),
 
                 typeof(UNet.Sound.Realization.SoundService),
 
@@ -97,7 +98,8 @@ namespace CrazyWizardNotes.Main.Wrappers
 
                 typeof(Elements.Realization.ElectricService),
                 //typeof(Elements.Realization.MagneticService),
-                
+                typeof(Elements.Realization.ElementalChunkService),
+
                 typeof(UI.Realization.ActiveLogger),
                 typeof(UI.Realization.ActionBarService),
 

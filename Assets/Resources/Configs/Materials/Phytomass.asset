@@ -22,3 +22,6 @@ MonoBehaviour:
     FlashPointTemperature: 180
     Flammability: 0.9
     ElectricCapacity: 0.1
+    ElectricResistance: 0
+    MagneticSusceptibility: 0
+    IsMetalicVisibly: 0

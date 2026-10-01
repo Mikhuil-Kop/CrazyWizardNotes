@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UNet.Core.Abstractions;
 using UNet.Physics.Abstractions;
 
 namespace UNet.Physics.Realization
@@ -9,9 +10,9 @@ namespace UNet.Physics.Realization
     public sealed class SpaceChunks : ISpaceChunks
     {
         public ISpaceContainer ParentContainer { get; }
-        public int ChunksCountX => Chunks.GetLength(0);
-        public int ChunksCountY => Chunks.GetLength(1);
-        private IChunkSpaceActorFactory ActorFactory { get; }
+
+        private IVirtualActorsService ActorsService { get; }
+        private ISpaceChunkActorsFactory ActorsFactory { get; }
         private Vector2D WorldOrigin { get; }
         private Vector2D ChunkSize { get; }
 
@@ -19,10 +20,12 @@ namespace UNet.Physics.Realization
         private int MinChunkX { get; set; }
         private int MinChunkY { get; set; }
 
-        public SpaceChunks(ISpaceContainer parentContainer, IChunkSpaceActorFactory actorFactory, Vector2D worldOrigin, Vector2D chunkSize)
+        public SpaceChunks(IVirtualActorsService actorsService, ISpaceChunkActorsFactory actorsFactory, ISpaceContainer parentContainer, Vector2D worldOrigin, Vector2D chunkSize)
         {
+            ActorsService = actorsService ?? throw new ArgumentNullException(nameof(actorsService));
+            ActorsFactory = actorsFactory ?? throw new ArgumentNullException(nameof(actorsFactory));
             ParentContainer = parentContainer ?? throw new ArgumentNullException(nameof(parentContainer));
-            ActorFactory = actorFactory ?? throw new ArgumentNullException(nameof(actorFactory));
+
             WorldOrigin = worldOrigin;
             ChunkSize = chunkSize;
 
@@ -30,6 +33,9 @@ namespace UNet.Physics.Realization
             MinChunkX = 0;
             MinChunkY = 0;
         }
+
+        public int ChunksCountX => Chunks.GetLength(0);
+        public int ChunksCountY => Chunks.GetLength(1);
 
         public ISpaceChunk this[int x, int y]
         {
@@ -141,9 +147,19 @@ namespace UNet.Physics.Realization
                         WorldOrigin.X + logicalX * ChunkSize.X,
                         WorldOrigin.Y + logicalY * ChunkSize.Y);
 
-                    var actor = ActorFactory.CreateActorForChunk(chunkPos, ChunkSize);
+                    var chunk = new SpaceChunk(this, logicalX, logicalY, chunkPos, ChunkSize);
+                    
+                    // Для привязки нескольких акторов к чанку, необходимо сделать IEnumerable<IFactory>
+                    var actors = ActorsFactory.CreateActorForChunk(chunk);
 
-                    newChunks[x, y] = new SpaceChunk(this, logicalX, logicalY, chunkPos, ChunkSize, actor);
+                    chunk.ChunkActors.AddRange(actors);
+
+                    foreach (var actor in actors)
+                    {
+                        ActorsService.RegisterActor(actor);
+                    }
+
+                    newChunks[x, y] = chunk;
                 }
             }
 

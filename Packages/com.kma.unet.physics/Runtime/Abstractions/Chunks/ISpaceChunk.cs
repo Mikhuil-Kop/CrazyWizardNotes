@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UNet.Core.Abstractions;
 
 namespace UNet.Physics.Abstractions
@@ -35,11 +35,16 @@ namespace UNet.Physics.Abstractions
         public Vector2D ChunkSize { get; }
 
         /// <summary>
-        /// Объект, отвечающий за игровое поведение данного чанка. Обычно представляет поведение воздуха.
+        /// Объекты, отвечающий за игровое поведение данного чанка. Обычно представляет поведение воздуха.
         /// </summary>
-        public IActor SpaceActor { get; }
+        public IEnumerable<IActor> ChunkActors { get; }
+    }
 
-        [Obsolete("Не используется. Не доработано.")]
-        public IEnumerable<IActor> ActorsInside { get; }
+    public static class ISpaceChunkExtensions
+    {
+        public static T As<T>(this ISpaceChunk chunk) where T : class
+        {
+            return chunk.ChunkActors.FirstOrDefault(x => x is T) as T;
+        }
     }
 }

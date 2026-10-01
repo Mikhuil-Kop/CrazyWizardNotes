@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3359564652923943952}
   - component: {fileID: 5149042862911368656}
   - component: {fileID: 5796998573393908561}
+  - component: {fileID: 2893106627766441636}
   m_Layer: 0
   m_Name: Grass_0
   m_TagString: Untagged
@@ -195,3 +196,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Main.Wrappers.GrassWrapper
   MaterialConfigScript: {fileID: 11400000, guid: 8eafeede2be507b40ba8ce905c94458d, type: 2}
+--- !u!114 &2893106627766441636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5459643927317680774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d99563b53ea4ca409bc764488249f6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Elements.Realization.ElementalMaterialVisualizer
+  MaterialConfig: {fileID: 11400000, guid: 8eafeede2be507b40ba8ce905c94458d, type: 2}

@@ -650,6 +650,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: CANVAS_2_20
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 1941
+        width: 28
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38283eb31da6ba34c8725f648f5200d1
+      internalID: -778397774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -679,6 +701,7 @@ TextureImporter:
       CANVAS_2_18: 1644185895
       CANVAS_2_19: -1698788348
       CANVAS_2_2: -713906083
+      CANVAS_2_20: -778397774
       CANVAS_2_3: 833605534
       CANVAS_2_4: -1093548075
       CANVAS_2_5: -267191270

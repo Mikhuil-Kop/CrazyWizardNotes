@@ -36,6 +36,7 @@ namespace UNet.Core.Realization
         
         private IUServiceProvider SceneServiceProvider { get; set; }
         private List<object> SceneComponents { get; set; }
+        private CustomUpdateRunner CustomUpdateRunner { get; set; }
         public IReadonlyTags Tags { get; set; }
 
         [Obsolete("Закрыть")]
@@ -82,6 +83,8 @@ namespace UNet.Core.Realization
             {
                 component.OnUpdate(Time.deltaTime);
             }
+
+            CustomUpdateRunner.Update(Time.deltaTime);
         }
 
         private void LateUpdate()
@@ -198,6 +201,8 @@ namespace UNet.Core.Realization
                 .Concat(componentsWrappers.SelectMany(x => x.GetComponents(serviceProvider)))
                 .Distinct()
                 .ToList();
+
+            CustomUpdateRunner = new CustomUpdateRunner(SceneComponents.As<IHandlesCustomUpdate>());
 
             // Actions Execution
 

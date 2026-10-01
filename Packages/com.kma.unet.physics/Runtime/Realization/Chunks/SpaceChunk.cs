@@ -12,25 +12,22 @@ namespace UNet.Physics.Realization
         public int ChunkIndexY { get; }
         public Vector2D ChunkPosition { get; }
         public Vector2D ChunkSize { get; }
-        public IActor SpaceActor { get; }
-
-        [Obsolete("Не используется. Не доработано.")]
-        public IEnumerable<IActor> ActorsInside => Array.Empty<IActor>();
+        public List<IActor> ChunkActors { get; }
+        IEnumerable<IActor> ISpaceChunk.ChunkActors => ChunkActors;
 
         public SpaceChunk(
             ISpaceChunks parentChunks,
             int chunkIndexX,
             int chunkIndexY,
             Vector2D chunkPosition,
-            Vector2D chunkSize,
-            IActor spaceActor)
+            Vector2D chunkSize)
         {
             ParentChunks = parentChunks ?? throw new ArgumentNullException(nameof(parentChunks));
             ChunkIndexX = chunkIndexX;
             ChunkIndexY = chunkIndexY;
             ChunkPosition = chunkPosition;
             ChunkSize = chunkSize;
-            SpaceActor = spaceActor ?? throw new ArgumentNullException(nameof(spaceActor));
+            ChunkActors = new List<IActor>();
         }
     }
 }

@@ -119,6 +119,13 @@ namespace UNet.Core.Realization
         private void Deinitialize()
         {
             var scene = UNetScene.Instance;
+
+            if (ServiceProvider == null || scene == null)
+            {
+                Debug.LogWarning("Объект был неправильно инициализирован, а потому будет удален без обработки.");
+                return;
+            }
+
             scene.InitializeActorDestroyed(this, ServiceProvider);
         }
 

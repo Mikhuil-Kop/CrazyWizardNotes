@@ -2,6 +2,7 @@
 {
     public interface IHandlesCustomUpdate
     {
-        void OnUpdate(ICustomUpdateContext context);
+        float OnCustomUpdateDelay { get; }
+        void OnCustomUpdate();
     }
 }

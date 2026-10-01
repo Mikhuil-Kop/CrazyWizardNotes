@@ -18,7 +18,10 @@ MonoBehaviour:
     ThermalEmissivity: 0.9
     MoistureCapacity: 0.05
     MoistureLimit: 0.02
-    AutoignitionTemperature: 1200
-    FlashPointTemperature: 1000
+    AutoignitionTemperature: 1200000
+    FlashPointTemperature: 1000000
     Flammability: 0
     ElectricCapacity: 0.01
+    ElectricResistance: 0
+    MagneticSusceptibility: 0
+    IsMetalicVisibly: 0

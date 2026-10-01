@@ -10,13 +10,17 @@ namespace UNet.Physics.Realization
     public class PhysicsService : IPhysicsService
     {
         private IActorsCollectionService ActorsCollectionService { get; }
+        private ISpaceChunkActorsFactory ChunkSpaceActorsFactory { get; }
+        private IVirtualActorsService VirtualActorsService { get; }
         private ISpaceContainer RootSpaceContainer { get; }
 
-        public PhysicsService(IActorsCollectionService subjectsCollectionService, IChunkSpaceActorFactory chunkActorFactory)
+        public PhysicsService(IActorsCollectionService subjectsCollectionService, ISpaceChunkActorsFactory chunkActorsFactory, IVirtualActorsService virtualActorsService)
         {
             ActorsCollectionService = subjectsCollectionService;
+            ChunkSpaceActorsFactory = chunkActorsFactory;
+            VirtualActorsService = virtualActorsService;
 
-            RootSpaceContainer = new DefaultRootSpaceContainer(chunkActorFactory, Vector2D.Zero, new Vector2D(1f, 1f));
+            RootSpaceContainer = new DefaultRootSpaceContainer(VirtualActorsService, ChunkSpaceActorsFactory, Vector2D.Zero, new Vector2D(1f, 1f));
         }
 
         // TODO: на проде брутфорс будет лагать. Пока пойдет.
@@ -155,9 +159,9 @@ namespace UNet.Physics.Realization
             public ISpaceContainer ParentSpace => null;
             public ISpaceChunks SpaceChunks { get; }
 
-            public DefaultRootSpaceContainer(IChunkSpaceActorFactory factory, Vector2D worldOrigin, Vector2D chunkSize)
+            public DefaultRootSpaceContainer(IVirtualActorsService actorsService, ISpaceChunkActorsFactory factory, Vector2D worldOrigin, Vector2D chunkSize)
             {
-                SpaceChunks = new SpaceChunks(this, factory, worldOrigin, chunkSize);
+                SpaceChunks = new SpaceChunks(actorsService, factory, this, worldOrigin, chunkSize);
             }
 
             public Vector2D TranslateToParentSpace(Vector2D vector)

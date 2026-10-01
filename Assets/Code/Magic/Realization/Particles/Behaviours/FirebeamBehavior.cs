@@ -16,7 +16,7 @@ namespace CrazyWizardNotes.Magic.Realization.Particles
         {
             foreach (var actor in actors.WithComponents<IHasTemperature, IFlammable>())
             {
-                actor.Component1?.AddThermalEnergy(Level * Level * Level * 3f * context.DeltaTime);
+                actor.Component1?.AddThermalEnergy(Level * Level * Level * 0.33f * context.DeltaTime);
                 actor.Component2?.ApplySpark(Level * Level * Level / 10f);
             }
         }

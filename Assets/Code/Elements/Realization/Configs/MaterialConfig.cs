@@ -19,5 +19,7 @@ namespace CrazyWizardNotes.Elements.Realization
         public float ElectricCapacity;
         public float ElectricResistance;
         public float MagneticSusceptibility;
+
+        public bool IsMetalicVisibly;
     }
 }
