@@ -99,6 +99,7 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(Elements.Realization.ElectricService),
                 //typeof(Elements.Realization.MagneticService),
                 typeof(Elements.Realization.ElementalChunkService),
+                typeof(Elements.Realization.ElementalChunkActorFactory),
 
                 typeof(UI.Realization.ActiveLogger),
                 typeof(UI.Realization.ActionBarService),

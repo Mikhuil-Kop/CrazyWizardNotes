@@ -23,6 +23,11 @@ namespace UNet.Physics.Abstractions
         /// </summary>
         public int ChunksCountY { get; }
 
+        public int MinX { get; }
+        public int MaxX { get; }
+        public int MinY { get; }
+        public int MaxY { get; }
+
         /// <summary>
         /// Получение чанка по его индексу. Индекс может принимать отрицательное значение.
         /// </summary>

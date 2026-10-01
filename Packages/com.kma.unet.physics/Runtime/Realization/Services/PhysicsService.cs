@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UNet.Physics.Realization
 {
-    public class PhysicsService : IPhysicsService
+    public class PhysicsService : IPhysicsService, IHandlesCustomUpdate
     {
         private IActorsCollectionService ActorsCollectionService { get; }
         private ISpaceChunkActorsFactory ChunkSpaceActorsFactory { get; }
@@ -150,6 +150,17 @@ namespace UNet.Physics.Realization
         public SpacePoint GetDefaultSpacePoint(Vector2D vector2D)
         {
             return new SpacePoint(RootSpaceContainer, vector2D);
+        }
+
+        public float OnCustomUpdateDelay => 1f;
+        public void OnCustomUpdate()
+        {
+            RecalculateSpaceChunks();
+        }
+
+        private void RecalculateSpaceChunks()
+        {
+            //RootSpaceContainer.SpaceChunks.Resize(ActorsCollectionService.GetAll().ActorsAs<IHasSpacePoint>().Select(x => x.SpacePoint.Position));
         }
 
         #region Внутренние классы

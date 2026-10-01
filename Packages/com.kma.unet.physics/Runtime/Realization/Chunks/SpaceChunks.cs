@@ -36,6 +36,10 @@ namespace UNet.Physics.Realization
 
         public int ChunksCountX => Chunks.GetLength(0);
         public int ChunksCountY => Chunks.GetLength(1);
+        public int MinX => MinChunkX;
+        public int MaxX => MinChunkX + ChunksCountX - 1;
+        public int MinY => MinChunkY;
+        public int MaxY => MinChunkY + ChunksCountY - 1;
 
         public ISpaceChunk this[int x, int y]
         {

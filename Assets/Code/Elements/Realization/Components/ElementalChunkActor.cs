@@ -16,5 +16,8 @@ namespace CrazyWizardNotes.Elements.Realization
         public IReadonlyTags Tags => new Tags();
         public T As<T>() where T : class => this as T;
         public bool Is<T>() where T : class => this is T;
+
+        public float Temperature { get; set; } = 0f;
+        public float DeltaTemperature { get; set; } = 0f;
     }
 }

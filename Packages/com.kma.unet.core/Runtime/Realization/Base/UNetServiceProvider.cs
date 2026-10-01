@@ -91,15 +91,15 @@ namespace UNet.Core.Realization
 
         public object GetService(Type serviceType)
         {
-            return IntertanlGetService(serviceType, null);
+            return InternalGetService(serviceType, null);
         }
 
         public object GetKeyedService(Type serviceType, string key)
         {
-            return IntertanlGetService(serviceType, key);
+            return InternalGetService(serviceType, key);
         }
 
-        private object IntertanlGetService(Type serviceType, string key)
+        private object InternalGetService(Type serviceType, string key)
         {
             try
             {
@@ -111,6 +111,19 @@ namespace UNet.Core.Realization
                 if (serviceType.IsAssignableFrom(typeof(IUServiceProvider)))
                 {
                     return this;
+                }
+
+                //// Костыль. Перенести
+                if (serviceType.IsGenericType && serviceType.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                {
+
+                    var elementType = serviceType.GetGenericArguments()[0];
+                    var service = InternalGetService(elementType, key);
+                    var array = Array.CreateInstance(elementType, 1);
+
+                    array.SetValue(service, 0);
+                    return array;
+
                 }
 
                 var existingService = CreatedServices.FirstOrDefault(x => (x.Key == key || key == null) && serviceType.IsAssignableFrom(x.Service.GetType()));
@@ -144,15 +157,15 @@ namespace UNet.Core.Realization
 
                     return service;
                 }
-                else if (setting.ServiceScopeType > Scope)
-                {
-                    throw new KeyNotFoundException($"No registred service for \"{serviceType.FullName}\" and key \"{key}\". \"{setting.ServiceScopeType}\" > \"{Scope}\".");
-                }
-                else
+                else if (setting.ServiceScopeType < Scope)
                 {
                     var provider = this.ToRecursion(x => x.ParentServiceProvider).First(x => x.Scope == setting.ServiceScopeType);
 
-                    return provider.IntertanlGetService(serviceType, key);
+                    return provider.InternalGetService(serviceType, key);
+                }
+                else
+                {
+                    throw new KeyNotFoundException($"No registred service for \"{serviceType.FullName}\" and key \"{key}\". \"{setting.ServiceScopeType}\" > \"{Scope}\".");
                 }
             }
             catch (StackOverflowException)

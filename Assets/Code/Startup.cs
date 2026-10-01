@@ -37,7 +37,7 @@ namespace Assets.Code
 
             #region Дебаг
 
-            UnityEngine.Application.targetFrameRate = 60;
+            UnityEngine.Application.targetFrameRate = 240;
 
             #endregion
         }
