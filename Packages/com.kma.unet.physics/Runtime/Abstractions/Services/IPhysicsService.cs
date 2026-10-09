@@ -54,5 +54,35 @@ namespace UNet.Physics.Abstractions
 
             service.AddForce(forceParams);
         }
+
+
+
+
+
+
+        #region Поиск
+
+        private T FindClosest<T>(Func<IActor, T> selector, FindParams<T> param) where T : class
+        {
+            return ActorsCollectionService.GetAll()
+                .Where(x => param.IncludeSelf || x != Creature)
+                .Select(x => new
+                {
+                    Actor = x,
+                    Value = selector(x)
+                })
+                .Where(x => param.Predicate?.Invoke(x.Value) ?? true)
+                .OrderBy(x => PhysicsService.GetDistance(x.Actor.As<IHasSpacePoint>(), HasSpacePoint).Magnitude)
+                .FirstOrDefault()?
+                .Value;
+        }
+
+        private struct FindParams<T> where T : class
+        {
+            public Func<T, bool> Predicate { get; set; }
+            public bool IncludeSelf { get; set; }
+        }
+
+        #endregion
     }
 }

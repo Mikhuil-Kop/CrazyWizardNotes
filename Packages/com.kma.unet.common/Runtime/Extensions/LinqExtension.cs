@@ -5,6 +5,19 @@ using UNet;
 
 public static class LinqExtension
 {
+    public static void DisposeAll<T>(this IEnumerable<T> enumarable)
+    {
+        if (enumarable == null) throw new ArgumentNullException(nameof(enumarable));
+
+        foreach (var item in enumarable)
+        {
+            if (item != null && item is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
+        }
+    }
+
     public static Vector2D Sum<T>(this IEnumerable<T> enumarable, Func<T, Vector2D> func)
     {
         if (enumarable == null) throw new ArgumentNullException(nameof(enumarable));
