@@ -15,8 +15,7 @@ namespace CrazyWizardNotes.Main.Wrappers
                 new Creatures.Realization.EatableCaloriesInfo()
                 {
                     CaloriesMax = Calories,
-                    CaloriesLeft = Calories,
-                    EatingSpeed = 400f
+                    CaloriesLeft = Calories
                 }
             };
         }

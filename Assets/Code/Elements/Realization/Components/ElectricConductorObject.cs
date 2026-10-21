@@ -11,7 +11,7 @@ namespace CrazyWizardNotes.Elements.Realization
         private MaterialConfig Config { get; set; }
 
         public float ElectricCharge { get; set; }
-        public float ElectricCapacity => Config.ElectricCapacity * Physical.Mass;
+        public float ElectricCapacity => Config.ElectricCapacity * Physical.VolumeMass;
         public float ElectricResistance => Config.ElectricResistance;
 
         public event ElectricDischargeEventHandler OnElectricDischarge;

@@ -7,20 +7,18 @@ namespace CrazyWizardNotes.Creatures.Realization
     {
         public float CaloriesMax { get; private set; }
         public float CaloriesLeft { get; private set; }
-        public float EatingSpeed { get; private set; }
 
         public Eatable(EatableCaloriesInfo info)
         {
             CaloriesMax = info.CaloriesMax;
             CaloriesLeft = info.CaloriesLeft;
-            EatingSpeed = info.EatingSpeed;
         }
 
-        public float EatThis(ICanEat digester, float deltaTime)
+        public float EatThis(ICanEat eater)
         {
-            if (digester == null)
+            if (eater == null)
             {
-                throw new ArgumentNullException(nameof(digester));
+                throw new ArgumentNullException(nameof(eater));
             }
 
             if (CaloriesLeft <= 0)
@@ -28,7 +26,7 @@ namespace CrazyWizardNotes.Creatures.Realization
                 return 0;
             }
 
-            var eatAmount = Math.Min(CaloriesLeft, EatingSpeed * deltaTime * digester.EatingMultiplier);
+            var eatAmount = Math.Min(CaloriesLeft, eater.CaloriesPerBite);
             
             CaloriesLeft -= eatAmount;
 

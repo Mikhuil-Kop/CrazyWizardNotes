@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UNet.Physics.Realization
 {
-    public class PhysicsService : IPhysicsService, IHandlesCustomUpdate
+    public class PhysicsService : IPhysicsService//, IHandlesCustomUpdate
     {
         private IActorsCollectionService ActorsCollectionService { get; }
         private ISpaceChunkActorsFactory ChunkSpaceActorsFactory { get; }
@@ -83,6 +83,18 @@ namespace UNet.Physics.Realization
             }
         }
 
+
+        public IActor GetClosest(SpacePoint point, Func<IActor, bool> condition)
+        {
+            if (condition == null) throw new ArgumentNullException(nameof(condition));
+
+            return ActorsCollectionService.GetAll()
+                .Where(x => x.Is<IHasSpacePoint>())
+                .Where(condition)
+                .MinBy(x => GetDistance(point, x.As<IHasSpacePoint>().SpacePoint).MagnitudeSqr);
+        }
+
+
         public Vector2D GetDistance(SpacePoint point1, SpacePoint point2)
         {
             var targetSpace = GetCommonSpace(point1, point2);
@@ -152,16 +164,16 @@ namespace UNet.Physics.Realization
             return new SpacePoint(RootSpaceContainer, vector2D);
         }
 
-        public float OnCustomUpdateDelay => 1f;
-        public void OnCustomUpdate()
-        {
-            RecalculateSpaceChunks();
-        }
+        //public float OnCustomUpdateDelay => 1f;
+        //public void OnCustomUpdate()
+        //{
+        //    RecalculateSpaceChunks();
+        //}
 
-        private void RecalculateSpaceChunks()
-        {
-            //RootSpaceContainer.SpaceChunks.Resize(ActorsCollectionService.GetAll().ActorsAs<IHasSpacePoint>().Select(x => x.SpacePoint.Position));
-        }
+        //private void RecalculateSpaceChunks()
+        //{
+        //    //RootSpaceContainer.SpaceChunks.Resize(ActorsCollectionService.GetAll().ActorsAs<IHasSpacePoint>().Select(x => x.SpacePoint.Position));
+        //}
 
         #region Внутренние классы
 

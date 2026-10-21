@@ -1,115 +1,52 @@
 using CrazyWizardNotes.CreaturesBehaviors.Abstractions;
 using System;
-using UNet.Core.Abstractions;
-using UNet.Physics.Abstractions;
+using static CrazyWizardNotes.CreaturesBehaviors.Realization.CreatureChoiceTools;
 
 namespace CrazyWizardNotes.CreaturesBehaviors.Realization
 {
-    public class GoingForFoodChoiceTask : ICreatureChoiceTask
+    public sealed class GoingForFoodChoiceTask : ICreatureChoiceTask
+    {
+        private GoingForFoodChoiceParams Params { get; }
+        private IDisposable TargetClaim;
+        private bool IsClaimed;
+
+        public GoingForFoodChoiceTask(GoingForFoodChoiceParams param)
         {
-            private IActor Creature { get; }
-            private ICanEat CreatureCanEat { get; }
-            private ICanWalk CreatureCanWalk { get; }
-            private IHasSpacePoint CreaturePosition { get; }
+            Params = param;
+        }
 
-            private IEatable TargetEatable { get; }
-            private IHasSpacePoint TargetPosition { get; }
-            private IClaimable TargetClaimable { get; }
-            private IDestroyable TargetDestroyable { get; }
+        public bool IsCompleted =>
+               !IsClaimed
+            || (Params.Target.Destroyable?.IsDestroyed ?? false)
+            || (Params.Target.Eatable?.CaloriesLeft ?? 0f) <= 0f
+            || (Params.Creature.CanEat?.EatingIsFull ?? true);
 
-            private IDisposable TargetClaim;
+        public void OnTaskStart()
+        {
+            IsClaimed = Params.Target.Claimable?.TryClaim("", Params.Creature, out TargetClaim) ?? true;
+        }
 
-            private IPhysicsService PhysicsService { get; }
-
-
-            public bool IsCompleted { get; private set; }
-
-            public GoingForFoodChoiceTask(IActor creature, IActor target, IUServiceProvider serviceProvider)
+        public void OnTaskUpdate(float deltaTime)
+        {
+            if (Params.Distance.Magnitude < 0.5f)
             {
-                Creature = creature;
-                CreatureCanEat = creature.As<ICanEat>();
-                CreatureCanWalk = creature.As<ICanWalk>();
-                CreaturePosition = creature.As<IHasSpacePoint>();
-
-                TargetEatable = target.As<IEatable>();
-                TargetPosition = target.As<IHasSpacePoint>();
-                TargetClaimable = target.As<IClaimable>();
-                TargetDestroyable = target.As<IDestroyable>();
-
-                PhysicsService = serviceProvider.GetService<IPhysicsService>();
-
-                IsCompleted = false;
+                TryEat(Params.Creature.CanEat, Params.Target.Actor);
             }
+        }
 
-            public ICreatureChoiceTask GetChoiceTask()
-            {
-                return this;
-            }
+        public void OnTaskFixedUpdate(float deltaTime)
+        {
+            TryWalk(Params.Creature.CanWalk, Params.Target.HasSpacePoint);
+        }
 
-            public ChoiceValue GetChoiceValue()
-            {
-                throw new NotImplementedException();
-            }
+        public void OnTaskEnd()
+        {
+            TargetClaim?.Dispose();
+        }
 
-            public void OnTaskStart()
-            {
-                var isClaimed = TargetClaimable?.TryClaim("", Creature, out TargetClaim) ?? true;
-
-                IsCompleted = !isClaimed;
-            }
-
-            public void OnTaskRareUpdate()
-            {
-            }
-
-            public void OnTaskUpdate(float deltaTime)
-            {
-                if (CreatureCanEat == null || CreaturePosition == null || TargetEatable == null || TargetPosition == null)
-                {
-                    return;
-                }
-
-                if (TargetDestroyable?.IsDestroyed == true)
-                {
-                    IsCompleted = true;
-                    return;
-                }
-
-                if (PhysicsService.GetDistance(CreaturePosition, TargetPosition).Magnitude < 0.5f)
-                {
-                    CreatureCanEat.Eat(TargetEatable, deltaTime);
-
-                    if (TargetEatable.CaloriesLeft == 0f)
-                    {
-                        IsCompleted = true;
-                    }
-
-                    if (CreatureCanEat.EatingIsFull)
-                    {
-                        IsCompleted = true;
-                    }
-                }
-            }
-
-            public void OnTaskFixedUpdate(float deltaTime)
-            {
-                if (CreatureCanWalk == null || TargetPosition == null)
-                {
-                    return;
-                }
-
-                if (TargetDestroyable?.IsDestroyed == true)
-                {
-                    IsCompleted = true;
-                    return;
-                }
-
-                CreatureCanWalk.WalkTo(TargetPosition.SpacePoint);
-            }
-
-            public void OnTaskEnd()
-            {
-                TargetClaim?.Dispose();
-            }
+        public void Dispose()
+        {
+            TargetClaim?.Dispose();
+        }
     }
 }

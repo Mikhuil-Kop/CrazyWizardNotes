@@ -14,7 +14,6 @@ namespace UNet.Animations.Realization
             OnAnimationEvent?.Invoke(eventName);
         }
 
-
         private enum AnimationCommonEvents
         {
             Disappeared = 1

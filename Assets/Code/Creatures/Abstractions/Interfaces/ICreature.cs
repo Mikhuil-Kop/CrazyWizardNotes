@@ -13,6 +13,7 @@ namespace CrazyWizardNotes.Creatures.Abstractions
 
     public interface ICanWalk
     {
+        float AverageWalkSpeed { get; }
         public void WalkTo(SpacePoint spacePoint);
     }
 
@@ -39,7 +40,7 @@ namespace CrazyWizardNotes.Creatures.Abstractions
 
     public interface IHasEmotion
     {
-        public Emotion Emotion { get; set; }
+        public Emotion Emotion { get; }
     }
 
     public enum Emotion : byte
@@ -53,24 +54,6 @@ namespace CrazyWizardNotes.Creatures.Abstractions
         Surprised = 6,
         Disgusted = 7,
         Aroused = 8
-    }
-
-    public interface ICanEat
-    {
-        public bool EatingIsFull { get; }
-        public float CaloriesToSaturation { get; set; }
-        public float CaloriesAccumulated { get; set; }
-        public float EatingMultiplier { get; set; }
-        public void Eat(IEatable eatable, float deltaTime);
-    }
-
-    public interface IEatable
-    {
-        public float CaloriesMax { get; }
-        public float CaloriesLeft { get; }
-        public float EatingSpeed { get; }
-
-        public float EatThis(ICanEat digester, float deltaTime);
     }
 
     public interface IClaimable

@@ -72,75 +72,96 @@ public static class LinqExtension
             yield return node;
         }
     }
+    // ---------- MaxBy ----------
 
-    public static IEnumerable<V> SelectInContext<T, V>(this IEnumerable<T> enumarable, Func<T, T, V> selector)
-	{
-		bool initialized = false;
-		T previous = default;
+    public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector, IComparer<TKey> comparer = null)
+    {
+        if (source == null) throw new ArgumentNullException(nameof(source));
+        if (selector == null) throw new ArgumentNullException(nameof(selector));
 
-		foreach (var t in enumarable)
-		{
-			if (!initialized)
-			{
-				initialized = true;
-			}
-			else
-			{
-				yield return selector(previous, t);
-			}
+        if (!TryMaxBy(source, selector, comparer, out var result))
+            throw new InvalidOperationException("Sequence contains no elements");
 
-            previous = t;
-		}
+        return result;
     }
 
-    public static IEnumerable<V> SelectInContext<T, V>(this IEnumerable<T> enumarable, Func<T, T, T, V> selector)
+    public static TSource MaxByOrDefault<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector, IComparer<TKey> comparer = null)
     {
-        int initialized = 0;
-        T previous1 = default;
-        T previous2 = default;
+        if (source == null) throw new ArgumentNullException(nameof(source));
+        if (selector == null) throw new ArgumentNullException(nameof(selector));
 
-        foreach (var t in enumarable)
-        {
-            if (initialized <= 1)
-            {
-                previous1 = t;
-                initialized++;
-            }
-            else
-            {
-                yield return selector(previous2, previous1, t);
-            }
-
-            previous2 = previous1;
-            previous1 = t;
-        }
+        TryMaxBy(source, selector, comparer, out var result);
+        return result;
     }
 
-    public static IEnumerable<T> WhereInContext<T>(this IEnumerable<T> enumarable, Func<T, T, T, bool> selector)
+    // ---------- MinBy ----------
+
+    public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector, IComparer<TKey> comparer = null)
     {
-        int initialized = 0;
-        T previous1 = default;
-        T previous2 = default;
+        if (source == null) throw new ArgumentNullException(nameof(source));
+        if (selector == null) throw new ArgumentNullException(nameof(selector));
 
-        foreach (var t in enumarable)
+        if (!TryMinBy(source, selector, comparer, out var result))
+            throw new InvalidOperationException("Sequence contains no elements");
+
+        return result;
+    }
+
+    public static TSource MinByOrDefault<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> selector, IComparer<TKey> comparer = null)
+    {
+        if (source == null) throw new ArgumentNullException(nameof(source));
+        if (selector == null) throw new ArgumentNullException(nameof(selector));
+
+        TryMinBy(source, selector, comparer, out var result);
+        return result;
+    }
+
+    // ---------- Общая логика ----------
+
+    private static bool TryMaxBy<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> selector, IComparer<TKey> comparer, out TSource result)
+    {
+        comparer ??= Comparer<TKey>.Default;
+
+        var hasValue = false;
+        result = default;
+        TKey bestKey = default;
+
+        foreach (var element in source)
         {
-            if (initialized < 2)
-            {
-                previous1 = t;
-                initialized++;
-                yield return previous1;
-            }
-            else
-            {
-                if (selector(previous2, previous1, t))
-                {
-                    yield return previous1;
-                }
-            }
+            var key = selector(element);
 
-            previous2 = previous1;
-            previous1 = t;
+            if (!hasValue || comparer.Compare(key, bestKey) > 0)
+            {
+                result = element;
+                bestKey = key;
+                hasValue = true;
+            }
         }
+
+        return hasValue;
+    }
+
+    private static bool TryMinBy<TSource, TKey>(IEnumerable<TSource> source, Func<TSource, TKey> selector, IComparer<TKey> comparer, out TSource result)
+    {
+        comparer ??= Comparer<TKey>.Default;
+
+        var hasValue = false;
+        result = default;
+        TKey bestKey = default;
+
+        foreach (var element in source)
+        {
+            var key = selector(element);
+
+            if (!hasValue || comparer.Compare(key, bestKey) < 0)
+            {
+                result = element;
+                bestKey = key;
+                hasValue = true;
+            }
+        }
+
+        return hasValue;
     }
 
     public static int IndexOf<T>(this IEnumerable<T> enumarable, Func<T, bool> selector)

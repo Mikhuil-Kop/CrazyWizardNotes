@@ -4,7 +4,15 @@ namespace UNet.Physics.Abstractions
 {
     public interface IPhysical
     {
-        float Mass { get; }
+        /// <summary>
+        /// Масса объекта, используемая при рассчете сил, действующих на объект.
+        /// </summary>
+        float PhysicalMass { get; }
+
+        /// <summary>
+        /// Масса объекта, используемая при рассчете размера объекта.
+        /// </summary>
+        float VolumeMass { get; }
         Vector2D ForceSummary { get; }
         Vector2D SpeedSummary { get; }
         void ApplyForce(Vector2D force);
@@ -28,10 +36,10 @@ namespace UNet.Physics.Abstractions
                 return;
             }
 
-            if (force * deltaTime >= Math.Sqrt(speedSq) * physical.Mass)
+            if (force * deltaTime >= Math.Sqrt(speedSq) * physical.PhysicalMass)
             {
                 // Точная остановка ровно в 0
-                var stopImpulse = -physical.SpeedSummary * physical.Mass;
+                var stopImpulse = -physical.SpeedSummary * physical.PhysicalMass;
                 physical.ApplyImpulse(stopImpulse);
             }
             else
@@ -64,7 +72,7 @@ namespace UNet.Physics.Abstractions
             // Если объект уже очень близко к цели — резко тормозим
             if (toDestination.MagnitudeSqr < 0.01f)
             {
-                var stopImpulse = -currentVelocity * physical.Mass;
+                var stopImpulse = -currentVelocity * physical.PhysicalMass;
                 physical.ApplyImpulse(stopImpulse);
                 return;
             }
@@ -82,7 +90,7 @@ namespace UNet.Physics.Abstractions
                 // Снижаем скорость до maxSpeed, сохраняя направление
                 var limitedVelocity = direction * maxSpeed;
                 var velocityCorrection = limitedVelocity - currentVelocity;
-                var correctionImpulse = velocityCorrection * physical.Mass;
+                var correctionImpulse = velocityCorrection * physical.PhysicalMass;
                 physical.ApplyImpulse(correctionImpulse);
             }
         }

@@ -1,29 +1,29 @@
 using CrazyWizardNotes.CreaturesBehaviors.Abstractions;
-using UNet.Core.Abstractions;
 
 namespace CrazyWizardNotes.CreaturesBehaviors.Realization
 {
-    public class GoingForFoodChoiceInfo : ICreatureChoiceInfo
+    public sealed class GoingForFoodChoiceInfo : ICreatureChoiceInfo
     {
-        private IActor Creature { get; }
-        private IActor Target { get; }
-        private IUServiceProvider ServiceProvider { get; }
+        private GoingForFoodChoiceParams Params { get; }
 
-        public GoingForFoodChoiceInfo(IActor creature, IActor target, IUServiceProvider serviceProvider)
+        public GoingForFoodChoiceInfo(GoingForFoodChoiceParams param)
         {
-            Creature = creature;
-            Target = target;
-            ServiceProvider = serviceProvider;
-        }
-
-        public ChoiceValue GetChoiceValue()
-        {
-            throw new System.NotImplementedException();
+            Params = param;
         }
 
         public ICreatureChoiceTask GetChoiceTask()
         {
-            return new GoingForFoodChoiceTask(Creature, Target, ServiceProvider);
+            return new GoingForFoodChoiceTask(Params);
+        }
+
+        public ChoiceValue GetChoiceValue()
+        {
+            return new NeedsValue()
+            {
+                SelfishnessMult = 1f,
+                TimeDelayMod = Params.Distance.Magnitude / Params.AverageWalkSpeed,
+                Food = Params.Target.Eatable?.CaloriesLeft ?? 0f,
+            };
         }
     }
 }

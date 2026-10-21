@@ -2,9 +2,8 @@
 {
     public struct ChoiceValue
     {
-        public NeedsValue? ShortTermIndividualNeeds { get; set; }
-        public NeedsValue? ShortTermCollectiveNeeds { get; set; }
-        public NeedsValue? LongTermIndividualNeeds { get; set; }
-        public NeedsValue? LongTermCollectiveNeeds { get; set; }
+        public NeedsValue[] NeedsValues { get; set; }
+
+        public static implicit operator ChoiceValue(NeedsValue d) => new() { NeedsValues = new[] { d } };
     }
 }

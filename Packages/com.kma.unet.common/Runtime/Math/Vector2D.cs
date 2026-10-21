@@ -58,12 +58,19 @@ namespace UNet
 			}
 		}
 
+        public readonly override string ToString()
+        {
+            return $"({X:f2}, {Y:f2})";
+        }
+
         public static Vector2D Zero => new(0, 0);
 		public static Vector2D Left => new(-1, 0);
 		public static Vector2D Right => new(1, 0);
 		public static Vector2D Up => new(0, 1);
 		public static Vector2D Down => new(0, -1);
 		public static Vector2D One => new(1, 1);
+		public static Vector2D PositiveInfinity => new(float.PositiveInfinity, float.PositiveInfinity);
+		public static Vector2D NegativeInfinity => new(float.NegativeInfinity, float.NegativeInfinity);
 
         public static Vector2D operator +(Vector2D a) => new(a.X, a.Y);
         public static Vector2D operator -(Vector2D a) => new(-a.X, -a.Y);
@@ -94,11 +101,6 @@ namespace UNet
         public static implicit operator Vector2D(Vector3 param)
         {
             return new Vector2D(param.x, param.y);
-        }
-
-        public override string ToString()
-        {
-			return $"({X:f2}, {Y:f2})";
         }
     }
 }

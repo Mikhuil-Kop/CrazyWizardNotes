@@ -2,6 +2,21 @@
 {
     public struct NeedsValue
     {
+        /// <summary>
+        /// Модификатор.
+        /// </summary>
+        public float SelfishnessMult { get; set; }
+
+        /// <summary>
+        /// Модификатор. Определяет насколько сильно 
+        /// </summary>
+        public float CollectivityMult { get; set; }
+
+        /// <summary>
+        /// Модификатор.
+        /// </summary>
+        public float TimeDelayMod { get; set; }
+
         public float Air { get; set; }
         public float Water { get; set; }
         public float Food { get; set; }

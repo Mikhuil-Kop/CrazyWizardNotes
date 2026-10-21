@@ -1,4 +1,5 @@
 ﻿using CrazyWizardNotes.Elements.Abstractions;
+using CrazyWizardNotes.Creatures.Abstractions;
 using UNet.Core.Realization;
 using UnityEditor;
 using Inspector = UnityEditor.Editor;
@@ -25,6 +26,7 @@ namespace CrazyWizardNotes.Editor
             UNetInspectorTools.LayoutList(actor.Components, x => x.GetType().Name, ref showComponents);
 
             ShowElements();
+            ShowCreatures();
         }
 
         private void ShowElements()
@@ -66,6 +68,35 @@ namespace CrazyWizardNotes.Editor
                 UNetInspectorTools.Field(nameof(f.Flammability), f.Flammability);
                 UNetInspectorTools.Field(nameof(f.FlashPointTemperature), f.FlashPointTemperature);
                 UNetInspectorTools.Field(nameof(f.AutoignitionTemperature), f.AutoignitionTemperature);
+            }
+        }
+
+        private void ShowCreatures()
+        {
+            var c = actor.As<ICreature>();
+
+            if (c != null)
+            {
+                EditorGUILayout.LabelField("ICreature");
+                //UNetInspectorTools.Field(nameof(c.), c.);
+            }
+
+            var e = actor.As<ICanEat>();
+
+            if (e != null)
+            {
+                EditorGUILayout.LabelField("ICanEat");
+                UNetInspectorTools.Field(nameof(e.CaloriesPerBite), e.CaloriesPerBite);
+                UNetInspectorTools.Field(nameof(e.EatingIsFull), e.EatingIsFull);
+            }
+
+            var f = actor.As<IEatable>();
+
+            if (f != null)
+            {
+                EditorGUILayout.LabelField("IEatable");
+                UNetInspectorTools.Field(nameof(f.CaloriesLeft), f.CaloriesLeft);
+                UNetInspectorTools.Field(nameof(f.CaloriesMax), f.CaloriesMax);
             }
         }
     }

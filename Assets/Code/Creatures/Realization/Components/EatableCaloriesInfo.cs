@@ -7,6 +7,5 @@ namespace CrazyWizardNotes.Creatures.Realization
     {
         public float CaloriesMax { get; set; }
         public float CaloriesLeft { get; set; }
-        public float EatingSpeed { get; set; }
     }
 }

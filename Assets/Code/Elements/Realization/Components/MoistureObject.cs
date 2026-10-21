@@ -33,7 +33,7 @@ namespace CrazyWizardNotes.Elements.Realization
             set => SetMoisture(value * MoistureCapacity);
         }
 
-        public float MoistureCapacity => Config.MoistureCapacity * Physical.Mass;
+        public float MoistureCapacity => Config.MoistureCapacity * Physical.VolumeMass;
 
         private void SetMoisture(float newMoisture)
         {

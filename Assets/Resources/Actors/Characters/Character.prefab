@@ -102,9 +102,12 @@ GameObject:
   m_Component:
   - component: {fileID: 436245276810405364}
   - component: {fileID: 3519666083552753641}
+  - component: {fileID: 5405362661164444488}
   - component: {fileID: -9139571341253426042}
   - component: {fileID: 4249942065061271227}
   - component: {fileID: 3469810505191694983}
+  - component: {fileID: 367921117956660708}
+  - component: {fileID: 8793787737324988550}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -152,6 +155,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5405362661164444488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813765996428497495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 006eb25f3d9ab9045b481c18d43d8d31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: kma.unet.animations::UNet.Animations.Realization.AnimatorExt
 --- !u!50 &-9139571341253426042
 Rigidbody2D:
   serializedVersion: 5
@@ -178,7 +193,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &4249942065061271227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,6 +219,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f7410d5202c8a646a2e74ebdcec3f38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Main.Wrappers.CreatureWrapper
+  MaterialConfigScript: {fileID: 11400000, guid: 2a46571fe34f6bd418b191470a9eebe6, type: 2}
+--- !u!114 &367921117956660708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813765996428497495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb21270450a0e14c82988a1f5645486, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Creatures.Realization.CreatureVisualizer
+  Animator: {fileID: 3519666083552753641}
+--- !u!114 &8793787737324988550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2813765996428497495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca75add24043c8244842daa2ad416022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Creatures.Realization.CreatureAnimationDataMonoBehavior
+  IsEating: 0
+  IsBusy: 0
 --- !u!1 &5126796169287890526
 GameObject:
   m_ObjectHideFlags: 0

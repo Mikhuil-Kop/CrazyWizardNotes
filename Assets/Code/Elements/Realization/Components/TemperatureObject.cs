@@ -33,8 +33,8 @@ namespace CrazyWizardNotes.Elements.Realization
             set => SetTemperature(value / ThermalCapacity);
         }
 
-        public float ThermalEmissivity => Config.ThermalEmissivity * Physical.Mass;
-        public float ThermalCapacity => Config.ThermalCapacity * Physical.Mass;
+        public float ThermalEmissivity => Config.ThermalEmissivity * Physical.VolumeMass;
+        public float ThermalCapacity => Config.ThermalCapacity * Physical.VolumeMass;
         public float ThermalConductivity => Config.ThermalConductivity;
 
         private void SetTemperature(float newTemperature)

@@ -37,39 +37,24 @@ namespace CrazyWizardNotes.CreaturesBehaviors.Realization
             if (newTask != null)
             {
                 CurrentTask?.OnTaskEnd();
+                CurrentTask?.Dispose();
                 CurrentTask = newTask;
                 CurrentTask.OnTaskStart();
-            }
-
-            CurrentTask?.OnTaskRareUpdate();
-
-            if (CurrentTask?.IsCompleted ?? false)
-            {
-                CurrentTask.OnTaskEnd();
-                CurrentTask = null;
             }
         }
 
         public virtual void OnUpdate(float deltaTime)
         {
+            CheckCompleted();
             CurrentTask?.OnTaskUpdate(deltaTime);
-
-            if (CurrentTask?.IsCompleted ?? false)
-            {
-                CurrentTask.OnTaskEnd();
-                CurrentTask = null;
-            }
+            CheckCompleted();
         }
 
         public virtual void OnFixedUpdate(float deltaTime)
         {
+            CheckCompleted();
             CurrentTask?.OnTaskFixedUpdate(deltaTime);
-
-            if (CurrentTask?.IsCompleted ?? false)
-            {
-                CurrentTask.OnTaskEnd();
-                CurrentTask = null;
-            }
+            CheckCompleted();
         }
 
         public virtual void OnDestroy()
@@ -80,6 +65,17 @@ namespace CrazyWizardNotes.CreaturesBehaviors.Realization
         public virtual void Dispose()
         {
             Job?.Dispose();
+            CurrentTask?.Dispose();
+        }
+
+        private void CheckCompleted()
+        {
+            if (CurrentTask != null && CurrentTask.IsCompleted)
+            {
+                CurrentTask.OnTaskEnd();
+                CurrentTask.Dispose();
+                CurrentTask = null;
+            }
         }
     }
 }

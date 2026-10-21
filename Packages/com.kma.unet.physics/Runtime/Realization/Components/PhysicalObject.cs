@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace UNet.Physics.Realization
 {
-    public class PhysicalObject : IPhysical, IHasSpaceObject, ITouches, IMovable, IPinable, IHandlesStart, IHandlesUpdate, IHandlesFixedUpdate
+    public class PhysicalObject : IPhysical, IHasSpaceObject, ITouches, IMovable, IPinable, IHasAdjustableMass, IHandlesStart, IHandlesUpdate, IHandlesFixedUpdate
     {
         #region Поля
 
@@ -37,7 +37,8 @@ namespace UNet.Physics.Realization
 
         public ISpaceContainer ParentSpace { get; set; }
 
-        public float Mass => Rigidbody.mass;
+        public float PhysicalMass => Rigidbody.mass;
+        public float VolumeMass => Rigidbody.mass;
         public Vector2D ForceSummary => Rigidbody.totalForce;
         public Vector2D SpeedSummary => Rigidbody.linearVelocity;
 
