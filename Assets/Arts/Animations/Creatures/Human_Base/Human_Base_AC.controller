@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8685343844375222126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39699572d41f8354aabd9ec5a028ea94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Main.AnimationSoundBehaviour
+  resource: {fileID: 6418180475301049370, guid: 280dd4110ba9e084bb46f62dc264c247, type: 2}
+  timeOffset: 0
+  volumeMult: 1
 --- !u!1101 &-7454370165193114334
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -111,7 +126,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -5830247100308987801}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -802075604723981218}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -120,7 +136,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 022d827dcdb7f5441a861fac0a64cfbf, type: 2}
+  m_Motion: {fileID: 7400000, guid: 943a19a9f5857564c805f51ca2225b38, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -295,6 +311,21 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &-802075604723981218
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39699572d41f8354aabd9ec5a028ea94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Main.AnimationSoundBehaviour
+  resource: {fileID: 6418180475301049370, guid: 02c1e7ea32aacca449a0f67ec1ff0bd8, type: 2}
+  timeOffset: 0
+  volumeMult: 1
 --- !u!1102 &-679385125964725273
 AnimatorState:
   serializedVersion: 6
@@ -495,7 +526,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7454370165193114334}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -8685343844375222126}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

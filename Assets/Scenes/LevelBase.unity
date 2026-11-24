@@ -896,14 +896,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6053767209365637666}
     m_Modifications:
-    - target: {fileID: 399748082315938196, guid: 54f1e835d2a6c5c48aa75c1304109706, type: 3}
-      propertyPath: m_labelHash
-      value: 9.82356e-14
-      objectReference: {fileID: 0}
-    - target: {fileID: 399748082315938196, guid: 54f1e835d2a6c5c48aa75c1304109706, type: 3}
-      propertyPath: m_CategoryHash
-      value: 0.0047193225
-      objectReference: {fileID: 0}
     - target: {fileID: 436245276810405364, guid: 54f1e835d2a6c5c48aa75c1304109706, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.676
@@ -944,21 +936,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 567232302319983030, guid: 54f1e835d2a6c5c48aa75c1304109706, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1775777734, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
     - target: {fileID: 2813765996428497495, guid: 54f1e835d2a6c5c48aa75c1304109706, type: 3}
       propertyPath: m_Name
       value: Character
-      objectReference: {fileID: 0}
-    - target: {fileID: 8029810905914623086, guid: 54f1e835d2a6c5c48aa75c1304109706, type: 3}
-      propertyPath: m_labelHash
-      value: 6.890074e-20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8029810905914623086, guid: 54f1e835d2a6c5c48aa75c1304109706, type: 3}
-      propertyPath: m_CategoryHash
-      value: 2.8047688e-20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1030,9 +1010,25 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -1775777734, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    - target: {fileID: 1296087339759014353, guid: 54f1e835d2a6c5c48aa75c1304109706, type: 3}
+      propertyPath: m_labelHash
+      value: 2.0798494e-14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296087339759014353, guid: 54f1e835d2a6c5c48aa75c1304109706, type: 3}
+      propertyPath: m_CategoryHash
+      value: 2.9092094e-34
+      objectReference: {fileID: 0}
     - target: {fileID: 2813765996428497495, guid: 54f1e835d2a6c5c48aa75c1304109706, type: 3}
       propertyPath: m_Name
       value: Character_003
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256159491525795213, guid: 54f1e835d2a6c5c48aa75c1304109706, type: 3}
+      propertyPath: m_labelHash
+      value: 3.4159076e-34
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256159491525795213, guid: 54f1e835d2a6c5c48aa75c1304109706, type: 3}
+      propertyPath: m_CategoryHash
+      value: 1.4470151e-16
       objectReference: {fileID: 0}
     - target: {fileID: 8029810905914623086, guid: 54f1e835d2a6c5c48aa75c1304109706, type: 3}
       propertyPath: m_labelHash
@@ -2270,7 +2266,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: orthographic size
-      value: 6.75
+      value: 5.71875
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
@@ -2278,7 +2274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
-      value: 0
+      value: 0.0013605442
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
@@ -2286,7 +2282,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4295308797038513022, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
-      value: 0.9988439
+      value: 0.9959184
       objectReference: {fileID: 0}
     - target: {fileID: 4415192430995338270, guid: 2990b2614c5dcb64eadf48d7d0ed33ef, type: 3}
       propertyPath: m_Name

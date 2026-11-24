@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1233149941 &-7504762801521960132
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Talk_11_{-7504762801521960132}
+  m_AudioClip: {fileID: 8300000, guid: f888f3ffc04cfe14ab20302254c1dc94, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-6693987267249692942
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Talk_2_{-6693987267249692942}
+  m_AudioClip: {fileID: 8300000, guid: cdb8c2fb6da05c04ea2bcb98cbbdfffe, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-6574251094783669515
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Talk_8_{-6574251094783669515}
+  m_AudioClip: {fileID: 8300000, guid: 5e324131f53dfec4aab2a44b55626b4c, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-1696194364663623168
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Talk_10_{-1696194364663623168}
+  m_AudioClip: {fileID: 8300000, guid: 54573e1bc536a324b87beecbf812d87c, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-1248687347839911290
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Talk_7_{-1248687347839911290}
+  m_AudioClip: {fileID: 8300000, guid: 2f0e084a9b5598b449056df2655f1e74, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &-93869720589835811
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Talk_4_{-93869720589835811}
+  m_AudioClip: {fileID: 8300000, guid: 3c012efe628aecb4aa740af3fbb6796b, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &243496160619290937
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Talk_9_{243496160619290937}
+  m_AudioClip: {fileID: 8300000, guid: 5c1c23aabe3590c4baa5ed02f409fce7, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &806256457831958070
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Talk_6_{806256457831958070}
+  m_AudioClip: {fileID: 8300000, guid: 4a6d13578b78baa4c8a85a16fe22d035, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &864654118619435493
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Talk_3_{864654118619435493}
+  m_AudioClip: {fileID: 8300000, guid: 02c46ee7ce832534d869837e822ad4ad, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1233149941 &3260349413671770835
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Talk_5_{3260349413671770835}
+  m_AudioClip: {fileID: 8300000, guid: 82701f45c2df26a46b41995d1296ad34, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
+--- !u!1307931743 &6418180475301049370
+AudioRandomContainer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Creature_Talk
+  m_Volume: 0
+  m_Pitch: 0
+  m_AutomaticTriggerTime: 0
+  m_LoopCount: 1
+  m_VolumeRandomizationRange: {x: 0, y: 0}
+  m_PitchRandomizationRange: {x: 0, y: 0}
+  m_AutomaticTriggerTimeRandomizationRange: {x: 0, y: 0}
+  m_LoopCountRandomizationRange: {x: 0, y: 0}
+  m_Elements:
+  - {fileID: 8773551836287504005}
+  - {fileID: -6693987267249692942}
+  - {fileID: 864654118619435493}
+  - {fileID: -93869720589835811}
+  - {fileID: 3260349413671770835}
+  - {fileID: 806256457831958070}
+  - {fileID: -1248687347839911290}
+  - {fileID: -6574251094783669515}
+  - {fileID: 243496160619290937}
+  - {fileID: -1696194364663623168}
+  - {fileID: -7504762801521960132}
+  m_AvoidRepeatingLast: 1
+  m_PlaybackMode: 2
+  m_TriggerMode: 1
+  m_AutomaticTriggerMode: 1
+  m_LoopMode: 2
+  m_VolumeRandomizationEnabled: 0
+  m_PitchRandomizationEnabled: 0
+  m_AutomaticTriggerTimeRandomizationEnabled: 0
+  m_LoopCountRandomizationEnabled: 0
+--- !u!1233149941 &8773551836287504005
+AudioContainerElement:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Talk_1_{8773551836287504005}
+  m_AudioClip: {fileID: 8300000, guid: c8a2f9c35ab892d449245a05e32653a0, type: 3}
+  m_Volume: 0
+  m_Enabled: 1
