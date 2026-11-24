@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da093186c2e4ba94889c7f43c3db0a42, type: 3}
+  m_Name: HumanSkin
+  m_EditorClassIdentifier: Assembly-CSharp::CrazyWizardNotes.Creatures.Realization.HumanSkin
+  HeadSprites:
+  - sprite: {fileID: 314243665, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: -1
+    height: 1
+  - sprite: {fileID: -927189170, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: -1
+    height: 0
+  - sprite: {fileID: 1603518600, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: -1
+    height: -0.5
+  - sprite: {fileID: 1257498332, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: -1
+    height: -1
+  - sprite: {fileID: 997462845, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: 0
+    height: 1
+  - sprite: {fileID: 1419599816, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: 0
+    height: 0
+  - sprite: {fileID: -322005581, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: 0
+    height: -0.5
+  - sprite: {fileID: -787519012, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: 0
+    height: -1
+  - sprite: {fileID: -798787227, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: 0.5
+    height: 1
+  - sprite: {fileID: 963371016, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: 0.5
+    height: 0
+  - sprite: {fileID: -521559353, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: 0.5
+    height: -0.5
+  - sprite: {fileID: -1920287196, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: 0.5
+    height: -1
+  - sprite: {fileID: -215355731, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: 1
+    height: 1
+  - sprite: {fileID: -1888851619, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: 1
+    height: 0
+  - sprite: {fileID: 634159067, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: 1
+    height: -0.5
+  - sprite: {fileID: -1525690670, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    width: 1
+    height: -1
+  LeftEyeSprites:
+  - sprite: {fileID: -754776675, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    height: 1
+    mood: 2
+  - sprite: {fileID: -1782517871, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    height: 0
+    mood: 2
+  - sprite: {fileID: -1117183, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    height: -0.5
+    mood: 2
+  - sprite: {fileID: 1068164494, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    height: -1
+    mood: 2
+  RightEyeSprites:
+  - sprite: {fileID: -826333510, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    height: 1
+    mood: 2
+  - sprite: {fileID: -686922171, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    height: 0
+    mood: 2
+  - sprite: {fileID: -1678042929, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    height: -0.5
+    mood: 2
+  - sprite: {fileID: 289790479, guid: 39ae5bf26aefbdd49843980a4023ef43, type: 3}
+    height: -1
+    mood: 2

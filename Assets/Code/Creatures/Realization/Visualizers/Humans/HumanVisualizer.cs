@@ -2,9 +2,10 @@
 
 namespace CrazyWizardNotes.Creatures.Realization
 {
-    public class CreatureVisualizer : MonoBehaviour, ICreatureVisualizer
+    public class HumanVisualizer : MonoBehaviour, ICreatureVisualizer
     {
         public Animator Animator;
+        public HumanSkin Skin;
 
         public void StartEatAnimation()
         {

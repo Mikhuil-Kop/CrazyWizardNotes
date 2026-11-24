@@ -24,7 +24,7 @@ namespace CrazyWizardNotes.Main.Wrappers
                 typeof(UNet.Physics.Realization.PhysicalObject),
                 typeof(Creatures.Realization.Creature),
                 typeof(CreaturesBehaviors.Realization.CreatureBehaviorHandler),
-                typeof(CreaturesBehaviors.Realization.TribemanCreatureBehavior),
+                typeof(CreaturesBehaviors.Realization.DefaultCreatureBehavior),
             }
             .Concat(Elements.Realization.ElementsWrapping.GetComponentsForPhysicalObject())
             .Concat(Elements.Realization.ElementsWrapping.GetWorkersForPhysicalObject());

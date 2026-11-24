@@ -8,7 +8,7 @@ namespace CrazyWizardNotes.Creatures.Realization
         public bool IsEating;
         public bool IsBusy;
 
-        private CreatureAnimationData Data = new();
+        private CreatureAnimationData Data { get; } = new();
         public CreatureAnimationData AnimationValue
         {
             get
